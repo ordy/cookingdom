@@ -28,7 +28,7 @@
     "@angular/router": "~8.2.14",
     "express": "^4.17.1",
     "path": "^0.12.7",
-    "rxjs": "~6.4.0",
+    "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "typescript": "~3.5.3",
     "zone.js": "~0.9.1"
