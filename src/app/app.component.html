@@ -1,7 +1,21 @@
-<h1>{{title}}</h1>
-<div>
-<input type="text" placeholder="Ingredients..." name="Ingredients Search" id="ingr-search">
-<input type="text" placeholder="Recipes..." name="Recipe Search" id="rec-search">
+<div class="navbar navbar-dark bg-dark">
+  <div class="navbar-brand">{{ title }}</div>
+</div>
+<div id="search-boxes">
+  <input
+    class="input-group input-group-sm mb-2 form-control"
+    type="text"
+    placeholder="Ingredients..."
+    name="Ingredients Search"
+    id="ingr-search"
+  />
+  <input
+    class="input-group input-group-sm mb-2 form-control"
+    type="text"
+    placeholder="Recipes..."
+    name="Recipe Search"
+    id="rec-search"
+  />
 </div>
 <app-recipe></app-recipe>
 <app-inventory></app-inventory>

@@ -1,7 +1,11 @@
-#ingr-search{
+#search-boxes {
   display: flex;
 }
 #rec-search{
-  display: flex;
+  width: 50%;
+  margin: 1rem;
 }
-
+#ingr-search{
+  width: 50%;
+  margin: 1rem;
+}
