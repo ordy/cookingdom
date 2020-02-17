@@ -1,11 +1,8 @@
 #search-boxes {
   display: flex;
 }
-#rec-search{
-  width: 50%;
-  /* margin: 1rem; */
-}
-#ingr-search{
-  width: 50%;
-  /* margin: 1rem; */
+:host {
+  display: block;
+  border: 3px solid red;
+  background-color: rgb(78, 81, 92);
 }
