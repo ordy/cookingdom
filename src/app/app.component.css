@@ -3,6 +3,6 @@
 }
 :host {
   display: block;
-  border: 3px solid red;
   background-color: rgb(78, 81, 92);
+  color: whitesmoke;
 }
