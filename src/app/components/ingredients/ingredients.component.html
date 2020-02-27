@@ -1,19 +1,28 @@
-<form id="ingr-search">
-  <div class="input-group bg-secondary m-3">
-    <div class="input-group-prepend">
-      <span class="input-group-text">Ingredients</span>
-    </div>
-    <input
-      class="form-control"
-      type="text"
-      placeholder="Ingredients..."
-      name="Ingredients Search"
-      id="ingr-search"
-      [(ngModel)]="selectedIngr"
-      [ngbTypeahead]="search"
-      [editable]='false'
-    />
+<div class="input-group bg-secondary mx-auto my-4">
+  <div class="input-group-prepend">
+    <span class="input-group-text">Ingredients</span>
   </div>
-</form>
+  <input class="form-control" type="text" name="Ingredients Search" id="ingr-search" placeholder="Ingredients..."
+    [inputFormatter]="formatter"
+    [resultFormatter]="formatter"
+    [(ngModel)]="selectedIngr"
+    [ngbTypeahead]="search"
+    [editable]='false'
+  />
+  <input class="form-control" type="number" name="ingrquantity" min="1" max="999999999" id="quantityinput" placeholder="1"
+    [(ngModel)]="selectedIngrValue"
+  >
+  <div class="input-group-append justify-content-between">
+    <div [ngSwitch]="selectedIngr?.type">
+      <span class="input-group-text" *ngSwitchCase="1">Unit</span>
+      <span class="input-group-text" *ngSwitchCase="2">Kg</span>
+      <span class="input-group-text" *ngSwitchCase="3">L</span>
+      <span class="input-group-text" *ngSwitchDefault hidden></span>
+    </div>
+    <button type="button" class="btn btn-light" (click)='newIngr()' [disabled]='!selectedIngr '>Add Item</button>
+  </div>
+</div>
+
 <h2 class="text-center">&#11088; Collected drops &#11088;</h2>
-<p>Selected Ingredient: {{ selectedIngr }}</p>
+
+<li *ngFor="let ingredient of newIngredients">{{ ingredient.value }} of {{ ingredient.name }}</li>
