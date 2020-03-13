@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { InventoryService } from 'src/app/services/inventory.service';
 
 @Component({
   selector: 'app-recipe',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RecipeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private invService: InventoryService) {};
 
   ngOnInit() {
   }

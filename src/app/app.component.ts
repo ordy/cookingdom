@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
+import { InventoryService } from './services/inventory.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers: [InventoryService]
 })
 export class AppComponent implements OnInit {
   title = 'CooKingdom';
   public isMenuCollapsed = true;
 
-  constructor() {}
+  constructor(private invService: InventoryService) {};
   ngOnInit() {
   }
 
