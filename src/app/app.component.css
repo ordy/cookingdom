@@ -1,8 +1,50 @@
-#search-boxes {
-  display: flex;
-}
 :host {
   display: block;
-  background-color: rgb(78, 81, 92);
+  background-color: #2e2f33;
   color: whitesmoke;
+}
+
+.navbar-nav, .navbar-toggler, .navbar {
+  background-color: #000000;
+  color: whitesmoke;
+}
+
+.navbar {
+  padding-left: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.navbar-toggler {
+  border-color: #2e2f33;
+}
+
+.navbar-nav li a{
+  color: whitesmoke;
+  padding-left: 1rem;
+}
+
+.navbar-brand {
+  color: #f3962c;
+  background-color: #191c21;
+  padding-left: 0.5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-right: 1rem;
+}
+
+.card-header {
+  padding: 0;
+}
+
+.card-body {
+  position: relative;
+  min-height: 100vh;
+  padding-bottom: 2.5rem;
+}
+
+.card-footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 2.5rem;
 }
