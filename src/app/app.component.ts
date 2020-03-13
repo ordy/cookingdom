@@ -9,6 +9,8 @@ import { InventoryService } from './services/inventory.service';
 })
 export class AppComponent implements OnInit {
   title = 'CooKingdom';
+  currentYear: number = new Date().getFullYear();
+
   public isMenuCollapsed = true;
 
   constructor(private invService: InventoryService) {};

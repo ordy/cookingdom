@@ -2,6 +2,7 @@
   display: block;
   background-color: #2e2f33;
   color: whitesmoke;
+  position: relative;
 }
 
 .navbar-nav, .navbar-toggler, .navbar {
@@ -32,19 +33,26 @@
   padding-right: 1rem;
 }
 
-.card-header {
+.app-header {
   padding: 0;
 }
 
-.card-body {
+.app-body {
   position: relative;
   min-height: 100vh;
-  padding-bottom: 2.5rem;
+  overflow: auto;
+  margin-bottom: -2.5rem;
+  padding-top: 5rem;
+  padding-bottom: 3rem;
+
 }
 
-.card-footer {
-  position: absolute;
+#app-footer {
+  position: relative;
   bottom: 0;
+  background-color: #191c21;
+  color: whitesmoke;
   width: 100%;
   height: 2.5rem;
+  padding-top: 0.4rem;
 }

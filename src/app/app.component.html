@@ -1,5 +1,5 @@
-<div class="card-header">
-  <nav class="navbar navbar-expand-lg">
+<div class="app-header fixed-top">
+  <nav class="navbar  navbar-expand-lg">
     <div class="navbar-brand">
       <img src="../assets/crown.svg" width="45" height="45" alt="crown-logo" id="navbar-logo">
       {{ title }}
@@ -20,7 +20,13 @@
     </div>
   </nav>
   </div>
-<div class="card-body">
+<div class="app-body">
   <router-outlet></router-outlet>
 </div>
-<div class="card-footer bg-dark text-center">FOOTER</div>
+<div id="app-footer">
+  <div class="container text-center text-muted">
+    <small>© {{ currentYear }} Copyright:
+    <a href="https://github.com/ordy/cookingdom"> Ordy</a>
+    </small>
+  </div>
+</div>
