@@ -1,21 +1,26 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="navbar-brand">
-    <img src="../assets/cookingdom-freepik.svg" width="45" height="45" class="d-inline-block align-middle" alt="">
-    {{ title }}
+<div class="card-header">
+  <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+      <img src="../assets/crown.svg" width="45" height="45" alt="crown-logo" id="navbar-logo">
+      {{ title }}
+    </div>
+    <button class="navbar-toggler" type="button" (click)="isMenuCollapsed = !isMenuCollapsed">&#9776;</button>
+    <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse">
+      <ul class="navbar-nav">
+        <li class="nav-item" active>
+          <a class="nav-link" routerLink="ingredients" (click)="isMenuCollapsed = true">Ingredients</a>
+        </li>
+        <li class="nav-item" active>
+          <a class="nav-link" routerLink="recipes" (click)="isMenuCollapsed = true">Recipes</a>
+        </li>
+        <li class="nav-item" active>
+          <a class="nav-link" routerLink="inventory" (click)="isMenuCollapsed = true">Inventory</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
   </div>
-  <button class="navbar-toggler" type="button" (click)="isMenuCollapsed = !isMenuCollapsed">&#9776;</button>
-  <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse">
-    <ul class="navbar-nav">
-      <li class="nav-item" active>
-        <a class="nav-link" routerLink="ingredients" (click)="isMenuCollapsed = true">Ingredients</a>
-      </li>
-      <li class="nav-item" active>
-        <a class="nav-link" routerLink="recipes" (click)="isMenuCollapsed = true">Recipes</a>
-      </li>
-      <li class="nav-item" active>
-        <a class="nav-link" routerLink="inventory" (click)="isMenuCollapsed = true">Inventory</a>
-      </li>
-    </ul>
-  </div>
-</nav>
-<router-outlet></router-outlet>
+<div class="card-body">
+  <router-outlet></router-outlet>
+</div>
+<div class="card-footer bg-dark text-center">FOOTER</div>
