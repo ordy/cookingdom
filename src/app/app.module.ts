@@ -8,6 +8,7 @@ import { RecipeComponent } from './components/recipe/recipe.component';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { IngredientsComponent } from './components/ingredients/ingredients.component';
+import { InventoryService } from './services/inventory.service';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,7 @@ import { IngredientsComponent } from './components/ingredients/ingredients.compo
     NgbModule,
     AppRoutingModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [ InventoryService ],
+  bootstrap: [ AppComponent ]
 })
 export class AppModule { }
