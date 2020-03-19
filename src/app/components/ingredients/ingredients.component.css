@@ -1,0 +1,43 @@
+
+:host {
+  display: block;
+  color: whitesmoke;
+}
+
+#quantityinput, #ingr-search {
+  color: #c2c2c2;
+  background-color: #23272a;
+  border-color: #23272a;
+  border-radius: 0rem;
+}
+
+.dropdown {
+  color: #c2c2c2;
+  background-color: #23272a;
+}
+
+#input-units {
+  border-radius: 0rem;
+  border-left: 0rem;
+  border-right: 0rem;
+
+}
+
+#drops-title {
+  color: #f3962c;
+  text-shadow: 1px;
+}
+
+.btn-dark, .btn-dark:hover, .btn-dark:active, .btn-dark:visited {
+  background-color: #191c21;
+  border-color: #23272a;
+}
+.btn-dark:disabled {
+  background-color: #191c21;
+  color: #464646;
+}
+.input-group-text {
+  color: #c2c2c2;
+  background-color: #191c21;
+  border-color: #23272a;
+}
