@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 
 interface Drop { type: number; value: number; name: string; }
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class InventoryService {
   myInventory: Drop[] = [];
 
