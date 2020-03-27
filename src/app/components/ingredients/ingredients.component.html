@@ -1,5 +1,5 @@
 <div class="container my-3">
-  <div class="input-group my-3">
+  <div class="input-group my-3 shadow-sm">
     <div class="input-group-prepend">
       <span class="input-group-text">Ingredients</span>
     </div>
@@ -21,34 +21,36 @@
       <button type="button" class="btn btn-dark" (click)='newIngr()' [disabled]='!selectedIngr'>Add Item</button>
     </div>
   </div>
-  <div class="container">
-    <div *ngIf="newIngredients?.length > 0">
-      <hr>
-      <h4 class="text-center" id="drops-title">Collected Drops</h4>
-      <!-- <li *ngFor="let ingredient of newIngredients">{{ ingredient.value }} of {{ ingredient.name }}</li> -->
-      <div class="container my-3">
-        <table class="table table-striped table-dark">
-          <thead>
-          <tr>
-            <th scope="col">Ingredient</th>
-            <th scope="col">Quantity</th>
-            <th scope="col">Unit</th>
+  <div id="ingr-list" class="container shadow-sm py-2" *ngIf="newIngredients?.length > 0">
+    <h4 class="text-left m-3" id="drops-title">Collected Drops</h4>
+    <div class="container my-3">
+      <table class="table table-striped table-dark">
+        <thead>
+        <tr>
+          <th scope="col">Ingredient</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Unit</th>
+        </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ingredient of newIngredients">
+            <td>{{ ingredient.name }}</td>
+            <td>{{ ingredient.value }}</td>
+            <td [ngSwitch]="ingredient.type">
+              <span *ngSwitchCase="1">Unit</span>
+              <span *ngSwitchCase="2">Kg</span>
+              <span *ngSwitchCase="3">L</span>
           </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let ingredient of newIngredients">
-              <td>{{ ingredient.name }}</td>
-              <td>{{ ingredient.value }}</td>
-              <td [ngSwitch]="ingredient.type">
-                <span *ngSwitchCase="1">Unit</span>
-                <span *ngSwitchCase="2">Kg</span>
-                <span *ngSwitchCase="3">L</span>
-            </tr>
-          </tbody>
-        </table>
+        </tbody>
+      </table>
+    </div>
+    <div class="d-flex">
+      <hr class="my-auto flex-grow-1">
+      <div class="px-4 flex-grow-2">
+        <button type="button" class="btn shadow-sm btn-dark" (click)='addIngredients()'>Add List</button>
       </div>
-      <hr>
-      <button type="button" class="btn btn-dark w-100" (click)='addIngredients()'>Add List</button>
+      <hr class="my-auto flex-grow-1">
     </div>
   </div>
 </div>
+

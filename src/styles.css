@@ -1,4 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
-html {
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed&display=swap');
+
+html, body {
   background-color: #2e2f33;
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+.dropdown-menu, .dropdown-item {
+  background-color: #23272a;
+  color: whitesmoke;
+}
+
+.dropdown-item.active {
+  background-color: #191c21;
+  color: whitesmoke;
 }

@@ -24,7 +24,7 @@
 }
 
 #drops-title {
-  color: #f3962c;
+  color: whitesmoke;
   text-shadow: 1px;
 }
 
@@ -40,4 +40,15 @@
   color: #c2c2c2;
   background-color: #191c21;
   border-color: #23272a;
+}
+
+#ingr-list {
+  background-color: #191c21;
+  border: 1px solid;
+  border-image-source: linear-gradient(0deg, #191c21, #000000);
+  border-image-slice: 1;
+}
+
+#ingr-list button {
+  background-color: #23272a;
 }
