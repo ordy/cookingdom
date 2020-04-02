@@ -56,3 +56,11 @@
   height: 2.5rem;
   padding-top: 0.4rem;
 }
+
+#github-logo {
+  margin-bottom: 3px;
+  padding-right: 2px;
+  height: 1em;
+  filter: invert(0.5) sepia(1) saturate(50) hue-rotate(199deg);
+}
+
