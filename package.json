@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "postinstall": "ng build --output-path cookingdom --aot --prod"
+    "postinstall": "ng build --aot --prod"
   },
   "engines": {
     "node": "v13.10.1",
@@ -50,7 +50,6 @@
     "karma-coverage-istanbul-reporter": "^2.1.1",
     "karma-jasmine": "^3.1.1",
     "karma-jasmine-html-reporter": "^1.5.3",
-    "protractor": "~5.4.0",
     "ts-node": "^8.8.1",
     "tslint": "^6.1.0",
     "typescript": "^3.8.3"
