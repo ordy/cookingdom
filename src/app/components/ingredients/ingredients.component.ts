@@ -52,6 +52,7 @@ export class IngredientsComponent implements OnInit {
     distinctUntilChanged(),
     map(term => term === '' ? [] : ingredients.filter(v => v.name.toLowerCase().indexOf(term.toLowerCase()) === 0).slice(0, 10))
   )
+
   constructor(private invService: InventoryService) {};
 
   ngOnInit(): void {
@@ -68,6 +69,7 @@ export class IngredientsComponent implements OnInit {
       this.newIngredients.push(food);
     }
   }
+
   addIngredients() {
     this.invService.addInventory(this.newIngredients);
     this.newIngredients = [];
