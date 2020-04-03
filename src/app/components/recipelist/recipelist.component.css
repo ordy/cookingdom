@@ -1,0 +1,60 @@
+:host {
+  display: block;
+  color: whitesmoke;
+}
+
+.container {
+  background-color: #191c21;
+  border: 1px solid;
+  border-image-source: linear-gradient(0deg, #191c21, #000000);
+  border-image-slice: 1;
+}
+
+#rec-search {
+  color: #c2c2c2;
+  background-color: #23272a;
+  border-color: #23272a;
+}
+
+.list-group-item {
+  color: #c2c2c2;
+  background-color: #23272A;
+  border-color: #23272a;
+}
+
+#dropdown1 {
+  background-color: #191c21;
+  border-color: #23272a;
+  color: whitesmoke;
+}
+
+#rcp-search-btn {
+  background-color: #191c21;
+  color: whitesmoke;
+}
+
+.search-container {
+  display: flex;
+}
+.box-left {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.box-center{
+  flex-shrink: inherit;
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 4px;
+  justify-content: center;
+}
+.box-right {
+  flex: 1;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.box {
+  align-items: center;
+}
