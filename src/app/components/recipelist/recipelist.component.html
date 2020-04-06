@@ -4,7 +4,7 @@
       <span class="box-left pr-2 h5">Find recipes having </span>
       <div class="box-center btn-group btn-group-toggle" ngbRadioGroup id="dropdown1" [(ngModel)]="offsetValue">
         <label ngbButtonLabel class="btn btn-outline-warning">
-          <input ngbButton type="radio" [value]="0">No
+          <input ngbButton type="radio" [value]="0" >No
         </label>
         <label ngbButtonLabel class="btn btn-outline-warning">
           <input ngbButton type="radio" value="1">1
@@ -21,32 +21,22 @@
       </span>
   </div>
   <div class="text-center mb-3 pt-3">
-    <button class="btn btn-outline-warning col-auto" type="submit" id="rcp-search-btn">Search</button>
+    <button class="btn btn-outline-warning col-auto" type="submit" id="rcp-search-btn" (click)='searchRecipes()'>Search</button>
   </div>
 </div>
-<div class="container py-2 mt-4">
-
-
-  <ul ngbNav #nav="ngbNav" class="nav-tabs">
-    <li ngbNavItem>
-      <a ngbNavLink>List</a>
-      <ng-template ngbNavContent>
-        <h4 class="text-left m-2" id="drops-title">Recipes</h4>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">Cras justo odio</li>
-          <li class="list-group-item">Dapibus ac facilisis in</li>
-          <li class="list-group-item">Morbi leo risus</li>
-          <li class="list-group-item">Porta ac consectetur ac</li>
-          <li class="list-group-item">Vestibulum at eros</li>
-        </ul>
-      </ng-template>
-    </li>
-    <li ngbNavItem>
-      <a ngbNavLink>Details</a>
-      <ng-template ngbNavContent>
-        RECIPE DESCRIPTIONS
-      </ng-template>
-    </li>
-  </ul>
-  <div [ngbNavOutlet]="nav"></div>
+<div *ngIf="displayList" class="container py-2 mt-4">
+  <div class="d-flex align-items-center justify-content-between">
+    <h4 class="text-left m-2" id="drops-title">List</h4>
+    <button *ngIf="showListToggle" class="btn btn-outline-warning" type="button" (click)="toggleRecipe()">Show List</button>
+  </div>
+  <div *ngIf="!showListToggle">
+    <ul *ngFor="let recipe of recipeList">
+      <li>{{recipe}}</li>
+      <button class="btn btn-outline-warning" (click)="toggleRecipe()">Display</button>
+    </ul>
+  </div>
+</div>
+<div *ngIf="displayRec" class="container py-2 mt-4">
+  <h4 class="text-left m-2" id="drops-title">Recipe</h4>
   <app-recipe></app-recipe>
+</div>
