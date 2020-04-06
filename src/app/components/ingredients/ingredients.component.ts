@@ -4,13 +4,13 @@ import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { InventoryService } from '../../services/inventory.service';
 
 // type: 1=unit 2=mass 3=volume
-interface Ingredient { type: number; name: string; }
-interface Drop { type: number; value: number; name: string; }
+interface Ingredient { type: number; name: string }
+interface Drop { type: number; name: string; quantity: number }
 
 
 // type: 1=unit 2=mass 3=volume
 const ingredients: Ingredient[] = [
-  { type: 2, name: 'Salt'},
+  { type: 2, name: 'Salt' },
   { type: 2, name: 'Pepper' },
   { type: 1, name: 'Tomato' },
   { type: 1, name: 'Cucumber' },
@@ -31,7 +31,7 @@ const ingredients: Ingredient[] = [
   { type: 2, name: 'Potato' },
   { type: 2, name: 'Curry' },
   { type: 3, name: 'Water' },
-  { type: 3, name: 'Olive oil' }
+  { type: 3, name: 'Olive Oil' }
 ];
 
 @Component({
@@ -61,10 +61,10 @@ export class IngredientsComponent implements OnInit {
   newIngr() {
     const food = { type : this.selectedIngr.type,
                    name : this.selectedIngr.name,
-                   value : Math.abs(this.selectedIngrValue) };
+                   quantity : Math.abs(this.selectedIngrValue) };
     const result = this.newIngredients.findIndex(({ name }) => name === food.name);
     if ((this.newIngredients.length !== 0) && result !== -1) {
-      this.newIngredients[result].value += food.value;
+      this.newIngredients[result].quantity += food.quantity;
     } else {
       this.newIngredients.push(food);
     }

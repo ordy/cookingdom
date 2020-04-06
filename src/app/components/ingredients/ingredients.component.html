@@ -35,7 +35,7 @@
         <tbody>
           <tr *ngFor="let ingredient of newIngredients">
             <td>{{ ingredient.name }}</td>
-            <td>{{ ingredient.value }}</td>
+            <td>{{ ingredient.quantity }}</td>
             <td [ngSwitch]="ingredient.type">
               <span *ngSwitchCase="1">Unit</span>
               <span *ngSwitchCase="2">Kg</span>

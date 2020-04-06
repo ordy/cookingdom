@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { InventoryService } from 'src/app/services/inventory.service';
 
-interface Drop { type: number; value: number; name: string; }
+interface Drop { type: number; name: string; quantity: number }
 
 @Component({
   selector: 'app-inventory',
