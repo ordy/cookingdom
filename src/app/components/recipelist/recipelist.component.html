@@ -4,10 +4,10 @@
       <span class="box-left pr-2 h5">Find recipes having </span>
       <div class="box-center btn-group btn-group-toggle" ngbRadioGroup id="dropdown1" [(ngModel)]="offsetValue">
         <label ngbButtonLabel class="btn btn-outline-warning">
-          <input ngbButton type="radio" [value]="0" >No
+          <input ngbButton type="radio" [value]="0">No
         </label>
         <label ngbButtonLabel class="btn btn-outline-warning">
-          <input ngbButton type="radio" value="1">1
+          <input ngbButton type="radio" [value]="1">1
         </label>
         <label ngbButtonLabel class="btn btn-outline-warning">
           <input ngbButton type="radio" [value]="2">2
@@ -27,16 +27,18 @@
 <div *ngIf="displayList" class="container py-2 mt-4">
   <div class="d-flex align-items-center justify-content-between">
     <h4 class="text-left m-2" id="drops-title">List</h4>
-    <button *ngIf="showListToggle" class="btn btn-outline-warning" type="button" (click)="toggleRecipe()">Show List</button>
+    <button *ngIf="showListToggle" class="btn btn-outline-warning" type="button" (click)="toggleList()">Show List</button>
   </div>
   <div *ngIf="!showListToggle">
-    <ul *ngFor="let recipe of recipeList">
-      <li>{{recipe}}</li>
-      <button class="btn btn-outline-warning" (click)="toggleRecipe()">Display</button>
-    </ul>
+    <tr *ngFor="let recipe of recipeList">
+      <td>{{recipe}}</td>
+      <td class="btn btn-outline-warning" (click)="showRecipe(recipe)">Display</td>
+    </tr>
   </div>
 </div>
-<div *ngIf="displayRec" class="container py-2 mt-4">
+<div *ngIf="displayRec" class="container pt-2 my-4">
   <h4 class="text-left m-2" id="drops-title">Recipe</h4>
-  <app-recipe></app-recipe>
+  <app-recipe [rcpName]="recipeParent"></app-recipe>
 </div>
+
+

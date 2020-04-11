@@ -9,9 +9,9 @@ const recipesDB: Recipe[] = [
     ingredientsList: [
       { type: 2, name: 'Salt', quantity: 1},
       { type: 1, name: 'Tomato', quantity: 2},
-      { type: 2, name: 'Chicken', quantity: 3},
-      { type: 2, name: 'Spaghetti', quantity: 4},
-      { type: 1, name: 'Apple', quantity: 5}
+      { type: 2, name: 'Chicken', quantity: 4},
+      { type: 2, name: 'Spaghetti', quantity: 8},
+      { type: 1, name: 'Apple', quantity: 16}
     ],
     instructions: [
       'Nullam nec porta ligula, id pellentesque dui. Quisque semper eget arcu sit amet fermentum.',
@@ -141,11 +141,12 @@ const recipesDB: Recipe[] = [
   styleUrls: ['./recipelist.component.css']
 })
 export class RecipeListComponent implements OnInit {
-  public offsetValue: 0;
+  public offsetValue = 0;
   public recipeList: string[];
   public displayList: boolean;
   public displayRec: boolean;
   public showListToggle: boolean;
+  public recipeParent = recipesDB[0];
 
   constructor(private invService: InventoryService) { };
   ngOnInit() {
@@ -168,9 +169,13 @@ export class RecipeListComponent implements OnInit {
     return this.invService.ingrExists(name) && this.invService.ingrQuantity(name) >= quantity;
   }
 
-  toggleRecipe(){
+  toggleList(){
     this.showListToggle = !this.showListToggle;
     this.displayRec = !this.displayRec;
   }
 
+  showRecipe(listElem: string){
+    this.toggleList();
+    this.recipeParent = recipesDB.find(recipe => recipe.name === listElem);
+  }
 }

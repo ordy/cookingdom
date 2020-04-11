@@ -1,1 +1,20 @@
-<p>recipe works!</p>
+<div class="m-2">
+  <h5 class="py-3">{{rcpName.name}}</h5>
+  <p class="mb-1">Duration: {{rcpName.duration}} Minutes</p>
+  <p>Difficulty: {{rcpName.difficulty}}-Rank</p>
+  <div class="row pb-4" id="flexb">
+    <div class="col mb-3" id="flex1">
+      <img [src]="getImagePath()" alt="{{rcpName.name}} image" class="img-thumbnail rounded">
+    </div>
+    <div class="col mb-3" id="flex2">
+        <h5 class="pb-3">Ingredients</h5>
+        <ul *ngFor="let ingr of rcpName.ingredientsList">
+          <li>{{ingr.quantity}} {{ingr.name}}</li>
+        </ul>
+    </div>
+  </div>
+  <h5 class="pb-3">Instructions</h5>
+  <ol type="1">
+    <li *ngFor="let steps of rcpName.instructions">{{steps}}</li>
+  </ol>
+</div>
