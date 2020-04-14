@@ -55,7 +55,6 @@ export class RecipeComponent implements OnChanges{
         }
       }
       formatedIngr.name = ingr.name;
-      // console.log(formatedIngr);
       this.displayRecipe.push(formatedIngr);
     });
   }
