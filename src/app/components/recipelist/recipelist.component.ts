@@ -121,11 +121,11 @@ const recipesDB: Recipe[] = [
     ]},
   {name: 'Teriyaki Chicken', difficulty: 'S', duration: 180,
     ingredientsList: [
-      { type: 2, name: 'Sardines', quantity: 4},
+      { type: 2, name: 'Sardines', quantity: 0.4},
       { type: 1, name: 'Banana', quantity: 12},
-      { type: 1, name: 'Crab', quantity: 11},
+      { type: 1, name: 'Crab', quantity: 5.75},
       { type: 2, name: 'Salt', quantity: 21},
-      { type: 2, name: 'Pepper', quantity: 2}
+      { type: 3, name: 'Pepper', quantity: 0.3}
     ],
     instructions: [
       'Nullam nec porta ligula, id pellentesque dui. Quisque semper eget arcu sit amet fermentum.',
@@ -178,4 +178,5 @@ export class RecipeListComponent implements OnInit {
     this.toggleList();
     this.recipeParent = recipesDB.find(recipe => recipe.name === listElem);
   }
+
 }

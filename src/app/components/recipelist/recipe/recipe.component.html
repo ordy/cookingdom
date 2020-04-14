@@ -8,8 +8,8 @@
     </div>
     <div class="col mb-3" id="flex2">
         <h5 class="pb-3">Ingredients</h5>
-        <ul *ngFor="let ingr of rcpName.ingredientsList">
-          <li>{{ingr.quantity}} {{ingr.name}}</li>
+        <ul *ngFor="let ingr of displayRecipe">
+          <li>{{ingr.quantity}}{{ingr.type}} {{ingr.name}}</li>
         </ul>
     </div>
   </div>
