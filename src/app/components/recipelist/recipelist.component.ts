@@ -166,7 +166,7 @@ export class RecipeListComponent implements OnInit {
   }
 
   ingrCheck(name: string, quantity: number){
-    return this.invService.ingrExists(name) && this.invService.ingrQuantity(name) >= quantity;
+    return this.invService.dropExists(name) && this.invService.dropQuantity(name) >= quantity;
   }
 
   toggleList(){
