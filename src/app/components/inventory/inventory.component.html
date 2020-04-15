@@ -1,26 +1,81 @@
-<!-- <div class="container my-3">
-  <li *ngFor="let ingredient of myIngredients">{{ ingredient.value }} of {{ ingredient.name }}</li>
-</div>
- -->
-
 <div class="container my-3">
-  <table class="table table-striped table-dark">
+  <div class="d-flex justify-content-end">
+    Edit Drops
+    <label class="switch">
+      <input type="checkbox" [(ngModel)]="editMode">
+      <span class="slider round"></span>
+    </label>
+  </div>
+  <table class="table table-striped table-dark table-hover">
     <thead>
     <tr>
       <th scope="col">Ingredient</th>
       <th scope="col">Quantity</th>
-      <th scope="col">Unit</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let ingredient of myIngredients">
-      <td>{{ ingredient.name }}</td>
-      <td>{{ ingredient.quantity }}</td>
-      <td [ngSwitch]="ingredient.type">
-        <span *ngSwitchCase="1">Unit</span>
-        <span *ngSwitchCase="2">Kg</span>
-        <span *ngSwitchCase="3">L</span>
+      <td width="50%">{{ ingredient.name }}</td>
+      <td width="50%" [ngSwitch]="ingredient.type">
+        <div class="row justify-content-between">
+          <div class="col-md-auto">
+            {{ ingredient.quantity }}
+            <span *ngSwitchCase="1"></span>
+            <span *ngSwitchCase="2">Kg</span>
+            <span *ngSwitchCase="3">L</span>
+          </div>
+          <div class="" *ngIf="editMode">
+            <button title="Edit" class="btn btn-primary py-0 table-edit" (click)="editDrop(edit, ingredient.name)">✎</button>
+            <button title="Delete" class="btn btn-danger py-0 table-delete" (click)="deleteDrop(delete, ingredient.name)">🗑</button>
+          </div>
+      </div>
+      </td>
     </tr>
     </tbody>
   </table>
 </div>
+
+<!--Modal Edit Window template-->
+<ng-template #edit let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Edit Drop</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label for="new-input">{{dropName}}</label>
+        <input type="number" class="form-control" name="new-input" [(ngModel)]="dropInput">
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button style="height: 38px;" type="button" class="btn btn-outline-dark" (click)="modal.close(dropInput)">Save</button>
+  </div>
+</ng-template>
+
+<!--Modal Delete Window template-->
+<ng-template #delete let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Remove Drop</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group justify-content-around">
+        <label for="ingrNumber">Remove <b>{{dropName}}</b> from your inventory?</label>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <div class="mr-auto custom-control custom-checkbox">
+      <input type="checkbox" class="custom-control-input checkbox-danger" id="delete-box" name="confirm-checkbox" [(ngModel)]="noConfirm">
+      <label class="custom-control-label" for="delete-box">Don't ask again</label>
+    </div>
+    <button style="height: 38px;" type="button" class="btn btn-danger" (click)="modal.close(dropInput)">Remove</button>
+  </div>
+</ng-template>
