@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { InventoryService } from '../../services/inventory.service';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 
 // type: 1=unit 2=mass 3=volume
 interface Ingredient { type: number; name: string }
 interface Drop { type: number; name: string; quantity: number }
-
+interface Ingre {name: string, quantity: number, type: number }
 
 // type: 1=unit 2=mass 3=volume
 const ingredients: Ingredient[] = [
@@ -44,6 +45,9 @@ export class IngredientsComponent implements OnInit {
   public selectedIngrValue = 1;
   public newIngredients: Drop[] = [];
 
+  //  ingreCol: AngularFirestoreCollection<Ingre>;
+  // ingres: Observable<Ingre[]>;
+
   formatter = (ingredient: Ingredient) => ingredient.name;
 
   search = (text$: Observable<string>) =>
@@ -53,9 +57,21 @@ export class IngredientsComponent implements OnInit {
     map(term => term === '' ? [] : ingredients.filter(v => v.name.toLowerCase().indexOf(term.toLowerCase()) === 0).slice(0, 10))
   )
 
-  constructor(private invService: InventoryService) {};
+  constructor(private invService: InventoryService, public db: AngularFirestore) {};
 
-  ngOnInit(): void {
+  ngOnInit() {
+  //  console.log('in ngOnInit before the db call ... ');
+   // this.ingreCol = this.db.collection('ingredients');
+   // this.ingres = this.ingreCol.valueChanges();
+  //  console.log(this.ingres);
+  }
+
+  listNotEmpty() : boolean {
+    return this.newIngredients.length > 0;
+  }
+
+  ingredientType() : number {
+    return this.selectedIngr?.type;
   }
 
   newIngr() {
@@ -73,5 +89,9 @@ export class IngredientsComponent implements OnInit {
   addIngredients() {
     this.invService.addInventory(this.newIngredients);
     this.newIngredients = [];
+  }
+
+  getUsers(){
+   // console.log(this.db.collection('ingredients').snapshotChanges());
   }
 }
