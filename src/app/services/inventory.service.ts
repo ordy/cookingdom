@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 
+
 interface Drop { type: number; name: string; quantity: number }
 
 @Injectable({
@@ -29,7 +30,6 @@ export class InventoryService {
         this.myInventory.push(drop);
       }
     }
-    console.log(this.myInventory);
   }
 
   updateInventory(drop: Drop){
