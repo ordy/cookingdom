@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service'
 import { User } from 'firebase';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-login',
@@ -11,8 +13,10 @@ import { NgForm } from '@angular/forms';
 export class LoginComponent implements OnInit {
   public user: User;
   public saveLogin = false;
+  currentUrl : string;
 
-  constructor(private authS: AuthService) {
+
+  constructor(private authS: AuthService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -30,4 +34,5 @@ export class LoginComponent implements OnInit {
   signOut(){
     this.authS.signOut();
   }
+
 }

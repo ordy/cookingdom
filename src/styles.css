@@ -29,6 +29,7 @@
 html, body {
   background-color: var(--gray-800);
   font-family: 'Roboto Condensed', sans-serif;
+  min-width: 400px;
 }
 
 .dropdown-menu, .dropdown-item {

@@ -18,7 +18,7 @@ input {
 input:focus {
   color: #c2c2c2;
   outline: none !important;
-  box-shadow: 0px 3px var(--custom-orange);
+  box-shadow: 0px 3px var(--custom-blue);
   background-color: var(--gray-800);
   border-color: #23272a;
   border-radius: 0rem;
@@ -40,12 +40,12 @@ input[type="checkbox"] + label::before {
 
 input[type="checkbox"]:checked + label::before {
   border-radius: 0;
-  background-color: var(--custom-orange);
-  border-color: var(--custom-orange);
+  background-color: var(--custom-blue);
+  border-color: var(--custom-blue);
 }
 
 .custom-control-input:focus ~ .custom-control-label::before {
-  box-shadow: 0px 0px 4px 1px rgba(255, 145, 0, 0.7) !important;
+  box-shadow: 0px 0px 4px 1px rgba(0, 183, 255, 0.7) !important;
 }
 
 .container {
@@ -59,4 +59,19 @@ input[type="checkbox"]:checked + label::before {
 
 .custom-checkbox {
   margin-left: 5px;
+}
+
+button {
+  border-radius: 0;
+}
+
+button:hover{
+  border-color: var(--gray-850);
+  box-shadow: 0px 1px 1px 1px rgba(0,0,0,0.65);
+}
+
+hr {
+  margin-right: 2%;
+  margin-left: 2%;
+  border-top: 1px solid var(--gray-850);
 }
