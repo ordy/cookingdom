@@ -3,6 +3,46 @@
   color: whitesmoke;
 }
 
+.container {
+  background-color: var(--gray-900);
+  border: 1px solid;
+  border-image-source: linear-gradient(0deg, #191c21, #000000);
+  border-image-slice: 1;
+}
+
+table {
+  color: whitesmoke;
+  border-bottom: 1px solid var(--custom-blue);
+  box-shadow: 0px 0px 10px -1px rgba(0,0,0,0.75);
+}
+
+.table thead > tr > th { border-bottom: none;
+border-top: 1px; }
+
+th {
+  font-weight: normal;
+  color: var(--custom-blue);
+  background-color: #0b0c0f;
+  border-bottom: 1px solid var(--custom-blue);
+}
+
+td {
+  border-bottom: 1px solid #007bff30;
+}
+
+tr {
+  background-color: #15191e;
+}
+
+tr:nth-child(even) {
+  background-color: #0b0c0f;
+}
+
+.table-hover tbody tr:hover td {
+  background-color: #1c2127;
+  color: whitesmoke;
+}
+
 input[type="checkbox"]:checked + label::before {
   background-color: #DC3545;
   border-color: #DC3545;
@@ -19,7 +59,7 @@ input[type="checkbox"]:checked + label::before {
 .table-delete{
   margin-right: 1em;
   border-radius: 0.2em;
-  box-shadow: 0 0 5px rgb(20, 20, 20, 0.50);
+  box-shadow: 0 0 5px rgba(8, 8, 8, 0.76);
 }
 
 .table-edit{
@@ -27,7 +67,7 @@ input[type="checkbox"]:checked + label::before {
   padding-left: 10px;
   padding-right: 10px;
   margin-right: 0.3em;
-  box-shadow: 0 0 5px rgba(20, 20, 20, 0.50);
+  box-shadow: 0 0 5px rgba(8, 8, 8, 0.76);
 }
 
 .switch {

@@ -14,7 +14,7 @@ export class InventoryComponent {
   @Input() noConfirm: boolean;
 
   public dropName: string;
-  public editMode = true;
+  public editMode = false;
   public myIngredients: Drop[] = [];
 
   constructor(private invService: InventoryService, private modalService: NgbModal) {
@@ -39,7 +39,6 @@ export class InventoryComponent {
     this.dropInput = this.invService.dropQuantity(ingr);
     this.modalService.open(content, { size: 'sm' }).result.then(
       res=>{
-        console.log('CloseButton', res);
         if (res > 9999)
           res = 9999;
         this.invService.editQuantity(ingr, res);
