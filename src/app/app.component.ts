@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { faGithubAlt } from '@fortawesome/free-brands-svg-icons';
-import { AuthService } from './services/auth.service';
 import { Title } from '@angular/platform-browser';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { filter, map } from 'rxjs/operators';
