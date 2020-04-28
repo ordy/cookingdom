@@ -1,20 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-import { InventoryService } from './services/inventory.service';
+import { faGithubAlt } from '@fortawesome/free-brands-svg-icons';
+import { AuthService } from './services/auth.service';
+
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
-  providers: [InventoryService]
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'CooKingdom';
-  currentYear: number = new Date().getFullYear();
+  public currentYear: number = new Date().getFullYear();
+  public gitIcon = faGithubAlt;
 
-  public isMenuCollapsed = true;
+  constructor(private authS: AuthService) {}
 
-  constructor(private invService: InventoryService) {};
   ngOnInit() {
+  }
+
+  isLoggedIn(): boolean {
+    // console.log(this.authS.user);
+    return true;
+    // return this.authS.user !== null ? true : false;
   }
 
 }
