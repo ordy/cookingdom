@@ -1,12 +1,16 @@
 :host {
-  display: block;
+  color: whitesmoke;
+}
+
+
+pre {
   color: whitesmoke;
 }
 
 input {
   color: #c2c2c2;
   outline: none !important;
-  background-color: #23272a;
+  background-color: #1f2327;
   border-color: #23272a;
   border-radius: 0rem;
 }
@@ -14,41 +18,30 @@ input {
 input:focus {
   color: #c2c2c2;
   outline: none !important;
-  box-shadow: 0px 3px rgb(255, 145, 0);
-  background-color: #23272a;
+  box-shadow: 0px 3px var(--custom-orange);
+  background-color: var(--gray-800);
   border-color: #23272a;
   border-radius: 0rem;
 }
 
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-textarea:-webkit-autofill,
-textarea:-webkit-autofill:hover,
-textarea:-webkit-autofill:focus,
-select:-webkit-autofill,
-select:-webkit-autofill:hover,
-select:-webkit-autofill:focus {
+input:-webkit-autofill:focus {
   border-radius: 0rem;
   -webkit-text-fill-color: #c2c2c2;
   transition: background-color 5000s ease-in-out 0s;
 }
 
-
-input[type="radio"] {
-  border-radius: 0;
-}
-
 input[type="checkbox"] + label::before {
   border-radius: 0;
-  background-color: #23272a;
-  border-color: #141618;
+  background-color: var(--gray-800);
+  border-color: var(--gray-900);
 }
 
 input[type="checkbox"]:checked + label::before {
   border-radius: 0;
-  background-color: rgb(255, 145, 0);
-  border-color: rgb(255, 145, 0);
+  background-color: var(--custom-orange);
+  border-color: var(--custom-orange);
 }
 
 .custom-control-input:focus ~ .custom-control-label::before {
@@ -59,6 +52,7 @@ input[type="checkbox"]:checked + label::before {
   background-color: #191c21;
   width: 25em;
   border: 1px solid;
+  margin-top: 7em;
   border-image-source: linear-gradient(0deg, #191c21, #000000);
   border-image-slice: 1;
 }
