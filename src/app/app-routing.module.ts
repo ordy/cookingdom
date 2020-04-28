@@ -6,14 +6,16 @@ import { IngredientsComponent } from './components/ingredients/ingredients.compo
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
 import { RegisterComponent } from './components/login/register/register.component';
+import { NotfoundComponent } from './components/notfound/notfound.component';
 
 const routes: Routes = [
-  {path: '', component: HomeComponent},
-  {path: 'login', component: LoginComponent},
-  {path: 'register', component: RegisterComponent},
-  {path: 'recipes', component: RecipeListComponent},
-  {path: 'inventory', component: InventoryComponent},
-  {path: 'ingredients', component: IngredientsComponent}
+  {path: '', component: HomeComponent, data: {title: 'CooKingdom'}},
+  {path: 'login', component: LoginComponent, data: {title: 'Login - CD'}},
+  {path: 'ingredients', component: IngredientsComponent, data: {title: 'Ingredients - CD'}},
+  {path: 'inventory', component: InventoryComponent, data: {title: 'Inventory - CD'}},
+  {path: 'recipes', component: RecipeListComponent, data: {title: 'Recipes - CD'}},
+  {path: 'register', component: RegisterComponent, data: {title: 'Register - CD'}},
+  {path: '**', component: NotfoundComponent, data: {title: 'Not-Found'}}
 ];
 
 @NgModule({
