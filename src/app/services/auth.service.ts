@@ -1,12 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { User } from  'firebase';
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { FirebaseApp } from '@angular/fire';
-import { Observable } from 'rxjs';
-import * as firebase from 'firebase';
 import { Router } from '@angular/router';
-import { Session } from 'inspector';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -15,10 +11,12 @@ export class AuthService {
   user : User;
   field : string;
   userData : any;
+  private loggedIn = new BehaviorSubject<boolean>(false);
 
   constructor(public fireAuth: AngularFireAuth, private route: Router) {
     this.fireAuth.onAuthStateChanged(user => {
       if (user) {
+        this.loggedIn.next(true);
         this.fireAuth.authState.subscribe(res => {
           this.user = res;
         });
@@ -28,31 +26,9 @@ export class AuthService {
     })
   }
 
-  isLoggedIn() {
-    this.fireAuth.authState.subscribe(res => {
-      if (res === null){
-        console.log('empty');
-      }else{
-        console.log('not empty');
-      }
-    })
-  }
-
-  currentUser(){
-    this.fireAuth.onAuthStateChanged(user => {
-      if (user) {
-        console.log('user is signed in');
-        this.user = firebase.auth().currentUser;
-       // console.log('user is',this.user);
-      } else {
-        console.log('user is NOT signed in');
-      }
-    })
-   //  this.route.navigateByUrl('/recipes');
-  }
-
   signOut(){
     this.fireAuth.signOut();
+    this.loggedIn.next(false);
     this.user = null;
   }
 
@@ -67,14 +43,24 @@ export class AuthService {
     // Auth and redirection to homepage
     return this.fireAuth.signInWithEmailAndPassword(username, password)
       .then((result) => {
+        this.loggedIn.next(true);
         this.route.navigateByUrl('');
       }).catch((error) => {
         window.alert(error.message)
       })
   }
+
+  get isLoggedIn() {
+    return this.loggedIn.asObservable();
+
+    // return this.user != null ? true : false;
+  }
+
   getValue(){
     this.fireAuth.authState.subscribe(res => {
       this.user = res;
     });
   }
+
+
 }
