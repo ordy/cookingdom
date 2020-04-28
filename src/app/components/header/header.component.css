@@ -1,0 +1,66 @@
+
+.navbar-nav, .navbar-toggler, .navbar {
+  background-color: var(--gray-900);
+  color: whitesmoke;
+}
+
+.navbar {
+  padding-left: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  box-shadow: 0px 3px 3px 0px rgba(0,0,0,0.4);
+}
+.navbar-toggler {
+  border-color: #2e2f33;
+}
+
+.navbar-nav li a{
+  color: whitesmoke;
+}
+.navbar-nav li a:hover{
+  color: var(--custom-blue);
+}
+
+.navbar-brand {
+  color: #f3962c;
+  background-color: var(--gray-999);
+  padding-left: 0.5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.ingr-icon {
+  color: var(--custom-red);
+}
+.rcp-icon {
+  color: var(--custom-green);
+}
+.inv-icon {
+  color: var(--custom-blue);
+}
+.user-icon {
+  color: var(--custom-orange);
+}
+
+.bg-icon-circle{
+  background: var(--gray-999);
+  color: white;
+  border-radius: 50%;
+  padding-left: 0.38em;
+  padding-right: 0.2em;
+  padding-bottom: 0.3em;
+  padding-top: 0.2em;
+  line-height: initial !important;
+  height: 1.6em;
+  width: 1.6em;
+  display: inline-block;
+  margin-right: 0.3em;
+  margin-left: 0.6em;
+}
+
+@media screen and (max-width: 992px) {
+  .navbar-brand {
+    background-color: var(--gray-900);
+  }
+}
