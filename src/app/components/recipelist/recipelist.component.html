@@ -1,4 +1,4 @@
-<div class="container py-2">
+<div class="container mt-4 py-2">
   <h4 class="text-left m-2" id="drops-title">Cooking Book</h4>
   <div class="search-container pb-2">
       <span class="box-left pr-2 h5">Find recipes having </span>
@@ -29,7 +29,7 @@
     <h4 class="text-left m-2" id="drops-title">List</h4>
     <button *ngIf="showListToggle" class="btn btn-outline-warning" type="button" (click)="toggleList()">Show List</button>
   </div>
-  <div *ngIf="!showListToggle">
+  <div class="m-2" *ngIf="!showListToggle">
     <tr *ngFor="let recipe of recipeList">
       <td>{{recipe}}</td>
       <td class="btn btn-outline-warning" (click)="showRecipe(recipe)">Display</td>
