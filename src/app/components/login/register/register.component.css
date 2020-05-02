@@ -1,0 +1,48 @@
+  .container {
+    background-color: #191c21;
+    width: 70%;
+    /* min-width: 23em;
+  max-width: 30em; */
+    border: 1px solid;
+    margin-top: 2em;
+    border-image-source: linear-gradient(0deg, #191c21, #000000);
+    border-image-slice: 1;
+  }
+
+  a {
+    vertical-align: top;
+    display: inline-block;
+    text-align: center;
+  }
+
+  span {
+    display: block;
+  }
+
+  .maillink {
+    color: var(--custom-teal);
+  }
+
+  .googlelink {
+    color: var(--custom-red);
+  }
+
+  .fblink {
+    color: var(--custom-blue);
+  }
+
+  a>fa-icon {
+    font-size: 2em;
+  }
+
+  .ng-valid,
+  .ng-valid[required],
+  .ng-valid.required {
+    border-left: 5px solid #42A948;
+    /* green */
+  }
+
+  .ng-invalid:not(form) {
+    border-left: 5px solid #a94442;
+    /* red */
+  }
