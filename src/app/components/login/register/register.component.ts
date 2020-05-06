@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { faGoogle, faFacebook } from '@fortawesome/free-brands-svg-icons'
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
-import { ReactiveFormsModule, FormsModule, FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-register',
@@ -15,7 +15,7 @@ export class RegisterComponent implements OnInit {
   public fbIcon = faFacebook;
   public mailIcon = faEnvelope;
   signupForm: FormGroup;
-  username = new FormControl('', [Validators.required, Validators.minLength(3)]);
+  username = new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(15)]);
   email = new FormControl('', [Validators.required, Validators.email]);
   // pass: at least one lower, one upper, one special, min-lenght 6
   password = new FormControl('',

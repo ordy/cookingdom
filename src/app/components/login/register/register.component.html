@@ -22,7 +22,7 @@
       <div class="form-group row">
         <label class="col-form-label col-sm-3" for="regUser">Username</label>
         <div class="col-sm-9">
-          <input type="text" class="form-control" id="regUser" pattern="[a-zA-Z0-9-_.]{1,20}" formControlName="username" placeholder="Username">
+          <input type="text" class="form-control" id="regUser" formControlName="username" placeholder="Username">
         </div>
       </div>
       <div class="form-group row">
@@ -46,7 +46,9 @@
           </label>
         </div>
       </div>
-      <button type="submit" [routerLink]="" class="btn col-sm-6 ml-1 btn-dark" [disabled]="!signupForm.valid">Create account</button>
+      <div class="text-center">
+        <button type="submit" class="btn btn-dark" [disabled]="!signupForm.valid">Create account</button>
+      </div>
     </form>
   </div>
 </div>
