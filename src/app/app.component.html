@@ -1,13 +1,13 @@
-<app-header *ngIf="isLoggedIn()"></app-header>
+<app-header></app-header>
 <div class="app-body">
   <router-outlet></router-outlet>
 </div>
 <div id="app-footer">
   <div class="container">
     <small class="text-muted">© {{ currentYear }} Copyright:</small>
-      <a href="https://github.com/ordy/cookingdom">
-        <fa-icon class="git-icon" [icon]="gitIcon"></fa-icon>
-        <small>ordy</small>
-      </a>
+    <a href="https://github.com/ordy/cookingdom">
+      <fa-icon class="git-icon" [icon]="gitIcon"></fa-icon>
+      <small>ordy</small>
+    </a>
   </div>
 </div>

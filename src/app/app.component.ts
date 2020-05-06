@@ -14,22 +14,20 @@ export class AppComponent implements OnInit {
   public currentYear: number = new Date().getFullYear();
   public gitIcon = faGithubAlt;
 
-  constructor(private activatedRoute: ActivatedRoute,
-              private titleService: Title,
-              private router: Router) {}
+  constructor(private activeRoute: ActivatedRoute, private title: Title, private router: Router) { }
 
   ngOnInit() {
     // Setting the active route as page title
-    const appTitle = this.titleService.getTitle();
+    const appTitle = this.title.getTitle();
     this.router.events.pipe(filter(event => event instanceof NavigationEnd),
       map(() => {
-        const child = this.activatedRoute.firstChild;
+        const child = this.activeRoute.firstChild;
         if (child.snapshot.data.title) {
           return child.snapshot.data.title;
         }
         return appTitle;
       })).subscribe((title: string) => {
-            this.titleService.setTitle(title);
-          });
+        this.title.setTitle(title);
+      });
   }
 }
