@@ -2,8 +2,7 @@
   <nav class="navbar navbar-expand-lg pr-2">
     <a routerLink="/" (click)="isMenuCollapsed = true">
       <div class="navbar-brand mr-0">
-        <img src="../assets/crown.svg" width="45" height="45" alt="crown-logo" id="navbar-logo">
-        {{ title }}
+        <img src="../assets/crown.svg" width="45" height="45" alt="crown-logo" id="navbar-logo">{{ title }}
       </div>
     </a>
     <button class="navbar-toggler" type="button" (click)="isMenuCollapsed = !isMenuCollapsed">&#9776;</button>
@@ -13,35 +12,31 @@
           <a class="nav-link" routerLink="ingredients" (click)="isMenuCollapsed = true">
             <span class="bg-icon-circle">
               <fa-icon class="ingr-icon" [icon]="ingrIcon"></fa-icon>
-            </span>
-            Ingredients
+            </span>Ingredients
           </a>
         </li>
         <li class="nav-item" active>
           <a class="nav-link" routerLink="recipes" (click)="isMenuCollapsed = true">
             <span class="bg-icon-circle">
               <fa-icon class="rcp-icon" [icon]="rcpIcon"></fa-icon>
-            </span>
-            Recipes
+            </span>Recipes
           </a>
         </li>
         <li class="nav-item" active>
           <a class="nav-link" routerLink="inventory" (click)="isMenuCollapsed = true">
             <span class="bg-icon-circle">
               <fa-icon class="inv-icon" [icon]="invIcon"></fa-icon>
-            </span>
-            Inventory
+            </span>Inventory
           </a>
         </li>
       </ul>
       <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link" routerLink="login" (click)="isMenuCollapsed = true">
-          <span class="bg-icon-circle">
+            <span class="bg-icon-circle">
             <fa-icon class="user-icon" [icon]="userIcon"></fa-icon>
-          </span>
-          Logout
-        </a>
+          </span>Logout
+          </a>
         </li>
       </ul>
     </div>
@@ -51,18 +46,16 @@
   <div class="app-header fixed-top">
     <nav class="navbar navbar-expand-lg pr-2">
       <div class="navbar-brand mr-0">
-        <img src="../assets/crown.svg" width="45" height="45" alt="crown-logo" id="navbar-logo">
-        {{ title }}
+        <img src="../assets/crown.svg" width="45" height="45" alt="crown-logo" id="navbar-logo">{{ title }}
       </div>
       <button class="navbar-toggler" type="button" (click)="isMenuCollapsed = !isMenuCollapsed">&#9776;</button>
       <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
             <a class="nav-link" routerLink="login" (click)="isMenuCollapsed = true">
-            <span class="bg-icon-circle">
+              <span class="bg-icon-circle">
               <fa-icon class="user-icon" [icon]="userIcon"></fa-icon>
-            </span>
-              Login
+            </span>Login
             </a>
           </li>
         </ul>
