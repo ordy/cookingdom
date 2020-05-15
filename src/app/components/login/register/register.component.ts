@@ -14,47 +14,58 @@ export class RegisterComponent implements OnInit {
   public googleIcon = faGoogle;
   public fbIcon = faFacebook;
   public mailIcon = faEnvelope;
-  signupForm: FormGroup;
-  username = new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(15)]);
-  email = new FormControl('', [Validators.required, Validators.email]);
+  private pwPattern = '(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_])[A-Za-z0-9!@#$%^&*-_]{6,}';
+  private usrPattern = '[A-Za-z0-9]{3,15}';
+  public providerUsername: string;
+  public signupForm: FormGroup;
+  public usernameForm: FormGroup;
+  public username = new FormControl('',
+    [Validators.required,
+    Validators.pattern(this.usrPattern)]);
+  private email = new FormControl('', [Validators.required, Validators.email]);
   // pass: at least one lower, one upper, one special, min-lenght 6
-  password = new FormControl('',
-    [Validators.required,
-    Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_])[A-Za-z0-9!@#$%^&*-_]{6,}')]);
-  pwconfirmation = new FormControl('',
-    [Validators.required,
-    Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_])[A-Za-z0-9!@#$%^&*-_]{6,}')]);
+  private password = new FormControl('', [Validators.required, Validators.pattern(this.pwPattern)]);
+  private pwConfirm = new FormControl('', [Validators.required, Validators.pattern(this.pwPattern)]);
 
-  constructor(private authS: AuthService, public fb: FormBuilder) {
+  constructor(private authS: AuthService, private fb: FormBuilder) {
     this.signupForm = fb.group({
       username: this.username,
       email: this.email,
       password: this.password,
-      passconfirm: this.pwconfirmation
-    }, { validator: this.passcheck });
+      pwConfirm: this.pwConfirm
+    }, { validator: this.pwCheck });
   }
 
   ngOnInit(): void {
   }
-  googleRegister() {
-    this.authS.googleSignUp();
-  }
-  facebookRegister() {
-    this.authS.facebookSignUp();
-  }
+
   signUp() {
-
+    const user = this.signupForm.value.username;
+    const mail = this.signupForm.value.email;
+    const pass = this.signupForm.value.password;
+    this.authS.signUp(user, mail, pass);
   }
 
-  passcheck(form: FormGroup) {
-    const pass = form.get('password').value;
-    const passconf = form.get('passconfirm').value;
-    if (pass === passconf) {
+  pwCheck(form: FormGroup) {
+    const pass = form.value.password;
+    const confirmation = form.value.pwConfirm;
+    if (pass === confirmation) {
       return null;
     } else {
-      form.controls.passconfirm.setErrors({ incorrect: true });
+      form.controls.pwConfirm.setErrors({ incorrect: true });
       return { notSame: true };
     }
   }
 
+  saveUsername() {
+    // to-do
+  }
+
+  test() {
+    this.authS.testAddUser();
+  }
+
+  test2() {
+    this.authS.testStatus();
+  }
 }
