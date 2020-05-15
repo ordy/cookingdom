@@ -19,6 +19,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { HomeComponent } from './components/home/home.component';
 import { RegisterComponent } from './components/login/register/register.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
+import { LoadingComponent } from './shared/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { NotfoundComponent } from './components/notfound/notfound.component';
     HeaderComponent,
     HomeComponent,
     RegisterComponent,
-    NotfoundComponent
+    NotfoundComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,
