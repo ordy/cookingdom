@@ -8,7 +8,7 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit{
+export class HeaderComponent implements OnInit {
   public title = 'CooKingdom';
   public ingrIcon = faCarrot;
   public rcpIcon = faMortarPestle;
@@ -17,9 +17,19 @@ export class HeaderComponent implements OnInit{
   public isMenuCollapsed = true;
   public isLoggedIn: Observable<boolean>;
 
-  constructor(private authS: AuthService) {}
+  constructor(private authS: AuthService) { }
 
   ngOnInit() {
     this.isLoggedIn = this.authS.isLoggedIn;
+    /*if (localStorage.getItem('userLogged') === 'true') {
+      this.isLoggedIn = true;
+    } else {
+      this.isLoggedIn = false;
+    }*/
+  }
+
+  signOut() {
+    this.isMenuCollapsed = true;
+    this.authS.signOut();
   }
 }
