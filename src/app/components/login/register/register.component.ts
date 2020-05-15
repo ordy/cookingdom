@@ -60,12 +60,4 @@ export class RegisterComponent implements OnInit {
   saveUsername() {
     // to-do
   }
-
-  test() {
-    this.authS.testAddUser();
-  }
-
-  test2() {
-    this.authS.testStatus();
-  }
 }
