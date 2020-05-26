@@ -20,6 +20,7 @@ import { HomeComponent } from './components/home/home.component';
 import { RegisterComponent } from './components/login/register/register.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { LoadingComponent } from './shared/loading/loading.component';
+import { UsernameComponent } from './components/login/username/username.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { LoadingComponent } from './shared/loading/loading.component';
     HomeComponent,
     RegisterComponent,
     NotfoundComponent,
-    LoadingComponent
+    LoadingComponent,
+    UsernameComponent
   ],
   imports: [
     BrowserModule,
