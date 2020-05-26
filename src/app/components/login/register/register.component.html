@@ -1,11 +1,21 @@
 <div class="container" *ngIf="true">
-  <h4 class="text-left m-2">Mail Sign Up</h4>
+  <h4 class="text-left m-2">Sign Up</h4>
   <div>
     <form class="m-2 pt-4" [formGroup]="signupForm" (ngSubmit)="signUp()">
       <div class="form-group row">
         <label class="col-form-label col-sm-3" for="regUser">Username</label>
         <div class="col-sm-9">
-          <input type="text" class="form-control" id="regUser" formControlName="username" placeholder="Username">
+          <ng-template #usertooltip>
+            Username:
+            <ul>
+              <li><b>3-20</b> characters long</li>
+              <li><b>Only</b> letters and numbers</li>
+            </ul>
+          </ng-template>
+          <input type="text" class="form-control" [ngbTooltip]="usertooltip" tooltipClass="formTooltip" triggers="manual" #u="ngbTooltip" id="regUser" formControlName="username" placeholder="Username" (input)="displayTooltip('user') ? u.open() : u.close()">
+          <label class="text-danger mb-0" *ngIf="signupForm.get('username').hasError('userExists')">
+            User name not available
+          </label>
         </div>
       </div>
       <div class="form-group row">
@@ -17,7 +27,16 @@
       <div class="form-group row">
         <label class="col-form-label col-sm-3" for="regPass">Password</label>
         <div class="col-sm-9">
-          <input type="password" class="form-control" id="regPass" formControlName="password" placeholder="Password">
+          <ng-template #passtooltip>
+            Password<br>must contain at least:
+            <ul>
+              <li><b>6</b> Characters</li>
+              <li><b>1</b> Uppercase letter</li>
+              <li><b>1</b> Number</li>
+              <li><b>1</b> Special character</li>
+            </ul>
+          </ng-template>
+          <input type="password" class="form-control" [ngbTooltip]="passtooltip" tooltipClass="formTooltip" triggers="manual" #p="ngbTooltip" id="regPass" formControlName="password" placeholder="Password" (input)="displayTooltip('pass') ? p.open() : p.close()">
         </div>
       </div>
       <div class="form-group row">
@@ -35,13 +54,15 @@
     </form>
   </div>
 </div>
-
 <div class="container p-3" *ngIf="true">
-  <form class="m-2 pt-4" [formGroup]="signupForm" (ngSubmit)="saveUsername()">
+  <form class="m-2 pt-4" [formGroup]="signupForm" (ngSubmit)="signUp()">
     <div class="form-group row">
       <label class="col-form-label col-sm-3" for="regName">Username</label>
       <div class="col-sm-9">
         <input type="text" class="form-control" id="regName" formControlName="username" placeholder="Username">
+        <label class="text-danger" *ngIf="signupForm.get('username').hasError('userExists')">
+          Username not available
+        </label>
       </div>
     </div>
     <button type="submit" class="btn btn-dark" [disabled]="!username.valid">Confirm</button>
