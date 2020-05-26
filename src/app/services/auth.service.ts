@@ -1,17 +1,18 @@
-import { Injectable } from '@angular/core';
+import { Injectable, IterableDiffers } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { User, auth } from 'firebase/app';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { map, take, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   user: User;
-  field: string;
-  userData: any;
+  public usernameExist: boolean;
+  public lastUserName: string;
   public loading = new BehaviorSubject<boolean>(false);
   public loggedIn = new BehaviorSubject<boolean>(false);
 
@@ -27,10 +28,10 @@ export class AuthService {
   }
 
   signOut() {
-    this.route.navigateByUrl('login');
     this.fireAuth.signOut();
     this.loggedIn.next(false);
     this.user = null;
+    this.route.navigateByUrl('/login');
   }
 
   async SignIn(username: string, password: string, keepLocal: boolean) {
@@ -66,36 +67,38 @@ export class AuthService {
     })
   }
 
-  async googleSignIn() {
-    const provider = new auth.GoogleAuthProvider();
-    provider.setCustomParameters({ prompt: 'select_account' });
-    await this.fireAuth.signInWithPopup(provider);
-    this.route.navigateByUrl('');
-  }
-
-  async facebookSignIn() {
-    const provider = new auth.FacebookAuthProvider();
-    provider.setCustomParameters({ display: 'popup' });
-    await this.fireAuth.signInWithPopup(provider);
-    this.route.navigateByUrl('');
-  }
-
   async providerSignIn(providerName: string) {
+    this.loading.next(true);
+    let provider: auth.GoogleAuthProvider | auth.FacebookAuthProvider;
+    let parameters: {};
     switch (providerName) {
       case 'google':
-        const gAuth = new auth.GoogleAuthProvider();
-        gAuth.setCustomParameters({ prompt: 'select_account' });
-        await this.fireAuth.signInWithPopup(gAuth);
+        provider = new auth.GoogleAuthProvider();
+        parameters = { prompt: 'select_account' };
         break;
       case 'facebook':
-        const fbAuth = new auth.FacebookAuthProvider();
-        fbAuth.setCustomParameters({ display: 'popup' });
-        await this.fireAuth.signInWithPopup(fbAuth);
+        provider = new auth.FacebookAuthProvider();
+        parameters = { display: 'popup' };
         break;
       default:
+        this.loading.next(false);
         throw new Error('Not a valid authentication provider.');
     }
-    this.route.navigateByUrl('');
+    provider.setCustomParameters(parameters);
+    try {
+      await this.fireAuth.signInWithPopup(provider);
+    } catch (error) {
+      this.loading.next(false);
+      throw new Error(error);
+    }
+    // checking if user has a username
+    this.usernameExist = await this.userDeclared();
+    if (this.usernameExist)
+      this.route.navigateByUrl('/');
+    else {
+      this.route.navigateByUrl('/username');
+    }
+    this.loading.next(false);
   }
 
   get isLoggedIn() {
@@ -106,9 +109,38 @@ export class AuthService {
     return this.loading.asObservable();
   }
 
-  getValue() {
-    this.fireAuth.authState.subscribe(res => {
-      this.user = res;
+  async userDeclared() {
+    const userID = auth().currentUser.uid;
+    const usersRef = this.db.firestore.collection('users').doc(userID);
+    return usersRef.get().then(user => {
+      return user.data().usernamse != null ? true : false;
     });
+  }
+
+  async usernameTaken(username: string) {
+    if ((username.length >= 3) && (username !== this.lastUserName)) {
+      this.lastUserName = username;
+      const usersRef = this.db.firestore.collection('usernames').doc(username);
+      return usersRef.get().then(doc => {
+        return !doc.exists ? true : false;
+      }).catch(err => {
+        console.log('Error getting document', err);
+      });
+    }
+  }
+
+  async test3() {
+    const userID = auth().currentUser.uid;
+    const usersRef = this.db.firestore.collection('users').doc(userID);
+    return usersRef.get().then(doc => {
+      let usr: string;
+      usr = doc.data().username;
+      return usr;
+    })
+  }
+
+  async test() {
+    const a = await this.test3();
+    console.log(a);
   }
 }
