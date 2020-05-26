@@ -16,11 +16,12 @@ export class LoginGuard implements CanActivate {
     : Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return this.authS.fireAuth.authState.pipe(
       take(1),
-      // true if user exists, false is null or undefined
+      // false if user exists, true is null or undefined
       map(user => !user),
       tap(loggedIn => {
         if (!loggedIn) {
-          this.router.navigateByUrl('');
+          console.log('Login Guard access denied.')
+          this.router.navigateByUrl('/');
         }
       })
     );

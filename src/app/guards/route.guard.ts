@@ -20,8 +20,9 @@ export class RouteGuard implements CanActivate {
       map(user => !!user),
       tap(loggedIn => {
         if (!loggedIn) {
-          this.router.navigateByUrl('login');
-        }
+          this.router.navigateByUrl('/login');
+        } else if (!this.authS.usernameExist)
+          this.router.navigateByUrl('/username');
       })
     );
   }
