@@ -31,7 +31,6 @@ export class LoginComponent implements OnInit {
     const email: string = form.value.email;
     const password: string = form.value.password;
     this.authS.SignIn(email, password, this.saveLogin);
-    this.authS.getValue();
     form.reset();
   }
 
