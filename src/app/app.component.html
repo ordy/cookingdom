@@ -1,33 +1,13 @@
-<div class="app-header fixed-top">
-  <nav class="navbar  navbar-expand-lg">
-    <div class="navbar-brand">
-      <img src="../assets/crown.svg" width="45" height="45" alt="crown-logo" id="navbar-logo">
-      {{ title }}
-    </div>
-    <button class="navbar-toggler" type="button" (click)="isMenuCollapsed = !isMenuCollapsed">&#9776;</button>
-    <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse">
-      <ul class="navbar-nav">
-        <li class="nav-item" active>
-          <a class="nav-link" routerLink="ingredients" (click)="isMenuCollapsed = true">Ingredients</a>
-        </li>
-        <li class="nav-item" active>
-          <a class="nav-link" routerLink="recipes" (click)="isMenuCollapsed = true">Recipes</a>
-        </li>
-        <li class="nav-item" active>
-          <a class="nav-link" routerLink="inventory" (click)="isMenuCollapsed = true">Inventory</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
-  </div>
+<app-header></app-header>
 <div class="app-body">
   <router-outlet></router-outlet>
 </div>
 <div id="app-footer">
-  <div class="container text-center text-muted">
-    <small>© {{ currentYear }} Copyright:
-      <img id="github-logo" src="../assets/github.svg" alt="github-logo">
-    <a href="https://github.com/ordy/cookingdom">Ordy</a>
-    </small>
+  <div class="container">
+    <small class="text-muted">© {{ currentYear }} Copyright:</small>
+    <a href="https://github.com/ordy/cookingdom">
+      <fa-icon class="git-icon" [icon]="gitIcon"></fa-icon>
+      <small>ordy</small>
+    </a>
   </div>
 </div>

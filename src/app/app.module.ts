@@ -1,29 +1,56 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { environment } from 'src/environments/environment';
+
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 import { AppComponent } from './app.component';
 import { InventoryComponent } from './components/inventory/inventory.component';
-import { RecipeComponent } from './components/recipe/recipe.component';
-import { FormsModule } from '@angular/forms';
+import { RecipeListComponent } from './components/recipelist/recipelist.component';
 import { AppRoutingModule } from './app-routing.module';
 import { IngredientsComponent } from './components/ingredients/ingredients.component';
 import { InventoryService } from './services/inventory.service';
+import { RecipeComponent } from './components/recipelist/recipe/recipe.component';
+import { LoginComponent } from './components/login/login.component';
+import { HeaderComponent } from './components/header/header.component';
+import { HomeComponent } from './components/home/home.component';
+import { RegisterComponent } from './components/login/register/register.component';
+import { NotfoundComponent } from './components/notfound/notfound.component';
+import { LoadingComponent } from './shared/loading/loading.component';
+import { UsernameComponent } from './components/login/username/username.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     InventoryComponent,
+    RecipeListComponent,
+    IngredientsComponent,
     RecipeComponent,
-    IngredientsComponent
+    LoginComponent,
+    HeaderComponent,
+    HomeComponent,
+    RegisterComponent,
+    NotfoundComponent,
+    LoadingComponent,
+    UsernameComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     NgbModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAuthModule,
+    AngularFirestoreModule,
+    FontAwesomeModule
   ],
-  providers: [ InventoryService ],
-  bootstrap: [ AppComponent ]
+  providers: [InventoryService, Title],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -10,10 +10,10 @@ describe('IngredientsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ NgbModule, FormsModule ],
-      declarations: [ IngredientsComponent ]
+      imports: [NgbModule, FormsModule],
+      declarations: [IngredientsComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -22,7 +22,5 @@ describe('IngredientsComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+
 });

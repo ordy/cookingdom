@@ -2,15 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { InventoryService } from '../../services/inventory.service';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 // type: 1=unit 2=mass 3=volume
-interface Ingredient { type: number; name: string; }
-interface Drop { type: number; value: number; name: string; }
-
+interface Ingredient { type: number; name: string }
+interface Drop { type: number; name: string; quantity: number }
 
 // type: 1=unit 2=mass 3=volume
 const ingredients: Ingredient[] = [
-  { type: 2, name: 'Salt'},
+  { type: 2, name: 'Salt' },
   { type: 2, name: 'Pepper' },
   { type: 1, name: 'Tomato' },
   { type: 1, name: 'Cucumber' },
@@ -31,7 +31,7 @@ const ingredients: Ingredient[] = [
   { type: 2, name: 'Potato' },
   { type: 2, name: 'Curry' },
   { type: 3, name: 'Water' },
-  { type: 3, name: 'Olive oil' }
+  { type: 3, name: 'Olive Oil' }
 ];
 
 @Component({
@@ -46,28 +46,39 @@ export class IngredientsComponent implements OnInit {
 
   formatter = (ingredient: Ingredient) => ingredient.name;
 
-  search = (text$: Observable<string>) =>
-  text$.pipe(
-    debounceTime(200),
-    distinctUntilChanged(),
-    map(term => term === '' ? [] : ingredients.filter(v => v.name.toLowerCase().indexOf(term.toLowerCase()) === 0).slice(0, 10))
-  )
-  constructor(private invService: InventoryService) {};
+  search = (text: Observable<string>) =>
+    text.pipe(
+      debounceTime(200),
+      distinctUntilChanged(),
+      map(term => term === '' ? [] : ingredients.filter(v => v.name.toLowerCase().indexOf(term.toLowerCase()) === 0).slice(0, 10))
+    )
 
-  ngOnInit(): void {
+  constructor(private invService: InventoryService, public db: AngularFirestore) { };
+
+  ngOnInit() { }
+
+  listNotEmpty(): boolean {
+    return this.newIngredients.length > 0;
+  }
+
+  ingredientType(): number {
+    return this.selectedIngr?.type;
   }
 
   newIngr() {
-    const food = { type : this.selectedIngr.type,
-                   name : this.selectedIngr.name,
-                   value : Math.abs(this.selectedIngrValue) };
+    const food = {
+      type: this.selectedIngr.type,
+      name: this.selectedIngr.name,
+      quantity: Math.abs(this.selectedIngrValue)
+    };
     const result = this.newIngredients.findIndex(({ name }) => name === food.name);
     if ((this.newIngredients.length !== 0) && result !== -1) {
-      this.newIngredients[result].value += food.value;
+      this.newIngredients[result].quantity += food.quantity;
     } else {
       this.newIngredients.push(food);
     }
   }
+
   addIngredients() {
     this.invService.addInventory(this.newIngredients);
     this.newIngredients = [];

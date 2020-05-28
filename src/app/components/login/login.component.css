@@ -1,0 +1,96 @@
+:host {
+  color: whitesmoke;
+}
+
+pre {
+  color: whitesmoke;
+}
+
+input {
+  color: #c2c2c2;
+  outline: none !important;
+  background-color: #1f2327;
+  border-color: #23272a;
+  border-radius: 0rem;
+}
+
+input:focus {
+  color: #c2c2c2;
+  outline: none !important;
+  box-shadow: 0px 3px var(--custom-blue);
+  background-color: var(--gray-800);
+  border-color: #23272a;
+  border-radius: 0rem;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  border-radius: 0rem;
+  -webkit-text-fill-color: #c2c2c2;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+input[type="checkbox"]+label::before {
+  border-radius: 0;
+  background-color: var(--gray-800);
+  border-color: var(--gray-900);
+}
+
+input[type="checkbox"]:checked+label::before {
+  border-radius: 0;
+  background-color: var(--custom-blue);
+  border-color: var(--custom-blue);
+}
+
+.googlelink {
+  background-color: var(--custom-red);
+  border-color: var(--custom-red);
+}
+
+.fblink {
+  background-color: var(--custom-blue);
+  border-color: var(--custom-blue);
+}
+
+.form-check>a {
+  vertical-align: top;
+  display: inline-block;
+  text-align: center;
+}
+
+a>fa-icon {
+  font-size: 2em;
+}
+
+span {
+  display: block;
+}
+
+.custom-control-input:focus~.custom-control-label::before {
+  box-shadow: 0px 0px 4px 1px rgba(0, 183, 255, 0.7) !important;
+}
+
+.container {
+  background-color: #191c21;
+  width: 25em;
+  border: 1px solid;
+  margin-top: 7em;
+  border-image-source: linear-gradient(0deg, #191c21, #000000);
+  border-image-slice: 1;
+}
+
+button {
+  border-radius: 0;
+}
+
+button:hover {
+  border-color: var(--gray-850);
+  box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.65);
+}
+
+hr {
+  margin-right: 2%;
+  margin-left: 2%;
+  border-top: 1px solid var(--gray-850);
+}

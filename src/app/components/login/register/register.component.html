@@ -1,0 +1,70 @@
+<div class="container" *ngIf="true">
+  <h4 class="text-left m-2">Sign Up</h4>
+  <div>
+    <form class="m-2 pt-4" [formGroup]="signupForm" (ngSubmit)="signUp()">
+      <div class="form-group row">
+        <label class="col-form-label col-sm-3" for="regUser">Username</label>
+        <div class="col-sm-9">
+          <ng-template #usertooltip>
+            Username:
+            <ul>
+              <li><b>3-20</b> characters long</li>
+              <li><b>Only</b> letters and numbers</li>
+            </ul>
+          </ng-template>
+          <input type="text" class="form-control" [ngbTooltip]="usertooltip" tooltipClass="formTooltip" triggers="manual" #u="ngbTooltip" id="regUser" formControlName="username" placeholder="Username" (input)="displayTooltip('user') ? u.open() : u.close()">
+          <label class="text-danger mb-0" *ngIf="signupForm.get('username').hasError('userExists')">
+            User name not available
+          </label>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-form-label col-sm-3" for="regEmail">Email</label>
+        <div class="col-sm-9">
+          <input type="email" class="form-control" id="regEmail" formControlName="email" placeholder="Email">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-form-label col-sm-3" for="regPass">Password</label>
+        <div class="col-sm-9">
+          <ng-template #passtooltip>
+            Password<br>must contain at least:
+            <ul>
+              <li><b>6</b> Characters</li>
+              <li><b>1</b> Uppercase letter</li>
+              <li><b>1</b> Number</li>
+              <li><b>1</b> Special character</li>
+            </ul>
+          </ng-template>
+          <input type="password" class="form-control" [ngbTooltip]="passtooltip" tooltipClass="formTooltip" triggers="manual" #p="ngbTooltip" id="regPass" formControlName="password" placeholder="Password" (input)="displayTooltip('pass') ? p.open() : p.close()">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-form-label col-sm-3" for="regPassConf">Confirmation</label>
+        <div class="col-sm-9">
+          <input type="password" class="form-control" id="regPassConf" formControlName="pwConfirm" placeholder="Confirmation">
+          <label class="text-danger" *ngIf="signupForm.hasError('notSame')">
+            Password does not match
+          </label>
+        </div>
+      </div>
+      <div class="text-center">
+        <button type="submit" class="btn btn-dark" [disabled]="!signupForm.valid">Create account</button>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="container p-3" *ngIf="true">
+  <form class="m-2 pt-4" [formGroup]="signupForm" (ngSubmit)="signUp()">
+    <div class="form-group row">
+      <label class="col-form-label col-sm-3" for="regName">Username</label>
+      <div class="col-sm-9">
+        <input type="text" class="form-control" id="regName" formControlName="username" placeholder="Username">
+        <label class="text-danger" *ngIf="signupForm.get('username').hasError('userExists')">
+          Username not available
+        </label>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-dark" [disabled]="!username.valid">Confirm</button>
+  </form>
+</div>
