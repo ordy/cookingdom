@@ -1,5 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RecipeListComponent } from './recipelist.component';
+import { NgbRadioGroup } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule } from '@angular/forms';
 
 describe('RecipeComponent', () => {
   let component: RecipeListComponent;
@@ -7,9 +9,10 @@ describe('RecipeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RecipeListComponent ]
+      imports: [FormsModule],
+      declarations: [RecipeListComponent, NgbRadioGroup],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
