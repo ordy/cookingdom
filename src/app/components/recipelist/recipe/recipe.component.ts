@@ -59,6 +59,6 @@ export class RecipeComponent implements OnChanges {
   }
 
   getImagePath() {
-    return '/assets/recipes/' + encodeURI(this.rcpName.name.replace(/\s+/g, '-').toLowerCase()).replace(/\'/g, '') + '.jpg';
+    return '/assets/recipes/' + encodeURI(this.rcpName?.name.replace(/\s+/g, '-').toLowerCase()).replace(/\'/g, '') + '.jpg';
   }
 }
