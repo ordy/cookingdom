@@ -1,17 +1,19 @@
-import { Injectable, IterableDiffers } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { User, auth } from 'firebase/app';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { map, take, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   user: User;
-  public usernameExist = new BehaviorSubject<boolean>(false);
+
+  // 0:No Value, 1:has username 2:no username
+  public usernameExist = new BehaviorSubject<number>(0);
+
   public lastUserName: string;
   public loading = new BehaviorSubject<boolean>(false);
   public loggedIn = new BehaviorSubject<boolean>(false);
@@ -19,15 +21,6 @@ export class AuthService {
   constructor(public fireAuth: AngularFireAuth, public db: AngularFirestore, private route: Router) {
     this.fireAuth.onAuthStateChanged(user => {
       if (user) {
-        console.log('AUTH STATE CALL');
-        // THIS IS TOO SLOW, NOT RESOLVED IN TIME
-        /* this.userDeclared().then(x => {
-          if (x) {
-            this.usernameExist.next(true);
-          }
-        }); */
-
-        this.usernameExist.next(true);
         this.loggedIn.next(true);
         this.fireAuth.authState.subscribe(res => {
           this.user = res;
@@ -40,7 +33,7 @@ export class AuthService {
     this.fireAuth.signOut();
     this.loggedIn.next(false);
     this.user = null;
-    this.usernameExist.next(false);
+    this.usernameExist.next(0);
     this.route.navigateByUrl('/login');
   }
 
@@ -53,7 +46,7 @@ export class AuthService {
     return this.fireAuth.signInWithEmailAndPassword(username, password)
       .then(() => {
         this.loggedIn.next(true);
-        this.usernameExist.next(true);
+        this.usernameExist.next(1);
         this.loading.next(false);
         this.route.navigateByUrl('/');
       }).catch((error) => {
@@ -75,7 +68,7 @@ export class AuthService {
         console.log('failed to add username');
       });
     });
-    this.usernameExist.next(true);
+    this.usernameExist.next(1);
     console.log('usernameExists: ', this.usernameExist.value);
   }
 
@@ -105,11 +98,10 @@ export class AuthService {
     }
     // checking if user has a username
     await this.userDeclared();
-    if (this.usernameExist.value)
+    if (this.usernameExist.value === 1)
       this.route.navigateByUrl('/');
-    else {
+    else
       this.route.navigateByUrl('/username');
-    }
     this.loading.next(false);
   }
 
@@ -132,10 +124,10 @@ export class AuthService {
       const usersRef = this.db.firestore.collection('users').doc(userID);
       return usersRef.get().then(user => {
         if (user.data().username != null) {
-          this.usernameExist.next(true);
+          this.usernameExist.next(1);
           return true;
         } else {
-          this.usernameExist.next(false);
+          this.usernameExist.next(2);
           return false;
         }
       });
