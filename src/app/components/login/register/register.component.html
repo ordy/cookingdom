@@ -54,17 +54,3 @@
     </form>
   </div>
 </div>
-<div class="container p-3" *ngIf="true">
-  <form class="m-2 pt-4" [formGroup]="signupForm" (ngSubmit)="signUp()">
-    <div class="form-group row">
-      <label class="col-form-label col-sm-3" for="regName">Username</label>
-      <div class="col-sm-9">
-        <input type="text" class="form-control" id="regName" formControlName="username" placeholder="Username">
-        <label class="text-danger" *ngIf="signupForm.get('username').hasError('userExists')">
-          Username not available
-        </label>
-      </div>
-    </div>
-    <button type="submit" class="btn btn-dark" [disabled]="!username.valid">Confirm</button>
-  </form>
-</div>
