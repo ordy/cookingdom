@@ -11,7 +11,7 @@ import { map, take, tap } from 'rxjs/operators';
 })
 export class AuthService {
   user: User;
-  public usernameExist: boolean;
+  public usernameExist = new BehaviorSubject<boolean>(false);
   public lastUserName: string;
   public loading = new BehaviorSubject<boolean>(false);
   public loggedIn = new BehaviorSubject<boolean>(false);
@@ -19,6 +19,15 @@ export class AuthService {
   constructor(public fireAuth: AngularFireAuth, public db: AngularFirestore, private route: Router) {
     this.fireAuth.onAuthStateChanged(user => {
       if (user) {
+        console.log('AUTH STATE CALL');
+        // THIS IS TOO SLOW, NOT RESOLVED IN TIME
+        /* this.userDeclared().then(x => {
+          if (x) {
+            this.usernameExist.next(true);
+          }
+        }); */
+
+        this.usernameExist.next(true);
         this.loggedIn.next(true);
         this.fireAuth.authState.subscribe(res => {
           this.user = res;
@@ -31,6 +40,7 @@ export class AuthService {
     this.fireAuth.signOut();
     this.loggedIn.next(false);
     this.user = null;
+    this.usernameExist.next(false);
     this.route.navigateByUrl('/login');
   }
 
@@ -43,28 +53,30 @@ export class AuthService {
     return this.fireAuth.signInWithEmailAndPassword(username, password)
       .then(() => {
         this.loggedIn.next(true);
+        this.usernameExist.next(true);
         this.loading.next(false);
-        this.route.navigateByUrl('');
+        this.route.navigateByUrl('/');
       }).catch((error) => {
         window.alert(error.message);
         this.loading.next(false);
       })
   }
 
-  signUp(username: string, email: string, password: string) {
-    // signup function
-    this.fireAuth.createUserWithEmailAndPassword(email, password);
-  }
-
-  testAddUser() {
-    const collection = this.db.collection('users')
-    const userID = '22222' // ID after created the user.
-    collection.doc(userID).set({
-      name: 'NewUserfromAngular', // some another information for user you could save it here.
-      uid: userID     // you could save the ID as field in document.
-    }).then(() => {
-      console.log('done')
-    })
+  signUp(uname: string, mail: string, password: string) {
+    this.fireAuth.createUserWithEmailAndPassword(mail, password).then((usr) => {
+      this.db.collection('users').doc(usr.user.uid).set({
+        email: mail,
+        username: uname
+      });
+      this.db.collection('usernames').doc((uname.toLowerCase())).set({
+        uid: usr.user.uid
+      }).catch(error => {
+        window.alert(error.message);
+        console.log('failed to add username');
+      });
+    });
+    this.usernameExist.next(true);
+    console.log('usernameExists: ', this.usernameExist.value);
   }
 
   async providerSignIn(providerName: string) {
@@ -92,8 +104,8 @@ export class AuthService {
       throw new Error(error);
     }
     // checking if user has a username
-    this.usernameExist = await this.userDeclared();
-    if (this.usernameExist)
+    await this.userDeclared();
+    if (this.usernameExist.value)
       this.route.navigateByUrl('/');
     else {
       this.route.navigateByUrl('/username');
@@ -109,12 +121,27 @@ export class AuthService {
     return this.loading.asObservable();
   }
 
+  get isExist() {
+    return this.usernameExist.asObservable();
+  }
+
   async userDeclared() {
-    const userID = auth().currentUser.uid;
-    const usersRef = this.db.firestore.collection('users').doc(userID);
-    return usersRef.get().then(user => {
-      return user.data().usernamse != null ? true : false;
-    });
+    if (this.loggedIn.value) {
+      console.log('Calling userDeclared()');
+      const userID = auth().currentUser.uid;
+      const usersRef = this.db.firestore.collection('users').doc(userID);
+      return usersRef.get().then(user => {
+        if (user.data().username != null) {
+          this.usernameExist.next(true);
+          return true;
+        } else {
+          this.usernameExist.next(false);
+          return false;
+        }
+      });
+    } else {
+      return this.loggedIn.value;
+    }
   }
 
   async usernameTaken(username: string) {
@@ -141,6 +168,6 @@ export class AuthService {
 
   async test() {
     const a = await this.test3();
-    console.log(a);
+    console.log(a, 'username');
   }
 }

@@ -1,0 +1,98 @@
+.container {
+  background-color: #191c21;
+  width: 70%;
+  min-width: 23em;
+  max-width: 35em;
+  border: 1px solid;
+  margin-top: 15%;
+  border-image-source: linear-gradient(0deg, #191c21, #000000);
+  border-image-slice: 1;
+}
+
+.ng-invalid:not(form) {
+  /* border-left: 5px solid var(--custom-red);*/
+  box-shadow: -3px 0px 0px 0px var(--custom-red);
+  /* red */
+}
+
+.ng-pristine:not(form) {
+  box-shadow: -3px 0px 0px 0px var(--custom-blue);
+}
+
+.ng-valid:not(form),
+.ng-valid[required],
+.ng-valid.required {
+  box-shadow: -3px 0px 0px 0px var(--custom-green);
+  /* green */
+}
+
+input {
+  color: #c2c2c2;
+  outline: none !important;
+  background-color: #1f2327;
+  border-color: #23272a;
+  border-radius: 0rem;
+}
+
+input:focus {
+  color: #c2c2c2;
+  outline: none !important;
+  background-color: var(--gray-800);
+  border-color: #23272a;
+  border-left: 1px;
+  border-radius: 0rem;
+}
+
+input:focus.ng-invalid {
+  box-shadow: 0px 3px var(--custom-red);
+}
+
+input:focus.ng-valid:not(form) {
+  box-shadow: 0px 3px var(--custom-green);
+}
+
+input:focus.ng-pending:not(form) {
+  box-shadow: 0px 3px var(--gray-700);
+}
+
+input:focus.ng-pristine:not(form) {
+  box-shadow: 0px 3px var(--custom-blue);
+}
+
+button {
+  border-radius: 0;
+  padding-right: 4em;
+  padding-left: 4em;
+}
+
+button:disabled {
+  color: var(--gray-700);
+  background-color: #232629;
+  border-color: var(--gray-850);
+}
+
+::ng-deep .formTooltip .tooltip-inner {
+  box-shadow: 0px 0px 10px 0px rgba(14, 5, 5, 0.5);
+  background-color: var(--custom-red);
+  text-align: left;
+}
+
+::ng-deep .formTooltip ul {
+  padding-left: 1.2em;
+}
+
+::ng-deep ngb-tooltip-window.bs-tooltip-top.formTooltip>.arrow::before {
+  border-top-color: var(--custom-red);
+}
+
+::ng-dep ngb-tooltip-window.bs-tooltip-bottom.formTooltip>.arrow::before {
+  border-bottom-color: var(--custom-red);
+}
+
+::ng-deep ngb-tooltip-window.bs-tooltip-left.formTooltip>.arrow::before {
+  border-left-color: var(--custom-red);
+}
+
+::ng-deep ngb-tooltip-window.bs-tooltip-right.formTooltip>.arrow::before {
+  border-right-color: var(--custom-red);
+}
