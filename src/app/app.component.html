@@ -1,6 +1,9 @@
 <app-header></app-header>
+<div class="text-center mt-5 pt-5" *ngIf="isLoading | async">
+  <app-loading></app-loading>
+</div>
 <div class="app-body">
-  <router-outlet></router-outlet>
+  <router-outlet *ngIf="!(isLoading | async)"></router-outlet>
 </div>
 <div id="app-footer">
   <div class="container">
