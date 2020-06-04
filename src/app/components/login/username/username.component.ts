@@ -47,11 +47,11 @@ export class UsernameComponent implements OnInit {
   }
 
   saveUsername() {
-    console.log('WIP - SAVE USERNAME', this.username.value);
+    this.authS.saveUsername(this.username.value);
   }
 
-  displayTooltip(pattern: string) {
+  validName() {
     const regX: RegExp = new RegExp(this.usrPattern);
-    return regX.test(this.username.value) ? false : true;
+    return regX.test(this.username.value) ? true : false;
   }
 }

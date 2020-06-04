@@ -11,7 +11,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 export class AuthService {
   user: User;
 
-  // 0:No Value, 1:has username 2:no username
+  // 0:unchecked, 1:has username 2:no username
   public usernameExist = new BehaviorSubject<number>(0);
 
   public lastUserName: string;
@@ -30,11 +30,13 @@ export class AuthService {
   }
 
   signOut() {
+    this.loading.next(true);
     this.fireAuth.signOut();
     this.loggedIn.next(false);
     this.user = null;
     this.usernameExist.next(0);
     this.route.navigateByUrl('/login');
+    this.loading.next(false);
   }
 
   async SignIn(username: string, password: string, keepLocal: boolean) {
@@ -56,20 +58,9 @@ export class AuthService {
   }
 
   signUp(uname: string, mail: string, password: string) {
-    this.fireAuth.createUserWithEmailAndPassword(mail, password).then((usr) => {
-      this.db.collection('users').doc(usr.user.uid).set({
-        email: mail,
-        username: uname
-      });
-      this.db.collection('usernames').doc((uname.toLowerCase())).set({
-        uid: usr.user.uid
-      }).catch(error => {
-        window.alert(error.message);
-        console.log('failed to add username');
-      });
+    this.fireAuth.createUserWithEmailAndPassword(mail, password).then(() => {
+      this.saveUsername(uname);
     });
-    this.usernameExist.next(1);
-    console.log('usernameExists: ', this.usernameExist.value);
   }
 
   async providerSignIn(providerName: string) {
@@ -119,11 +110,10 @@ export class AuthService {
 
   async userDeclared() {
     if (this.loggedIn.value) {
-      console.log('Calling userDeclared()');
       const userID = auth().currentUser.uid;
-      const usersRef = this.db.firestore.collection('users').doc(userID);
-      return usersRef.get().then(user => {
-        if (user.data().username != null) {
+      const userRef = this.db.firestore.collection('users').doc(userID);
+      return userRef.get().then(user => {
+        if (user.exists && user.data().username != null) {
           this.usernameExist.next(1);
           return true;
         } else {
@@ -142,24 +132,25 @@ export class AuthService {
       const usersRef = this.db.firestore.collection('usernames').doc(username);
       return usersRef.get().then(doc => {
         return !doc.exists ? true : false;
-      }).catch(err => {
-        console.log('Error getting document', err);
+      }).catch(error => {
+        window.alert(error.message);
       });
     }
   }
 
-  async test3() {
-    const userID = auth().currentUser.uid;
-    const usersRef = this.db.firestore.collection('users').doc(userID);
-    return usersRef.get().then(doc => {
-      let usr: string;
-      usr = doc.data().username;
-      return usr;
-    })
-  }
-
-  async test() {
-    const a = await this.test3();
-    console.log(a, 'username');
+  async saveUsername(uname: string) {
+    const userID: string = auth().currentUser.uid;
+    await this.db.collection('users').doc(userID).set({
+      username: uname
+    }).catch(error => {
+      window.alert(error.message);
+    });
+    await this.db.collection('usernames').doc((uname.toLowerCase())).set({
+      uid: userID
+    }).catch(error => {
+      window.alert(error.message);
+    });
+    this.usernameExist.next(1);
+    this.route.navigateByUrl('/');
   }
 }
