@@ -1,16 +1,18 @@
-<app-header></app-header>
-<div class="text-center mt-5 pt-5" *ngIf="isLoading | async">
-  <app-loading></app-loading>
-</div>
-<div class="app-body">
-  <router-outlet *ngIf="!(isLoading | async)"></router-outlet>
-</div>
-<div id="app-footer">
-  <div class="container">
-    <small class="text-muted">© {{ currentYear }} Copyright:</small>
-    <a href="https://github.com/ordy/cookingdom">
-      <fa-icon class="git-icon" [icon]="gitIcon"></fa-icon>
-      <small>ordy</small>
-    </a>
+<div class="app">
+  <app-header></app-header>
+  <div id="app-body">
+    <router-outlet *ngIf="!(isLoading | async); else loader"></router-outlet>
+    <ng-template #loader>
+      <app-loading></app-loading>
+    </ng-template>
+  </div>
+  <div id="app-footer">
+    <div>
+      <small class="text-muted">© {{ currentYear }} Copyright:</small>
+      <a href="https://github.com/ordy/cookingdom">
+        <fa-icon class="ml-1" id="git-icon" [icon]="gitIcon"></fa-icon>
+        <small>ordy</small>
+      </a>
+    </div>
   </div>
 </div>
