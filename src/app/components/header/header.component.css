@@ -1,28 +1,38 @@
-
-.navbar-nav, .navbar-toggler, .navbar {
+.navbar-nav,
+.navbar-toggler,
+.navbar {
   background-color: var(--gray-900);
   color: whitesmoke;
+}
+
+#navbar-logo {
+  width: 2.9em;
+  height: 2.9em;
+  margin-top: -0.3em;
+  margin-bottom: -0.2em;
 }
 
 .navbar {
   padding-left: 0;
   padding-top: 0;
   padding-bottom: 0;
-  box-shadow: 0px 3px 3px 0px rgba(0,0,0,0.4);
+  box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.4);
 }
+
 .navbar-toggler {
   border-color: #2e2f33;
 }
 
-.navbar-nav li a{
+.navbar-nav li a {
   color: whitesmoke;
 }
-.navbar-nav li a:hover{
+
+.navbar-nav li a:hover {
   color: var(--custom-blue);
 }
 
 .navbar-brand {
-  color: #f3962c;
+  color: var(--custom-blue);
   background-color: var(--gray-999);
   padding-left: 0.5rem;
   padding-top: 0.5rem;
@@ -33,17 +43,20 @@
 .ingr-icon {
   color: var(--custom-red);
 }
+
 .rcp-icon {
   color: var(--custom-green);
 }
+
 .inv-icon {
   color: var(--custom-blue);
 }
+
 .user-icon {
   color: var(--custom-orange);
 }
 
-.bg-icon-circle{
+.bg-icon-circle {
   background: var(--gray-999);
   color: white;
   border-radius: 50%;

@@ -1,17 +1,11 @@
-<div class="container mt-4 py-2">
+<div class="container mt-5 py-2">
   <h4 class="text-left m-2">Search Ingredients</h4>
   <div class="input-group my-3 shadow-sm">
     <div class="input-group-prepend">
       <span class="input-group-text">Ingredients</span>
     </div>
-    <input class="form-control dropdown" type="text" name="Ingredients Search" id="ingr-search" placeholder="Ingredients..."
-      [inputFormatter]="formatter"
-      [resultFormatter]="formatter"
-      [(ngModel)]="selectedIngr"
-      [ngbTypeahead]="search"
-      [editable]='false'/>
-    <input class="form-control" type="number" name="ingrquantity" min="1" max="999999999" id="quantityinput" placeholder="1"
-      [(ngModel)]="selectedIngrValue">
+    <input class="form-control dropdown" type="text" name="Ingredients Search" id="ingr-search" placeholder="Ingredients..." [inputFormatter]="formatter" [resultFormatter]="formatter" [(ngModel)]="selectedIngr" [ngbTypeahead]="search" [editable]='false' />
+    <input class="form-control" type="number" name="ingrquantity" min="1" max="999999999" id="quantityinput" placeholder="1" [(ngModel)]="selectedIngrValue">
     <div class="input-group-append justify-content-between">
       <div [ngSwitch]="ingredientType()">
         <span class="input-group-text" id="input-units" *ngSwitchCase="1" hidden></span>
@@ -27,11 +21,11 @@
   <div class="m-2">
     <table class="table table-hover">
       <thead>
-      <tr>
-        <th scope="col">Ingredient</th>
-        <th scope="col">Quantity</th>
-        <th scope="col">Unit</th>
-      </tr>
+        <tr>
+          <th scope="col">Ingredient</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Unit</th>
+        </tr>
       </thead>
       <tbody>
         <tr *ngFor="let ingredient of newIngredients">
