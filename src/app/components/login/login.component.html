@@ -6,11 +6,11 @@
   <form class="m-2 pt-4" #loginForm="ngForm" (ngSubmit)="signIn(loginForm)">
     <div class="form-group">
       <label for="logEmail">Email</label>
-      <input type="email" class="form-control" id="logEmail" ngModel name="email" required>
+      <input type="email" class="form-control" id="logEmail" ngModel name="email" autocomplete="on" required>
     </div>
     <div class="form-group">
       <label for="logPassword">Password</label>
-      <input type="password" class="form-control" id="logPassword" ngModel name="password" required minlength="6">
+      <input type="password" class="form-control" id="logPassword" ngModel name="password" autocomplete="on" required minlength="6">
     </div>
     <div class="d-flex">
       <div class="form-check col ml-1">
