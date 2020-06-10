@@ -9,7 +9,7 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  public title = 'CooKingdom';
+  public title = 'CookingDom';
   public ingrIcon = faCarrot;
   public rcpIcon = faMortarPestle;
   public invIcon = faBriefcase;

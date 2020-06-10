@@ -1,8 +1,7 @@
 <nav *ngIf="isLoggedIn | async; else altHeader" class="navbar navbar-expand-lg pr-2">
   <a routerLink="/" (click)="isMenuCollapsed = true">
-    <div class="navbar-brand p-0 mr-0">
+    <div class="navbar-brand pr-3 mr-0">
       <img class="pr-1 pl-1 " src="../assets/logo.svg" alt="crown-logo" id="navbar-logo">
-      <span class="pr-2">{{ title }}</span>
     </div>
   </a>
   <button class="navbar-toggler" type="button" (click)="isMenuCollapsed = !isMenuCollapsed">&#9776;</button>
@@ -17,14 +16,14 @@
       </li>
       <li class="nav-item" active>
         <a class="nav-link" routerLink="recipes" (click)="isMenuCollapsed = true">
-          <span class="bg-icon-circle">
+          <span class="bg-icon-circle" id="rcp-circle">
               <fa-icon class="rcp-icon" [icon]="rcpIcon"></fa-icon>
             </span>Recipes
         </a>
       </li>
       <li class="nav-item" active>
         <a class="nav-link" routerLink="inventory" (click)="isMenuCollapsed = true">
-          <span class="bg-icon-circle">
+          <span class="bg-icon-circle" id="inv-circle">
               <fa-icon class="inv-icon" [icon]="invIcon"></fa-icon>
             </span>Inventory
         </a>
@@ -42,10 +41,10 @@
   </div>
 </nav>
 <ng-template #altHeader>
-  <nav class="navbar navbar-expand-lg pr-2">
-    <div class="navbar-brand p-0 mr-0">
-      <img class="pr-1 pl-1" src="../assets/crown.svg" alt="crown-logo" id="navbar-logo">
-      <span class="pr-2">{{ title }}</span>
+  <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+      <img class="pr-1 pl-1" src="../assets/logo.svg" alt="crown-logo" id="navbar-logo">
+      <span class="mx-3">{{ title }}</span>
     </div>
     <button class="navbar-toggler" type="button" (click)="isMenuCollapsed = !isMenuCollapsed">&#9776;</button>
     <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse">
