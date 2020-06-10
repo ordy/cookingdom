@@ -10,7 +10,7 @@
             <li><b>Only</b> letters and numbers</li>
           </ul>
         </ng-template>
-        <input type="text" class="form-control" [ngbTooltip]="usertooltip" tooltipClass="formTooltip" triggers="manual" #u="ngbTooltip" id="regUser" formControlName="username" placeholder="Username" (input)="displayTooltip('user') ? u.open() : u.close()">
+        <input type="text" class="form-control" [ngbTooltip]="usertooltip" tooltipClass="formTooltip" triggers="manual" #u="ngbTooltip" id="regUser" formControlName="username" placeholder="Username" (input)="validName() ? u.close() : u.open()">
         <label class="text-danger" *ngIf="usernameForm.get('username').hasError('userExists')">
           Username not available
         </label>

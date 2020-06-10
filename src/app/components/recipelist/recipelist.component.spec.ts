@@ -4,24 +4,19 @@ import { NgbRadioGroup } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 
 describe('RecipeComponent', () => {
-  let component: RecipeListComponent;
-  let fixture: ComponentFixture<RecipeListComponent>;
+	let component: RecipeListComponent;
+	let fixture: ComponentFixture<RecipeListComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [FormsModule],
-      declarations: [RecipeListComponent, NgbRadioGroup],
-    })
-      .compileComponents();
-  }));
+	beforeEach(async(() => {
+		TestBed.configureTestingModule({
+			imports: [FormsModule],
+			declarations: [RecipeListComponent, NgbRadioGroup],
+		}).compileComponents();
+	}));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(RecipeListComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+	beforeEach(() => {
+		fixture = TestBed.createComponent(RecipeListComponent);
+		component = fixture.componentInstance;
+		fixture.detectChanges();
+	});
 });
