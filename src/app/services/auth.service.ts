@@ -6,7 +6,7 @@ import { BehaviorSubject } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   user: User;
@@ -18,7 +18,11 @@ export class AuthService {
   public loading = new BehaviorSubject<boolean>(false);
   public loggedIn = new BehaviorSubject<boolean>(false);
 
-  constructor(public fireAuth: AngularFireAuth, public db: AngularFirestore, private route: Router) {
+  constructor(
+    public fireAuth: AngularFireAuth,
+    public db: AngularFirestore,
+    private route: Router
+  ) {
     this.fireAuth.onAuthStateChanged(user => {
       if (user) {
         this.loggedIn.next(true);
@@ -26,7 +30,7 @@ export class AuthService {
           this.user = res;
         });
       }
-    })
+    });
   }
 
   signOut() {
@@ -45,16 +49,18 @@ export class AuthService {
     const logState = keepLocal ? 'local' : 'session';
     this.fireAuth.setPersistence(logState);
     // Auth and redirection to homepage
-    return this.fireAuth.signInWithEmailAndPassword(username, password)
+    return this.fireAuth
+      .signInWithEmailAndPassword(username, password)
       .then(() => {
         this.loggedIn.next(true);
         this.usernameExist.next(1);
         this.loading.next(false);
         this.route.navigateByUrl('/');
-      }).catch((error) => {
+      })
+      .catch(error => {
         window.alert(error.message);
         this.loading.next(false);
-      })
+      });
   }
 
   signUp(uname: string, mail: string, password: string) {
@@ -89,10 +95,8 @@ export class AuthService {
     }
     // checking if user has a username
     await this.userDeclared();
-    if (this.usernameExist.value === 1)
-      this.route.navigateByUrl('/');
-    else
-      this.route.navigateByUrl('/username');
+    if (this.usernameExist.value === 1) this.route.navigateByUrl('/');
+    else this.route.navigateByUrl('/username');
     this.loading.next(false);
   }
 
@@ -127,29 +131,40 @@ export class AuthService {
   }
 
   async usernameTaken(username: string) {
-    if ((username.length >= 3) && (username !== this.lastUserName)) {
+    if (username.length >= 3 && username !== this.lastUserName) {
       this.lastUserName = username;
       const usersRef = this.db.firestore.collection('usernames').doc(username);
-      return usersRef.get().then(doc => {
-        return !doc.exists ? true : false;
-      }).catch(error => {
-        window.alert(error.message);
-      });
+      return usersRef
+        .get()
+        .then(doc => {
+          return !doc.exists ? true : false;
+        })
+        .catch(error => {
+          window.alert(error.message);
+        });
     }
   }
 
   async saveUsername(uname: string) {
     const userID: string = auth().currentUser.uid;
-    await this.db.collection('users').doc(userID).set({
-      username: uname
-    }).catch(error => {
-      window.alert(error.message);
-    });
-    await this.db.collection('usernames').doc((uname.toLowerCase())).set({
-      uid: userID
-    }).catch(error => {
-      window.alert(error.message);
-    });
+    await this.db
+      .collection('users')
+      .doc(userID)
+      .set({
+        username: uname,
+      })
+      .catch(error => {
+        window.alert(error.message);
+      });
+    await this.db
+      .collection('usernames')
+      .doc(uname.toLowerCase())
+      .set({
+        uid: userID,
+      })
+      .catch(error => {
+        window.alert(error.message);
+      });
     this.usernameExist.next(1);
     this.route.navigateByUrl('/');
   }
