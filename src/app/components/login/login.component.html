@@ -6,16 +6,16 @@
   <form class="m-2 pt-4" #loginForm="ngForm" (ngSubmit)="signIn(loginForm)">
     <div class="form-group">
       <label for="logEmail">Email</label>
-      <input type="email" class="form-control" id="logEmail" ngModel name="email" autocomplete="on" required>
+      <input type="email" class="form-control" id="logEmail" ngModel name="email" autocomplete="on" required />
     </div>
     <div class="form-group">
       <label for="logPassword">Password</label>
-      <input type="password" class="form-control" id="logPassword" ngModel name="password" autocomplete="on" required minlength="6">
+      <input type="password" class="form-control" id="logPassword" ngModel name="password" autocomplete="on" required minlength="6" />
     </div>
     <div class="d-flex">
       <div class="form-check col ml-1">
         <div class="custom-checkbox">
-          <input type="checkbox" class="custom-control-input" [(ngModel)]="saveLogin" id="logCheckbox" name="logCheckbox">
+          <input type="checkbox" class="custom-control-input" [(ngModel)]="saveLogin" id="logCheckbox" name="logCheckbox" />
           <label class="custom-control-label" for="logCheckbox">Stay signed in</label>
         </div>
       </div>
@@ -23,12 +23,16 @@
         <a [routerLink]="['/register']" routerLinkActive="router-link-active">Forgot password?</a>
       </div>
     </div>
-    <br>
+    <br />
     <div class="d-flex">
-      <button type="submit" class="btn btn-dark mr-1 col" [disabled]="!loginForm.valid">Log In</button>
-      <button type="button" [routerLink]="['/register']" class="btn col ml-1 btn-dark">Create account</button>
+      <button type="submit" class="btn btn-dark mr-1 col" [disabled]="!loginForm.valid">
+        Log In
+      </button>
+      <button type="button" [routerLink]="['/register']" class="btn col ml-1 btn-dark">
+        Create account
+      </button>
     </div>
-    <hr>
+    <hr />
     <div class="providers mb-3">
       <button type="button" class="btn btn-dark googlelink btn-block" (click)="providerSignIn('google')">
         <fa-icon class="google-icon float-left" [icon]="googleIcon"></fa-icon>
