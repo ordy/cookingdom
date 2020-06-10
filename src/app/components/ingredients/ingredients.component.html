@@ -4,15 +4,17 @@
     <div class="input-group-prepend">
       <span class="input-group-text">Ingredients</span>
     </div>
-    <input class="form-control dropdown" type="text" name="Ingredients Search" id="ingr-search" placeholder="Ingredients..." [inputFormatter]="formatter" [resultFormatter]="formatter" [(ngModel)]="selectedIngr" [ngbTypeahead]="search" [editable]='false' />
-    <input class="form-control" type="number" name="ingrquantity" min="1" max="999999999" id="quantityinput" placeholder="1" [(ngModel)]="selectedIngrValue">
+    <input class="form-control dropdown" type="text" name="Ingredients Search" id="ingr-search" placeholder="Ingredients..." [inputFormatter]="formatter" [resultFormatter]="formatter" [(ngModel)]="selectedIngr" [ngbTypeahead]="search" [editable]="false" />
+    <input class="form-control" type="number" name="ingrquantity" min="1" max="9999" id="quantityinput" placeholder="1" [(ngModel)]="selectedIngrValue" />
     <div class="input-group-append justify-content-between">
       <div [ngSwitch]="ingredientType()">
         <span class="input-group-text" id="input-units" *ngSwitchCase="1" hidden></span>
         <span class="input-group-text" id="input-units" *ngSwitchCase="2">Kg</span>
         <span class="input-group-text" id="input-units" *ngSwitchCase="3">L</span>
       </div>
-      <button type="button" class="btn" (click)='newIngr()' [disabled]='!selectedIngr'>Add Item</button>
+      <button type="button" class="btn" (click)="newIngr()" [disabled]="!selectedIngr">
+        Add Item
+      </button>
     </div>
   </div>
 </div>
@@ -35,16 +37,12 @@
             <span *ngSwitchCase="1">Unit</span>
             <span *ngSwitchCase="2">Kg</span>
             <span *ngSwitchCase="3">L</span>
+          </td>
         </tr>
       </tbody>
     </table>
-    <button type="button" class="btn btn-dark" (click)='addIngredients()'>Add List</button>
+    <button type="button" class="btn btn-dark" (click)="addIngredients()">
+      Add List
+    </button>
   </div>
 </div>
-
-
-<!--
-<ul *ngFor="let ingre of ingres | async">
-  <li>{{ingre.name}}, {{ingre.quantity}}, {{ingre.type}}</li>
-</ul>
--->
