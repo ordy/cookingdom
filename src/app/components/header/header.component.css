@@ -32,7 +32,7 @@
 }
 
 .navbar-brand {
-  color: var(--custom-blue);
+  color: var(--gray-100);
   background-color: var(--gray-999);
   padding-left: 0.5rem;
   padding-top: 0.5rem;
@@ -42,34 +42,35 @@
 
 .ingr-icon {
   color: var(--custom-red);
+  padding-left: 0.2em;
 }
 
 .rcp-icon {
   color: var(--custom-green);
+  padding-left: 0.1em;
 }
 
 .inv-icon {
   color: var(--custom-blue);
+  padding-left: 0.1em;
 }
 
 .user-icon {
   color: var(--custom-orange);
+  padding-left: 0.15em;
 }
 
 .bg-icon-circle {
   background: var(--gray-999);
   color: white;
   border-radius: 50%;
-  padding-left: 0.38em;
-  padding-right: 0.2em;
-  padding-bottom: 0.3em;
-  padding-top: 0.2em;
+  padding: 0.2em;
   line-height: initial !important;
-  height: 1.6em;
+  height: 1.55em;
   width: 1.6em;
   display: inline-block;
   margin-right: 0.3em;
-  margin-left: 0.6em;
+  margin-left: 1em;
 }
 
 @media screen and (max-width: 992px) {

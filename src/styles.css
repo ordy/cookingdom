@@ -44,6 +44,6 @@ body {
 }
 
 .dropdown-item.active {
-  background-color: #191c21;
+  background-color: var(--custom-red);
   color: whitesmoke;
 }
