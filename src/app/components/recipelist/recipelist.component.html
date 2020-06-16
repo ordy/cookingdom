@@ -4,21 +4,21 @@
     <span class="box-left pr-2 h5">Find recipes having </span>
     <div class="box-center btn-group btn-group-toggle" ngbRadioGroup id="dropdown1" [(ngModel)]="offsetValue">
       <label ngbButtonLabel class="btn btn-outline-warning">
-          <input ngbButton type="radio" [value]="0">No
-        </label>
+        <input ngbButton type="radio" [value]="0">No
+      </label>
       <label ngbButtonLabel class="btn btn-outline-warning">
-          <input ngbButton type="radio" [value]="1">1
-        </label>
+        <input ngbButton type="radio" [value]="1">1
+      </label>
       <label ngbButtonLabel class="btn btn-outline-warning">
-          <input ngbButton type="radio" [value]="2">2
-        </label>
+        <input ngbButton type="radio" [value]="2">2
+      </label>
       <label ngbButtonLabel class="btn btn-outline-warning">
-          <input ngbButton type="radio" [value]="3">3
-        </label>
+        <input ngbButton type="radio" [value]="3">3
+      </label>
     </div>
     <span i18n class="box-right pl-2 h5">
-        {offsetValue, plural, =0 {missing ingredient} =1 {or no missing ingredient} other {or less missing ingredients}}
-      </span>
+      {offsetValue, plural, =0 {missing ingredient} =1 {or no missing ingredient} other {or less missing ingredients}}
+    </span>
   </div>
   <div class="text-center mb-3 pt-3">
     <button class="btn btn-outline-warning col-auto" type="submit" id="rcp-search-btn" (click)='searchRecipes()'>Search</button>

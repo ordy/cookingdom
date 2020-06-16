@@ -14,7 +14,7 @@ interface Recipe {
 	name: string;
 	duration: number;
 	difficulty: string;
-	ingredientsList: Ingredient[];
+	ingredients: Ingredient[];
 	instructions: string[];
 }
 
@@ -31,7 +31,7 @@ export class RecipeComponent implements OnChanges {
 
 	ngOnChanges() {
 		let formatedIngr: DisplayIngr;
-		this.rcpName.ingredientsList.forEach(ingr => {
+		this.rcpName.ingredients.forEach(ingr => {
 			formatedIngr = { type: '', name: '', quantity: '' };
 			switch (ingr.type) {
 				case 1: {
