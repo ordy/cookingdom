@@ -98,6 +98,7 @@ export class RecipeListComponent implements OnInit {
 		this.test = 'OK';
 	}
 
+	// Checking if we cached the latest list version
 	oldVersion(): boolean {
 		const verJSON = localStorage.getItem('version');
 		return verJSON || JSON.parse(verJSON) === this.listVersion ? false : true;
