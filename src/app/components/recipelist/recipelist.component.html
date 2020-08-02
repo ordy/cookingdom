@@ -3,16 +3,16 @@
   <div class="search-container pb-2">
     <span class="box-left pr-2 h5">Find recipes having </span>
     <div class="box-center btn-group btn-group-toggle" ngbRadioGroup id="dropdown1" [(ngModel)]="offsetValue">
-      <label ngbButtonLabel class="btn btn-outline-warning">
+      <label ngbButtonLabel class="btn btn-outline-success">
         <input ngbButton type="radio" [value]="0">No
       </label>
-      <label ngbButtonLabel class="btn btn-outline-warning">
+      <label ngbButtonLabel class="btn btn-outline-success">
         <input ngbButton type="radio" [value]="1">1
       </label>
-      <label ngbButtonLabel class="btn btn-outline-warning">
+      <label ngbButtonLabel class="btn btn-outline-success">
         <input ngbButton type="radio" [value]="2">2
       </label>
-      <label ngbButtonLabel class="btn btn-outline-warning">
+      <label ngbButtonLabel class="btn btn-outline-success">
         <input ngbButton type="radio" [value]="3">3
       </label>
     </div>
@@ -21,22 +21,24 @@
     </span>
   </div>
   <div class="text-center mb-3 pt-3">
-    <button class="btn btn-outline-warning col-auto" type="submit" id="rcp-search-btn" (click)='searchRecipes()'>Search</button>
+    <button class="btn btn-outline-success col-auto" type="submit" id="rcp-search-btn" (click)='searchRecipes()'>Search</button>
   </div>
 </div>
-<div *ngIf="displayList" class="container py-2 mt-4">
+<div *ngIf="displayList" class="container py-2 my-4">
   <div class="d-flex align-items-center justify-content-between">
     <h4 class="text-left m-2" id="drops-title">List</h4>
-    <button *ngIf="showListToggle" class="btn btn-outline-warning" type="button" (click)="toggleList()">Show List</button>
+    <button *ngIf="showListToggle" class="btn btn-outline-success" type="button" (click)="toggleList()">Show List</button>
   </div>
-  <div class="m-2" *ngIf="!showListToggle">
-    <tr *ngFor="let recipe of recipeList">
-      <td>{{recipe}}</td>
-      <td class="btn btn-outline-warning" (click)="showRecipe(recipe)">Display</td>
-    </tr>
+  <div class="m-2 " *ngIf="!showListToggle">
+    <div class="list-group">
+      <a style="cursor:pointer;" *ngFor="let recipe of recipeList | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize" (click)="showRecipe(recipe)" class="list-group-item list-group-item-action">{{recipe}}</a>
+    </div>
+    <div class="col-12 mt-4 justify-content-center">
+      <ngb-pagination class="d-flex justify-content-center" *ngIf="recipeList.length > 15" [collectionSize]="recipeList.length" [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"></ngb-pagination>
+    </div>
   </div>
 </div>
-<div *ngIf="displayRec" class="container pt-2 my-4">
+<div *ngIf="displayRec" class="container py-2 my-4">
   <h4 class="text-left m-2" id="drops-title">Recipe</h4>
   <app-recipe [rcpName]="recipeParent"></app-recipe>
 </div>

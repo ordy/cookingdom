@@ -17,6 +17,9 @@ export class InventoryComponent {
 	@Input() dropInput: number;
 	@Input() noConfirm: boolean;
 
+	public page = 1;
+	public pageSize = 15;
+
 	public dropName: string;
 	public editMode = false;
 	public myIngredients: Drop[] = [];
