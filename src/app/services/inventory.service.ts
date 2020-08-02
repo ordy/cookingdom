@@ -12,16 +12,6 @@ interface Drop {
 	providedIn: 'root',
 })
 export class InventoryService {
-	/* public myInventory: Drop[] = [
-		{ type: 1, name: 'Banana', quantity: 9999 },
-		{ type: 2, name: 'Sardines', quantity: 9999 },
-		{ type: 1, name: 'Crab', quantity: 9999 },
-		{ type: 2, name: 'Salt', quantity: 9999 },
-		{ type: 2, name: 'Pepper', quantity: 9999 },
-		{ type: 2, name: 'Curry', quantity: 9999 },
-		{ type: 2, name: 'Macaroni', quantity: 9999 },
-		{ type: 2, name: 'Chicken', quantity: 9999 },
-	]; */
 	public myInventory: Drop[] = [];
 	public invRef: AngularFirestoreCollection;
 
@@ -41,8 +31,15 @@ export class InventoryService {
 				this.updateInventory(drop);
 			} else {
 				this.myInventory.push(drop);
+				// WIP - write on serverside collection
+				this.invRef.doc(drop.name.toLowerCase()).set({
+					name: drop.name,
+					quantity: drop.quantity,
+					type: drop.type,
+				});
 			}
 		}
+		this.localUpdate();
 	}
 
 	async fetchIngredients() {
@@ -72,15 +69,14 @@ export class InventoryService {
 
 	updateInventory(drop: Drop) {
 		this.myInventory[this.myInventory.findIndex(({ name }) => name === drop.name)].quantity += drop.quantity;
-		this.invRef.doc(drop.name).update({
+		this.invRef.doc(drop.name.toLowerCase()).update({
 			quantity: this.myInventory[this.myInventory.findIndex(({ name }) => name === drop.name)].quantity,
 		});
-		this.localUpdate();
 	}
 
 	editQuantity(dropName: string, quantity: number) {
 		this.myInventory[this.myInventory.findIndex(({ name }) => name === dropName)].quantity = quantity;
-		this.invRef.doc(dropName).update({
+		this.invRef.doc(dropName.toLowerCase()).update({
 			quantity: this.myInventory[this.myInventory.findIndex(({ name }) => name === dropName)].quantity,
 		});
 		this.localUpdate();
@@ -95,7 +91,7 @@ export class InventoryService {
 	}
 
 	dropExists(dropName: string) {
-		return this.myInventory.findIndex(({ name }) => name === dropName) !== -1;
+		return this.myInventory.findIndex(({ name }) => name.toLowerCase() === dropName) !== -1;
 	}
 
 	dropType(dropName: string) {

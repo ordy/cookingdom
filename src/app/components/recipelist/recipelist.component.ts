@@ -4,12 +4,12 @@ import { AngularFireDatabase } from '@angular/fire/database';
 import * as firebase from 'firebase/app';
 
 interface Ingredient {
-	type: number;
 	name: string;
 	quantity: number;
+	type: number;
 }
 interface Recipe {
-	name: string;
+	rcpname: string;
 	duration: number;
 	difficulty: string;
 	ingredients: Ingredient[];
@@ -23,15 +23,16 @@ interface Recipe {
 })
 export class RecipeListComponent implements OnInit {
 	public offsetValue = 0;
-	public recipeList: string[];
 	public displayList: boolean;
 	public displayRec: boolean;
 	public showListToggle: boolean;
 	public recipeParent: Recipe;
-	private rcplist: Recipe[];
-	private listVersion: number;
+	public listVersion: number;
+	public rcplist: Recipe[]; // available recipes
+	public recipeList: string[]; // search result names
 
-	public test: string;
+	public page = 1;
+	public pageSize = 15;
 
 	constructor(private invService: InventoryService, private rdb: AngularFireDatabase) {}
 
@@ -47,15 +48,16 @@ export class RecipeListComponent implements OnInit {
 		this.rcplist.forEach(recipe => {
 			const avaibleRcp = recipe.ingredients.filter(ingr => this.ingrCheck(ingr.name, ingr.quantity));
 			// make recipe avaible if enough ingredients
-			if (avaibleRcp.length >= recipe.ingredients.length - this.offsetValue) this.recipeList.push(recipe.name);
+			if (avaibleRcp.length >= recipe.ingredients.length - this.offsetValue) this.recipeList.push(recipe.rcpname);
 		});
 		this.displayList = true;
 		this.displayRec = false;
 		this.showListToggle = false;
 	}
 
+	// TO-DO: work on the US-IS units conversion to check the quantity
 	ingrCheck(name: string, quantity: number) {
-		return this.invService.dropExists(name) && this.invService.dropQuantity(name) >= quantity;
+		return this.invService.dropExists(name); // && this.invService.dropQuantity(name) >= quantity;
 	}
 
 	toggleList() {
@@ -65,7 +67,7 @@ export class RecipeListComponent implements OnInit {
 
 	showRecipe(listElem: string) {
 		this.toggleList();
-		this.recipeParent = this.rcplist.find(recipe => recipe.name === listElem);
+		this.recipeParent = this.rcplist.find(recipe => recipe.rcpname === listElem);
 	}
 
 	async saveLocale() {
@@ -95,10 +97,10 @@ export class RecipeListComponent implements OnInit {
 	}
 
 	testfucntion() {
-		this.test = 'OK';
+		console.log('length of rcpList:', this.rcplist.length);
 	}
 
-	// Checking if we cached the latest list version
+	// Checking if we cached the latest recipes from the db
 	oldVersion(): boolean {
 		const verJSON = localStorage.getItem('version');
 		return verJSON || JSON.parse(verJSON) === this.listVersion ? false : true;
