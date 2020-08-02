@@ -2,47 +2,54 @@ import { Component, Input } from '@angular/core';
 import { InventoryService } from 'src/app/services/inventory.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-interface Drop { type: number; name: string; quantity: number }
+interface Drop {
+	type: number;
+	name: string;
+	quantity: number;
+}
 
 @Component({
-  selector: 'app-inventory',
-  templateUrl: './inventory.component.html',
-  styleUrls: ['./inventory.component.css']
+	selector: 'app-inventory',
+	templateUrl: './inventory.component.html',
+	styleUrls: ['./inventory.component.css'],
 })
 export class InventoryComponent {
-  @Input() dropInput: number;
-  @Input() noConfirm: boolean;
+	@Input() dropInput: number;
+	@Input() noConfirm: boolean;
 
-  public dropName: string;
-  public editMode = false;
-  public myIngredients: Drop[] = [];
+	public page = 1;
+	public pageSize = 15;
 
-  constructor(private invService: InventoryService, private modalService: NgbModal) {
-    this.myIngredients = this.invService.myInventory;
-  };
+	public dropName: string;
+	public editMode = false;
+	public myIngredients: Drop[] = [];
 
-  deleteDrop(content: any, ingr: string){
-    this.dropName = ingr;
-    if(this.noConfirm)
-      this.invService.removeDrop(ingr);
-    else{
-      this.modalService.open(content, { size: 'sm' }).result.then(
-        res=>{
-          this.invService.removeDrop(ingr);
-        },dismiss=>{}
-      );
-    }
-  }
+	constructor(private invService: InventoryService, private modalService: NgbModal) {
+		this.myIngredients = this.invService.myInventory;
+	}
 
-  editDrop(content: any, ingr: string) {
-    this.dropName = ingr;
-    this.dropInput = this.invService.dropQuantity(ingr);
-    this.modalService.open(content, { size: 'sm' }).result.then(
-      res=>{
-        if (res > 9999)
-          res = 9999;
-        this.invService.editQuantity(ingr, res);
-      },dismiss=>{}
-    );
-  }
+	deleteDrop(content: any, ingr: string) {
+		this.dropName = ingr;
+		if (this.noConfirm) this.invService.removeDrop(ingr);
+		else {
+			this.modalService.open(content, { size: 'sm' }).result.then(
+				res => {
+					this.invService.removeDrop(ingr);
+				},
+				dismiss => {}
+			);
+		}
+	}
+
+	editDrop(content: any, ingr: string) {
+		this.dropName = ingr;
+		this.dropInput = this.invService.dropQuantity(ingr);
+		this.modalService.open(content, { size: 'sm' }).result.then(
+			res => {
+				if (res > 9999) res = 9999;
+				this.invService.editQuantity(ingr, res);
+			},
+			dismiss => {}
+		);
+	}
 }

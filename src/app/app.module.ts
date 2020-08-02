@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { environment } from 'src/environments/environment';
+import { environment } from '../environments/environment';
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -25,32 +25,32 @@ import { LoadingComponent } from './shared/loading/loading.component';
 import { UsernameComponent } from './components/login/username/username.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    InventoryComponent,
-    RecipeListComponent,
-    IngredientsComponent,
-    RecipeComponent,
-    LoginComponent,
-    HeaderComponent,
-    HomeComponent,
-    RegisterComponent,
-    NotfoundComponent,
-    LoadingComponent,
-    UsernameComponent
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    ReactiveFormsModule,
-    NgbModule,
-    AppRoutingModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireAuthModule,
-    AngularFirestoreModule,
-    FontAwesomeModule
-  ],
-  providers: [InventoryService, Title],
-  bootstrap: [AppComponent]
+	declarations: [
+		AppComponent,
+		InventoryComponent,
+		RecipeListComponent,
+		IngredientsComponent,
+		RecipeComponent,
+		LoginComponent,
+		HeaderComponent,
+		HomeComponent,
+		RegisterComponent,
+		NotfoundComponent,
+		LoadingComponent,
+		UsernameComponent,
+	],
+	imports: [
+		BrowserModule,
+		FormsModule,
+		ReactiveFormsModule,
+		NgbModule,
+		AppRoutingModule,
+		AngularFireModule.initializeApp(environment.firebaseConfig),
+		AngularFireAuthModule,
+		AngularFirestoreModule,
+		FontAwesomeModule,
+	],
+	providers: [InventoryService, Title],
+	bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

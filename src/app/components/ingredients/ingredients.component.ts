@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { InventoryService } from '../../services/inventory.service';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { AuthService } from 'src/app/services/auth.service';
 
 // type: 1=unit 2=mass 3=volume
 interface Ingredient {
@@ -25,7 +26,7 @@ export class IngredientsComponent implements OnInit {
 	public selectedIngrValue = 1;
 	public newIngredients: Drop[] = [];
 
-	constructor(private invS: InventoryService, public db: AngularFirestore) {}
+	constructor(private invS: InventoryService, public db: AngularFirestore, private authS: AuthService) {}
 
 	ngOnInit() {}
 

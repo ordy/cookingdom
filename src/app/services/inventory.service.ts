@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AuthService } from './auth.service';
 
 interface Drop {
 	type: number;
@@ -11,20 +12,18 @@ interface Drop {
 	providedIn: 'root',
 })
 export class InventoryService {
-	public unitSystem = 'INT';
-	public unitName: string[] = ['', 'Kg', 'L'];
-	public myInventory: Drop[] = [
-		{ type: 1, name: 'Banana', quantity: 9999 },
-		{ type: 2, name: 'Sardines', quantity: 9999 },
-		{ type: 1, name: 'Crab', quantity: 9999 },
-		{ type: 2, name: 'Salt', quantity: 9999 },
-		{ type: 2, name: 'Pepper', quantity: 9999 },
-		{ type: 2, name: 'Curry', quantity: 9999 },
-		{ type: 2, name: 'Macaroni', quantity: 9999 },
-		{ type: 2, name: 'Chicken', quantity: 9999 },
-	];
+	public myInventory: Drop[] = [];
+	public invRef: AngularFirestoreCollection;
 
-	constructor(public db: AngularFirestore) {}
+	constructor(public db: AngularFirestore, public authS: AuthService) {
+		const invJSON = localStorage.getItem('inventory');
+		this.invRef = this.db.collection('users').doc(this.authS.currentUID).collection('ingredients');
+		if (invJSON !== null) {
+			this.myInventory = JSON.parse(invJSON);
+		} else {
+			this.fetchIngredients();
+		}
+	}
 
 	addInventory(dropList: Drop[]) {
 		for (const drop of dropList) {
@@ -32,7 +31,26 @@ export class InventoryService {
 				this.updateInventory(drop);
 			} else {
 				this.myInventory.push(drop);
+				// WIP - write on serverside collection
+				this.invRef.doc(drop.name.toLowerCase()).set({
+					name: drop.name,
+					quantity: drop.quantity,
+					type: drop.type,
+				});
 			}
+		}
+		this.localUpdate();
+	}
+
+	async fetchIngredients() {
+		if (this.myInventory.length === 0) {
+			await this.invRef.get().forEach(el => {
+				el.forEach(x => {
+					const newIngr: Drop = { type: x.get('type'), name: x.get('name'), quantity: x.get('quantity') };
+					this.myInventory.push(newIngr);
+				});
+			});
+			this.localUpdate();
 		}
 	}
 
@@ -51,10 +69,17 @@ export class InventoryService {
 
 	updateInventory(drop: Drop) {
 		this.myInventory[this.myInventory.findIndex(({ name }) => name === drop.name)].quantity += drop.quantity;
+		this.invRef.doc(drop.name.toLowerCase()).update({
+			quantity: this.myInventory[this.myInventory.findIndex(({ name }) => name === drop.name)].quantity,
+		});
 	}
 
 	editQuantity(dropName: string, quantity: number) {
 		this.myInventory[this.myInventory.findIndex(({ name }) => name === dropName)].quantity = quantity;
+		this.invRef.doc(dropName.toLowerCase()).update({
+			quantity: this.myInventory[this.myInventory.findIndex(({ name }) => name === dropName)].quantity,
+		});
+		this.localUpdate();
 	}
 
 	removeDrop(dropName: string) {
@@ -62,10 +87,11 @@ export class InventoryService {
 			this.myInventory.findIndex(({ name }) => name === dropName),
 			1
 		);
+		this.localUpdate();
 	}
 
 	dropExists(dropName: string) {
-		return this.myInventory.findIndex(({ name }) => name === dropName) !== -1;
+		return this.myInventory.findIndex(({ name }) => name.toLowerCase() === dropName) !== -1;
 	}
 
 	dropType(dropName: string) {
@@ -74,5 +100,9 @@ export class InventoryService {
 
 	dropQuantity(dropName: string) {
 		return this.myInventory.find(({ name }) => name === dropName).quantity;
+	}
+
+	localUpdate() {
+		localStorage.setItem('inventory', JSON.stringify(this.myInventory));
 	}
 }

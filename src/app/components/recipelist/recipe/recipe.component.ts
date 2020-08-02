@@ -11,10 +11,10 @@ interface DisplayIngr {
 	quantity: string;
 }
 interface Recipe {
-	name: string;
+	rcpname: string;
 	duration: number;
 	difficulty: string;
-	ingredientsList: Ingredient[];
+	ingredients: Ingredient[];
 	instructions: string[];
 }
 
@@ -31,7 +31,7 @@ export class RecipeComponent implements OnChanges {
 
 	ngOnChanges() {
 		let formatedIngr: DisplayIngr;
-		this.rcpName.ingredientsList.forEach(ingr => {
+		this.rcpName.ingredients.forEach(ingr => {
 			formatedIngr = { type: '', name: '', quantity: '' };
 			switch (ingr.type) {
 				case 1: {
@@ -65,6 +65,66 @@ export class RecipeComponent implements OnChanges {
 					}
 					break;
 				}
+				case 4: {
+					// Tablespoon
+					formatedIngr.type = 'tbps';
+					formatedIngr.quantity = ingr.quantity.toString();
+					break;
+				}
+				case 5: {
+					// Teaspoon
+					formatedIngr.type = 'tsp';
+					formatedIngr.quantity = ingr.quantity.toString();
+					break;
+				}
+				case 6: {
+					// Cups
+					formatedIngr.type = 'cup';
+					formatedIngr.quantity = ingr.quantity.toString();
+					break;
+				}
+				case 7: {
+					// Pack
+					formatedIngr.type = 'pack';
+					formatedIngr.quantity = ingr.quantity.toString();
+					break;
+				}
+				case 8: {
+					// Ounce
+					formatedIngr.type = 'oz';
+					formatedIngr.quantity = ingr.quantity.toString();
+					break;
+				}
+				case 9: {
+					// Pound
+					formatedIngr.type = 'lb';
+					formatedIngr.quantity = ingr.quantity.toString();
+					break;
+				}
+				case 10: {
+					// Gallon
+					formatedIngr.type = 'gal';
+					formatedIngr.quantity = ingr.quantity.toString();
+					break;
+				}
+				case 11: {
+					// Pinch
+					formatedIngr.type = 'pn';
+					formatedIngr.quantity = ingr.quantity.toString();
+					break;
+				}
+				case 12: {
+					// Drop
+					formatedIngr.type = 'dr';
+					formatedIngr.quantity = ingr.quantity.toString();
+					break;
+				}
+				case 13: {
+					// Square
+					formatedIngr.type = 'sqr';
+					formatedIngr.quantity = ingr.quantity.toString();
+					break;
+				}
 			}
 			formatedIngr.name = ingr.name;
 			this.displayRecipe.push(formatedIngr);
@@ -72,8 +132,11 @@ export class RecipeComponent implements OnChanges {
 	}
 
 	getImagePath() {
-		return (
-			'/assets/recipes/' + encodeURI(this.rcpName?.name.replace(/\s+/g, '-').toLowerCase()).replace(/\'/g, '') + '.jpg'
-		);
+		/* return (
+			'/assets/recipes/' +
+			encodeURI(this.rcpName?.rcpname.replace(/\s+/g, '-').toLowerCase()).replace(/\'/g, '') +
+			'.jpg'
+    ); */
+		return 'http://lorempixel.com/300/300/food/';
 	}
 }

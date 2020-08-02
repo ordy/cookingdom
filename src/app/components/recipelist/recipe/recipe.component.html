@@ -1,10 +1,10 @@
 <div class="m-2">
-  <h5 class="py-3">{{rcpName?.name}}</h5>
+  <h5 class="py-3">{{rcpName?.rcpname}}</h5>
   <p class="mb-1">Duration: {{rcpName?.duration}} Minutes</p>
   <p>Difficulty: {{rcpName?.difficulty}}-Rank</p>
   <div class="row pb-4" id="flexb">
     <div class="col mb-3" id="flex1">
-      <img [src]="getImagePath()" alt="{{rcpName?.name}} image" class="img-thumbnail rounded" alt="recipe image">
+      <img [src]="getImagePath()" alt="{{rcpName?.rcpname}} image" class="img-thumbnail rounded" alt="recipe image">
     </div>
     <div class="col mb-3" id="flex2">
       <h5 class="pb-3">Ingredients</h5>
