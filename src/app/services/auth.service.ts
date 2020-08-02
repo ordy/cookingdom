@@ -11,6 +11,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 export class AuthService {
 	public user: User;
 
+	// Flags to check if user has a username
 	// 0:unchecked, 1:has username 2:no username
 	public usernameExist = new BehaviorSubject<number>(0);
 
