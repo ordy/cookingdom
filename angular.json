@@ -17,6 +17,7 @@
 						"allowedCommonJsDependencies": [
 							"@firebase/app",
 							"firebase/app",
+							"@firebase/auth",
 							"@firebase/database",
 							"@firebase/firestore",
 							"@firebase/util",
