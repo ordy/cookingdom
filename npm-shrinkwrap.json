@@ -1,6 +1,6 @@
 {
 	"name": "cookingdom",
-	"version": "0.0.0",
+	"version": "1.0.0",
 	"lockfileVersion": 1,
 	"requires": true,
 	"dependencies": {
@@ -1753,14 +1753,6 @@
 				"tslib": "^1.11.1"
 			},
 			"dependencies": {
-				"faye-websocket": {
-					"version": "0.11.3",
-					"resolved": "https://registry.npmjs.org/faye-websocket/-/faye-websocket-0.11.3.tgz",
-					"integrity": "sha512-D2y4bovYpzziGgbHYtGCMjlJM36vAl/y+xUyn1C+FVx8szd1E+86KwVw6XvYSzOP8iMpm1X0I4xJD+QtUb36OA==",
-					"requires": {
-						"websocket-driver": ">=0.5.1"
-					}
-				},
 				"tslib": {
 					"version": "1.14.1",
 					"resolved": "https://registry.npmjs.org/tslib/-/tslib-1.14.1.tgz",
@@ -1993,18 +1985,11 @@
 			"integrity": "sha512-8cUA/mg0S+BxIZ72TdZRsXKBP5n5uRcE3k29TZhZw6oIiHBt9JA7CTb/4pE1uKtE/q5NeTY2tBDcagoZ+1zjXQ=="
 		},
 		"@fortawesome/angular-fontawesome": {
-			"version": "0.7.0",
-			"resolved": "https://registry.npmjs.org/@fortawesome/angular-fontawesome/-/angular-fontawesome-0.7.0.tgz",
-			"integrity": "sha512-U+eHYbKuVYrrm9SnIfl+z+6KTiI4Pu+S2OKh34JIi7C1jHhDcrVeDZISP/cpswHY7LWWDOPYeKE+yuWFlL4aVw==",
+			"version": "0.8.1",
+			"resolved": "https://registry.npmjs.org/@fortawesome/angular-fontawesome/-/angular-fontawesome-0.8.1.tgz",
+			"integrity": "sha512-dNmtFb/LTYWLNRfkKgCFwxgtQslNZLwUC+u7lkVAcIcjirIG6J9Ff0evl+9zR4DXFAkP0PN4RKe14NVDP3rUWA==",
 			"requires": {
-				"tslib": "^2.0.0"
-			},
-			"dependencies": {
-				"tslib": {
-					"version": "2.0.0",
-					"resolved": "https://registry.npmjs.org/tslib/-/tslib-2.0.0.tgz",
-					"integrity": "sha512-lTqkx847PI7xEDYJntxZH89L2/aXInsyF2luSafe/+0fHOMjlBNXdH6th7f70qxLDhul7KZK0zC8V5ZIyHl0/g=="
-				}
+				"tslib": "^2.0.3"
 			}
 		},
 		"@fortawesome/fontawesome-common-types": {
@@ -2082,18 +2067,11 @@
 			}
 		},
 		"@ng-bootstrap/ng-bootstrap": {
-			"version": "7.0.0",
-			"resolved": "https://registry.npmjs.org/@ng-bootstrap/ng-bootstrap/-/ng-bootstrap-7.0.0.tgz",
-			"integrity": "sha512-SxUaptGWJmCxM0d2Zy1mx7K7p/YBwGZ69NmmBQVY4BE6p5av0hWrVmv9rzzfBz0rhxU7RPZLor2Jpaoq8Xyl4w==",
+			"version": "9.0.2",
+			"resolved": "https://registry.npmjs.org/@ng-bootstrap/ng-bootstrap/-/ng-bootstrap-9.0.2.tgz",
+			"integrity": "sha512-MFtpBFKOtLZWFE8JnJWOnYLxXK3GVmVP16vhJsikdxiDVl7CtrnO+YmCYqK30WdS5eIvYKRBJF/hwOH8WvwYFQ==",
 			"requires": {
 				"tslib": "^2.0.0"
-			},
-			"dependencies": {
-				"tslib": {
-					"version": "2.0.0",
-					"resolved": "https://registry.npmjs.org/tslib/-/tslib-2.0.0.tgz",
-					"integrity": "sha512-lTqkx847PI7xEDYJntxZH89L2/aXInsyF2luSafe/+0fHOMjlBNXdH6th7f70qxLDhul7KZK0zC8V5ZIyHl0/g=="
-				}
 			}
 		},
 		"@ngtools/webpack": {
@@ -2687,7 +2665,6 @@
 			"version": "6.0.2",
 			"resolved": "https://registry.npmjs.org/agent-base/-/agent-base-6.0.2.tgz",
 			"integrity": "sha512-RZNwNclF7+MS/8bDg70amg32dyeZGZxiDuQmZxKLAlQjr3jGyLx+4Kkk58UO7D2QdgFIQCovuSuZESne6RG6XQ==",
-			"dev": true,
 			"requires": {
 				"debug": "4"
 			}
@@ -6049,7 +6026,6 @@
 			"version": "0.11.3",
 			"resolved": "https://registry.npmjs.org/faye-websocket/-/faye-websocket-0.11.3.tgz",
 			"integrity": "sha512-D2y4bovYpzziGgbHYtGCMjlJM36vAl/y+xUyn1C+FVx8szd1E+86KwVw6XvYSzOP8iMpm1X0I4xJD+QtUb36OA==",
-			"dev": true,
 			"requires": {
 				"websocket-driver": ">=0.5.1"
 			}
@@ -6462,23 +6438,6 @@
 				"node-fetch": "^2.3.0"
 			},
 			"dependencies": {
-				"agent-base": {
-					"version": "6.0.2",
-					"resolved": "https://registry.npmjs.org/agent-base/-/agent-base-6.0.2.tgz",
-					"integrity": "sha512-RZNwNclF7+MS/8bDg70amg32dyeZGZxiDuQmZxKLAlQjr3jGyLx+4Kkk58UO7D2QdgFIQCovuSuZESne6RG6XQ==",
-					"requires": {
-						"debug": "4"
-					}
-				},
-				"https-proxy-agent": {
-					"version": "5.0.0",
-					"resolved": "https://registry.npmjs.org/https-proxy-agent/-/https-proxy-agent-5.0.0.tgz",
-					"integrity": "sha512-EkYm5BcKUGiduxzSt3Eppko+PiNWNEpa4ySk9vTC6wDsQJW9rHSa+UhGNJoRYp7bz6Ht1eaRIa6QaJqO5rCFbA==",
-					"requires": {
-						"agent-base": "6",
-						"debug": "4"
-					}
-				},
 				"is-stream": {
 					"version": "2.0.0",
 					"resolved": "https://registry.npmjs.org/is-stream/-/is-stream-2.0.0.tgz",
@@ -6596,16 +6555,6 @@
 				"gtoken": "^5.0.4",
 				"jws": "^4.0.0",
 				"lru-cache": "^6.0.0"
-			},
-			"dependencies": {
-				"lru-cache": {
-					"version": "6.0.0",
-					"resolved": "https://registry.npmjs.org/lru-cache/-/lru-cache-6.0.0.tgz",
-					"integrity": "sha512-Jo6dJ04CmSjuznwJSS3pUeWmd/H0ffTlkXXgwZi+eq1UCmqQwCh+eLsYOYCwY991i2Fah4h1BEMCx4qThGbsiA==",
-					"requires": {
-						"yallist": "^4.0.0"
-					}
-				}
 			}
 		},
 		"google-p12-pem": {
@@ -7091,7 +7040,6 @@
 			"version": "5.0.0",
 			"resolved": "https://registry.npmjs.org/https-proxy-agent/-/https-proxy-agent-5.0.0.tgz",
 			"integrity": "sha512-EkYm5BcKUGiduxzSt3Eppko+PiNWNEpa4ySk9vTC6wDsQJW9rHSa+UhGNJoRYp7bz6Ht1eaRIa6QaJqO5rCFbA==",
-			"dev": true,
 			"requires": {
 				"agent-base": "6",
 				"debug": "4"
@@ -8516,7 +8464,6 @@
 			"version": "6.0.0",
 			"resolved": "https://registry.npmjs.org/lru-cache/-/lru-cache-6.0.0.tgz",
 			"integrity": "sha512-Jo6dJ04CmSjuznwJSS3pUeWmd/H0ffTlkXXgwZi+eq1UCmqQwCh+eLsYOYCwY991i2Fah4h1BEMCx4qThGbsiA==",
-			"dev": true,
 			"requires": {
 				"yallist": "^4.0.0"
 			}
