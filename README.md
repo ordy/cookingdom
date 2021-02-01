@@ -1,4 +1,5 @@
 # Cookingdom
+<img src="https://img.shields.io/circleci/build/github/ordy/cookingdom/master?color=%233c3&logo=circleci" alt="circle ci build badge"></img> <img src="https://img.shields.io/github/package-json/dependency-version/ordy/cookingdom/@angular/core?color=red&label=Angular&logo=Angular&logoColor=red" alt="angular version badge"></img>
 
 Cookingdom is a web app that will help you manage your food inventory at home and search for recipes based on your available ingredients.
 
