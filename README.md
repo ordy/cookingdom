@@ -1,4 +1,5 @@
 # Cookingdom
+
 <img src="https://img.shields.io/circleci/build/github/ordy/cookingdom/master?color=%233c3&logo=circleci" alt="circle ci build badge"></img> <img src="https://img.shields.io/github/package-json/dependency-version/ordy/cookingdom/@angular/core?color=red&label=Angular&logo=Angular&logoColor=red" alt="angular version badge"></img>
 
 Cookingdom is a web app that will help you manage your food inventory at home and search for recipes based on your available ingredients.
@@ -6,6 +7,25 @@ Cookingdom is a web app that will help you manage your food inventory at home an
 ## About the project
 
 Initially Cookingdom was supposed to be a personal tool to help me find what I was going to cook for dinner, without having to go through hundreds of recipes suggesting me to use ingredients I've never heard of. I then decided it could be good learning base for an Angular project and would serve as my introduction to the ever growing ecosystem of web development.
+
+# Angular
+
+- To use the application and have an access to the database, the new users will have to create an account either with a mail and password or with Google/Facebook as a provider.
+  ![firestore model](/src/assets/captures/capture_1.jpg)
+
+- They will then be redirected to the homepage.
+  ![firestore model](/src/assets/captures/capture_5.jpg)
+
+- The web app comes with three main components. A search bar to add new ingredients to the user's inventory, a list of available recipes based on the ingredients in the current inventory and an inventory manager to edit or remove ingredients.
+
+- Ingredients search
+  ![firestore model](/src/assets/captures/capture_2.jpg)
+
+- Available recipes
+  ![firestore model](/src/assets/captures/capture_3.jpg)
+
+- Ingredients inventory
+  ![firestore model](/src/assets/captures/capture_4.jpg)
 
 ## Requirements
 
@@ -44,15 +64,3 @@ Run `ng serve` to run the app on a local dev server. Then navigate to `http://lo
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
 Make sure to set `autoWatch: false, singleRun: true` in karma.conf.js if you are going to run the tests on a Continous Itergration service.
-
-## Development notes
-
-### Firestore structure and reads limitation
-
-### Firebase structure and systemstore (local cache), why
-
-### Login service
-
-### Firestore environments config and security rules
-
-# Heroku
