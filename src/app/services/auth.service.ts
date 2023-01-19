@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
-import { User, auth } from 'firebase/app';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { User, auth } from 'firebase/compat/app';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Injectable({
 	providedIn: 'root',

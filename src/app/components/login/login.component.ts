@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons/faGoogle';
 import { faFacebook } from '@fortawesome/free-brands-svg-icons/faFacebook';
-import { User } from 'firebase';
+import { User } from 'firebase/compat';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';

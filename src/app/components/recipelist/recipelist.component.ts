@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { InventoryService } from 'src/app/services/inventory.service';
-import { AngularFireDatabase } from '@angular/fire/database';
-import * as firebase from 'firebase/app';
+import { AngularFireDatabase } from '@angular/fire/compat/database';
+import * as firebase from 'firebase/compat/app';
 
 interface Ingredient {
 	name: string;
