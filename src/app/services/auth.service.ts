@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { User, auth } from 'firebase/compat/app';
+import { User } from 'firebase/auth';
+import { getAuth } from 'firebase/auth';
+import * as auth from 'firebase/auth';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
@@ -10,6 +12,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 })
 export class AuthService {
 	public user: User;
+	public gAuth = getAuth();
 
 	// Flags to check if user has a username
 	// 0:unchecked, 1:has username 2:no username
@@ -110,12 +113,12 @@ export class AuthService {
 	}
 
 	get currentUID(): string {
-		return auth().currentUser.uid;
+		return this.gAuth.currentUser.uid;
 	}
 
 	async userDeclared() {
 		if (this.loggedIn.value) {
-			const userID = auth().currentUser.uid;
+			const userID = this.gAuth.currentUser.uid;
 			const userRef = this.db.firestore.collection('users').doc(userID);
 			return userRef.get().then(user => {
 				if (user.exists && user.data().username != null) {
@@ -147,7 +150,7 @@ export class AuthService {
 	}
 
 	async saveUsername(uname: string) {
-		const userID: string = auth().currentUser.uid;
+		const userID: string = this.gAuth.currentUser.uid;
 		await this.db
 			.collection('users')
 			.doc(userID)
