@@ -3454,11 +3454,11 @@
 			"integrity": "sha512-8cUA/mg0S+BxIZ72TdZRsXKBP5n5uRcE3k29TZhZw6oIiHBt9JA7CTb/4pE1uKtE/q5NeTY2tBDcagoZ+1zjXQ=="
 		},
 		"@fortawesome/angular-fontawesome": {
-			"version": "0.12.1",
-			"resolved": "https://registry.npmjs.org/@fortawesome/angular-fontawesome/-/angular-fontawesome-0.12.1.tgz",
-			"integrity": "sha512-vGGUfmWhsCtC+wUhnLXPeWBod33XKMFERwvD21LTbVBOCwUDUfwcS9nqfTmrULcpFl/bn20REZH/1vSreWd3ZA==",
+			"version": "0.10.2",
+			"resolved": "https://registry.npmjs.org/@fortawesome/angular-fontawesome/-/angular-fontawesome-0.10.2.tgz",
+			"integrity": "sha512-VxsCAo2lK74KwD236AKAhGpiethfz9yqCViIG2iRAZqgNmuZ6ihwumjbLW32n6hV4fFvCqLcHmpngoEl3TNiOg==",
 			"requires": {
-				"tslib": "^2.4.1"
+				"tslib": "^2.3.1"
 			},
 			"dependencies": {
 				"tslib": {
