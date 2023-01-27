@@ -73,8 +73,8 @@ export class AuthService {
 	}
 
 	public signUp(uname: string, mail: string, password: string): void {
-		createUserWithEmailAndPassword(this.auth, mail, password).then(x => {
-			this.saveUsername(uname, x.user.uid);
+		createUserWithEmailAndPassword(this.auth, mail, password).then(() => {
+			this.saveUsername(uname);
 		});
 	}
 
@@ -154,13 +154,12 @@ export class AuthService {
 		}
 	}
 
-	public async saveUsername(uname: string, userID: string) {
-		await setDoc(doc(this.db, 'users', userID), { username: uname }).catch(error => {
-			window.alert(error.message);
-		});
-		await setDoc(doc(this.db, 'usernames', uname.toLocaleLowerCase()), { uid: userID }).catch(error => {
-			window.alert(error.message);
-		});
+	public async saveUsername(uname: string) {
+		const userID = this.user.uid;
+		await setDoc(doc(this.db, 'users', userID), { username: uname }).catch(error => window.alert(error.message));
+		await setDoc(doc(this.db, 'usernames', uname.toLocaleLowerCase()), { uid: userID }).catch(error =>
+			window.alert(error.message)
+		);
 		this.hasUsername.next(1);
 		this.route.navigateByUrl('/');
 	}
