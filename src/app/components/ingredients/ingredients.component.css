@@ -11,7 +11,6 @@
   color: #c2c2c2;
   background-color: #23272a;
   border-color: #23272a;
-  border-radius: 0rem;
 }
 
 .input-group-text {
@@ -96,4 +95,16 @@ tr:nth-child(even) {
 .table-hover tbody tr:hover td {
   background-color: #1c2127;
   color: whitesmoke;
+}
+
+
+/* Hide number input arrows */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  appearance: textfield;
 }

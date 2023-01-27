@@ -1,85 +1,94 @@
-import { Injectable } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { User } from 'firebase/auth';
-import { getAuth } from 'firebase/auth';
-import * as auth from 'firebase/auth';
+import { Injectable, Optional } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import {
+	User,
+	Auth,
+	authState,
+	signInWithEmailAndPassword,
+	setPersistence,
+	browserLocalPersistence,
+	browserSessionPersistence,
+	GoogleAuthProvider,
+	FacebookAuthProvider,
+	signInWithPopup,
+	createUserWithEmailAndPassword,
+} from '@angular/fire/auth';
+import { Firestore, getDoc, setDoc, doc } from '@angular/fire/firestore';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 @Injectable({
 	providedIn: 'root',
 })
 export class AuthService {
 	public user: User;
-	public gAuth = getAuth();
 
 	// Flags to check if user has a username
 	// 0:unchecked, 1:has username 2:no username
-	public usernameExist = new BehaviorSubject<number>(0);
+	public hasUsername = new BehaviorSubject<number>(0);
 
 	public lastUserName: string;
 	public loading = new BehaviorSubject<boolean>(false);
 	public loggedIn = new BehaviorSubject<boolean>(false);
+	public userState = new Subject<string>();
 
-	constructor(public fireAuth: AngularFireAuth, public db: AngularFirestore, private route: Router) {
-		this.fireAuth.onAuthStateChanged(user => {
+	constructor(@Optional() private auth: Auth, private db: Firestore, private route: Router) {
+		this.auth.onAuthStateChanged(user => {
 			if (user) {
 				this.loggedIn.next(true);
-				this.fireAuth.authState.subscribe(res => {
+				authState(this.auth).subscribe(res => {
+					this.userState.next(res.uid);
 					this.user = res;
 				});
 			}
 		});
 	}
 
-	signOut() {
+	public signOut(): void {
 		this.loading.next(true);
-		this.fireAuth.signOut();
+		this.auth.signOut();
 		this.loggedIn.next(false);
 		this.user = null;
-		this.usernameExist.next(0);
-		this.route.navigateByUrl('/login');
+		this.hasUsername.next(0);
+		this.route.navigateByUrl('/');
 		this.loading.next(false);
 	}
 
-	async SignIn(username: string, password: string, keepLocal: boolean) {
-		// set persistence state if user wants to stay logged in
+	public SignIn(email: string, password: string, keepLocal: boolean): void {
 		this.loading.next(true);
-		const logState = keepLocal ? 'local' : 'session';
-		this.fireAuth.setPersistence(logState);
-		// Auth and redirection to homepage
-		return this.fireAuth
-			.signInWithEmailAndPassword(username, password)
+		// set login persistence state
+		const logState = keepLocal ? browserLocalPersistence : browserSessionPersistence;
+		setPersistence(this.auth, logState);
+
+		signInWithEmailAndPassword(this.auth, email, password)
 			.then(() => {
 				this.loggedIn.next(true);
-				this.usernameExist.next(1);
+				this.hasUsername.next(1);
 				this.loading.next(false);
-				this.route.navigateByUrl('/');
+				this.route.navigateByUrl('/home');
 			})
-			.catch(error => {
-				window.alert(error.message);
+			.catch(err => {
+				window.alert(err.message);
 				this.loading.next(false);
 			});
 	}
 
-	signUp(uname: string, mail: string, password: string) {
-		this.fireAuth.createUserWithEmailAndPassword(mail, password).then(() => {
-			this.saveUsername(uname);
+	public signUp(uname: string, mail: string, password: string): void {
+		createUserWithEmailAndPassword(this.auth, mail, password).then(x => {
+			this.saveUsername(uname, x.user.uid);
 		});
 	}
 
-	async providerSignIn(providerName: string) {
+	public async providerSignIn(providerName: string): Promise<void> {
 		this.loading.next(true);
-		let provider: auth.GoogleAuthProvider | auth.FacebookAuthProvider;
+		let provider: GoogleAuthProvider | FacebookAuthProvider;
 		let parameters: {};
 		switch (providerName) {
 			case 'google':
-				provider = new auth.GoogleAuthProvider();
+				provider = new GoogleAuthProvider();
 				parameters = { prompt: 'select_account' };
 				break;
 			case 'facebook':
-				provider = new auth.FacebookAuthProvider();
+				provider = new FacebookAuthProvider();
 				parameters = { display: 'popup' };
 				break;
 			default:
@@ -88,88 +97,71 @@ export class AuthService {
 		}
 		provider.setCustomParameters(parameters);
 		try {
-			await this.fireAuth.signInWithPopup(provider);
+			await signInWithPopup(this.auth, provider);
 		} catch (error) {
 			this.loading.next(false);
 			throw new Error(error);
 		}
-		// checking if user has a username
-		await this.userDeclared();
-		if (this.usernameExist.value === 1) this.route.navigateByUrl('/');
+		// check if user has a registered username
+		await this.usernameRegistered();
+		if (this.hasUsername.value === 1) this.route.navigateByUrl('/');
 		else this.route.navigateByUrl('/username');
 		this.loading.next(false);
 	}
 
-	get isLoggedIn() {
+	public get isLoggedIn(): Observable<boolean> {
 		return this.loggedIn.asObservable();
 	}
 
-	get isLoading() {
+	public get isLoading(): Observable<boolean> {
 		return this.loading.asObservable();
 	}
 
-	get isExist() {
-		return this.usernameExist.asObservable();
+	public get userUID(): Observable<string> {
+		return this.userState.asObservable();
 	}
 
-	get currentUID(): string {
-		return this.gAuth.currentUser.uid;
-	}
-
-	async userDeclared() {
+	public async usernameRegistered() {
 		if (this.loggedIn.value) {
-			const userID = this.gAuth.currentUser.uid;
-			const userRef = this.db.firestore.collection('users').doc(userID);
-			return userRef.get().then(user => {
-				if (user.exists && user.data().username != null) {
-					this.usernameExist.next(1);
-					return true;
-				} else {
-					this.usernameExist.next(2);
-					return false;
-				}
+			authState(this.auth).subscribe(user => {
+				const userRef = doc(this.db, 'users', user.uid);
+				getDoc(userRef).then(x => {
+					if (x.data().username != null) {
+						// 1: user already has a username
+						this.hasUsername.next(1);
+						return true;
+					} else {
+						// 2: user has no username
+						this.hasUsername.next(2);
+						return false;
+					}
+				});
 			});
 		} else {
+			console.log('Request denied to unauthorized user.');
 			return this.loggedIn.value;
 		}
 	}
 
-	async usernameTaken(username: string) {
+	async test(): Promise<void> {}
+
+	public async usernameTaken(username: string) {
 		if (username.length >= 3 && username !== this.lastUserName) {
 			this.lastUserName = username;
-			const usersRef = this.db.firestore.collection('usernames').doc(username);
-			return usersRef
-				.get()
-				.then(doc => {
-					return !doc.exists ? true : false;
-				})
-				.catch(error => {
-					window.alert(error.message);
-				});
+			const usersRef = doc(this.db, 'usernames/', username);
+			const docSnap = await getDoc(usersRef);
+			return docSnap.exists();
 		}
 	}
 
-	async saveUsername(uname: string) {
-		const userID: string = this.gAuth.currentUser.uid;
-		await this.db
-			.collection('users')
-			.doc(userID)
-			.set({
-				username: uname,
-			})
-			.catch(error => {
-				window.alert(error.message);
-			});
-		await this.db
-			.collection('usernames')
-			.doc(uname.toLowerCase())
-			.set({
-				uid: userID,
-			})
-			.catch(error => {
-				window.alert(error.message);
-			});
-		this.usernameExist.next(1);
+	public async saveUsername(uname: string, userID: string) {
+		await setDoc(doc(this.db, 'users', userID), { username: uname }).catch(error => {
+			window.alert(error.message);
+		});
+		await setDoc(doc(this.db, 'usernames', uname.toLocaleLowerCase()), { uid: userID }).catch(error => {
+			window.alert(error.message);
+		});
+		this.hasUsername.next(1);
 		this.route.navigateByUrl('/');
 	}
 }
