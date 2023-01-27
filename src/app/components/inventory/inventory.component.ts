@@ -1,12 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { InventoryService } from 'src/app/services/inventory.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
-interface Drop {
-	type: number;
-	name: string;
-	quantity: number;
-}
+import { Ingredient } from 'src/app/model/ingredient';
 
 @Component({
 	selector: 'app-inventory',
@@ -14,36 +9,37 @@ interface Drop {
 	styleUrls: ['./inventory.component.css'],
 })
 export class InventoryComponent {
-	@Input() dropInput: number;
+	@Input() IngreInput: number;
 	@Input() noConfirm: boolean;
 
 	public page = 1;
-	public pageSize = 15;
+	public readonly pageSize = 15;
 
-	public dropName: string;
+	public IngreName: string;
 	public editMode = false;
-	public myIngredients: Drop[] = [];
+	public myIngredients: Ingredient[] = [];
 
 	constructor(private invService: InventoryService, private modalService: NgbModal) {
 		this.myIngredients = this.invService.myInventory;
 	}
 
-	deleteDrop(content: any, ingr: string) {
-		this.dropName = ingr;
-		if (this.noConfirm) this.invService.removeDrop(ingr);
-		else {
+	deleteIngre(content: any, ingr: string) {
+		this.IngreName = ingr;
+		if (this.noConfirm) {
+			this.invService.removeIngre(ingr.toLowerCase());
+		} else {
 			this.modalService.open(content, { size: 'sm' }).result.then(
-				res => {
-					this.invService.removeDrop(ingr);
+				() => {
+					this.invService.removeIngre(ingr.toLowerCase());
 				},
 				dismiss => {}
 			);
 		}
 	}
 
-	editDrop(content: any, ingr: string) {
-		this.dropName = ingr;
-		this.dropInput = this.invService.dropQuantity(ingr);
+	editIngre(content: any, ingr: string) {
+		this.IngreName = ingr;
+		this.IngreInput = this.invService.ingreQuantity(ingr);
 		this.modalService.open(content, { size: 'sm' }).result.then(
 			res => {
 				if (res > 9999) res = 9999;

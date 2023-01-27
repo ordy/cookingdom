@@ -88,7 +88,7 @@ export class InventoryService {
 
 	public async removeIngre(ingre: string): Promise<void> {
 		this.myInventory.splice(this.ingreIndex(ingre), 1);
-		await deleteDoc(doc(this.invRef, ingre));
+		await deleteDoc(doc(this.invRef, ingre.toLowerCase()));
 		this.localUpdate();
 	}
 

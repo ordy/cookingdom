@@ -1,7 +1,7 @@
 <div class="container my-5 py-2">
-  <h4 class="text-left m-2">My Drops</h4>
+  <h4 class="text-left m-2">My Ingredients</h4>
   <div class="d-flex justify-content-end pb-2 mr-2">
-    Edit Drops
+    Edit
     <label class="switch">
       <input type="checkbox" [(ngModel)]="editMode">
       <span class="slider round"></span>
@@ -26,9 +26,9 @@
                 <span *ngSwitchCase="2">Kg</span>
                 <span *ngSwitchCase="3">L</span>
               </div>
-              <div class="" *ngIf="editMode">
-                <button title="Edit" class="btn btn-primary py-0 table-edit" (click)="editDrop(edit, ingredient.name)">✎</button>
-                <button title="Delete" class="btn btn-danger py-0 table-delete" (click)="deleteDrop(delete, ingredient.name)">🗑</button>
+              <div class="col-md-auto" *ngIf="editMode">
+                <button title="Edit" class="btn btn-primary py-0 table-edit" (click)="editIngre(edit, ingredient.name)">✎</button>
+                <button title="Delete" class="btn btn-danger py-0 table-delete" (click)="deleteIngre(delete, ingredient.name)">🗑</button>
               </div>
             </div>
           </td>
@@ -44,36 +44,33 @@
 <!--Modal Edit Window template-->
 <ng-template #edit let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Edit Drop</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
-      <span aria-hidden="true">&times;</span>
+    <h4 class="modal-title" id="modal-basic-title">Edit ingredient</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()">
     </button>
   </div>
   <div class="modal-body">
     <form>
       <div class="form-group">
-        <label for="new-input">{{dropName}}</label>
-        <input type="number" class="form-control" name="new-input" [(ngModel)]="dropInput">
+        <label for="new-input">{{IngreName}}</label>
+        <input type="number" class="form-control" name="new-input" [(ngModel)]="IngreInput">
       </div>
     </form>
   </div>
   <div class="modal-footer">
-    <button style="height: 38px;" type="button" class="btn btn-outline-dark" (click)="modal.close(dropInput)">Save</button>
+    <button style="height: 38px;" type="button" class="btn btn-primary" (click)="modal.close(IngreInput)">Save</button>
   </div>
 </ng-template>
 
 <!--Modal Delete Window template-->
 <ng-template #delete let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Remove Drop</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
-      <span aria-hidden="true">&times;</span>
-    </button>
+    <h4 class="modal-title" id="modal-basic-title">Remove ingredient</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
   </div>
   <div class="modal-body">
     <form>
       <div class="form-group justify-content-around">
-        <label for="ingrNumber">Remove <b>{{dropName}}</b> from your inventory?</label>
+        <label for="ingrNumber">Remove <b>{{IngreName}}</b> from your inventory?</label>
       </div>
     </form>
   </div>
@@ -82,6 +79,6 @@
       <input type="checkbox" class="custom-control-input checkbox-danger" id="delete-box" name="confirm-checkbox" [(ngModel)]="noConfirm">
       <label class="custom-control-label" for="delete-box">Don't ask again</label>
     </div>
-    <button style="height: 38px;" type="button" class="btn btn-danger" (click)="modal.close(dropInput)">Remove</button>
+    <button style="height: 38px;" type="button" class="btn btn-danger" (click)="modal.close()">Remove</button>
   </div>
 </ng-template>
