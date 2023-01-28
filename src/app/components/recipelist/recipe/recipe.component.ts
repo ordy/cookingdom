@@ -1,22 +1,5 @@
 import { Component, Input, OnChanges } from '@angular/core';
-
-interface Ingredient {
-	type: number;
-	name: string;
-	quantity: number;
-}
-interface DisplayIngr {
-	type: string;
-	name: string;
-	quantity: string;
-}
-interface Recipe {
-	rcpname: string;
-	duration: number;
-	difficulty: string;
-	ingredients: Ingredient[];
-	instructions: string[];
-}
+import { DisplayIngr, Recipe } from 'src/app/model/ingredient';
 
 @Component({
 	selector: 'app-recipe',
