@@ -5,25 +5,25 @@ import { AuthService } from '../services/auth.service';
 import { take, map, tap } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root',
 })
 export class LoginGuard implements CanActivate {
+	constructor(private authS: AuthService, private router: Router) {}
 
-  constructor(private authS: AuthService, private router: Router) {
-  }
-
-  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot)
-    : Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return this.authS.fireAuth.authState.pipe(
-      take(1),
-      // false if user exists, true is null or undefined
-      map(user => !user),
-      tap(loggedIn => {
-        if (!loggedIn) {
-          console.log('Login Guard access denied.')
-          this.router.navigateByUrl('/');
-        }
-      })
-    );
-  }
+	canActivate(
+		next: ActivatedRouteSnapshot,
+		state: RouterStateSnapshot
+	): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+		return this.authS.$usr.pipe(
+			take(1),
+			// false if user exists, true is null or undefined
+			map(user => !user),
+			tap(loggedIn => {
+				if (!loggedIn) {
+					console.log('Login Guard access denied.');
+					this.router.navigateByUrl('/');
+				}
+			})
+		);
+	}
 }
