@@ -15,12 +15,12 @@ export class LoginComponent implements OnInit {
 	public saveLogin = false;
 	public googleIcon = faGoogle;
 	public fbIcon = faFacebook;
-	public isLoading: Observable<boolean>;
+	public isLoading: boolean;
 
 	constructor(private authS: AuthService, private router: Router) {}
 
 	ngOnInit(): void {
-		this.isLoading = this.authS.isLoading;
+		this.authS.isLoading.subscribe(loading => (this.isLoading = loading));
 	}
 
 	signIn(form: NgForm) {
@@ -30,7 +30,11 @@ export class LoginComponent implements OnInit {
 		form.reset();
 	}
 
-	providerSignIn(provider: string) {
-		this.authS.providerSignIn(provider);
+	googleSign() {
+		this.authS.googleSignIn();
+	}
+
+	facebookSign() {
+		this.authS.facebookSignIn();
 	}
 }

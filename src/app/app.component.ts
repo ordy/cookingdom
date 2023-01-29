@@ -14,7 +14,7 @@ import { AuthService } from './services/auth.service';
 export class AppComponent implements OnInit {
 	public currentYear: number = new Date().getFullYear();
 	public gitIcon = faGithubAlt;
-	public isLoading: Observable<boolean>;
+	public isLoading: boolean;
 
 	constructor(
 		private activeRoute: ActivatedRoute,
@@ -24,7 +24,7 @@ export class AppComponent implements OnInit {
 	) {}
 
 	ngOnInit() {
-		this.isLoading = this.authS.isLoading;
+		this.authS.isLoading.subscribe(loading => (this.isLoading = loading));
 		// Setting the active route as page title
 		const pageTitle = this.title.getTitle();
 		this.router.events

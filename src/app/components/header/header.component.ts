@@ -18,12 +18,16 @@ export class HeaderComponent implements OnInit {
 	public invIcon = faBriefcase;
 	public userIcon = faUser;
 	public isMenuCollapsed = true;
-	public isLoggedIn: Observable<boolean>;
+	public isLoggedIn: boolean;
 
 	constructor(private authS: AuthService) {}
 
 	ngOnInit() {
-		this.isLoggedIn = this.authS.isLoggedIn;
+		this.authS.isLoggedIn.subscribe(el => {
+			console.log('header el = ', el);
+			if (el) this.isLoggedIn = el;
+			else this.isLoggedIn = false;
+		});
 	}
 
 	signOut() {

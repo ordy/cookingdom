@@ -27,10 +27,9 @@ export class InventoryService {
 
 	constructor(private db: Firestore, private authS: AuthService) {
 		const invJSON = localStorage.getItem('inventory');
-		this.authS.userUID.subscribe(uid => {
-			this.invRef = collection(this.db, 'users', uid, 'ingredients');
-			this.ingreRef = collection(this.db, 'ingredients');
-		});
+		this.invRef = collection(this.db, 'users', this.authS.userUID, 'ingredients');
+		this.ingreRef = collection(this.db, 'ingredients');
+
 		if (invJSON !== null) {
 			this.myInventory = JSON.parse(invJSON);
 		} else {

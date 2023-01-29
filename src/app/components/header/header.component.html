@@ -1,4 +1,4 @@
-<nav *ngIf="isLoggedIn | async; else altHeader" class="navbar navbar-expand-lg pr-2">
+<nav *ngIf="isLoggedIn; else altHeader" class="navbar navbar-expand-lg pr-2">
   <a routerLink="/" (click)="isMenuCollapsed = true">
     <div class="navbar-brand pr-3 mr-0">
       <img class="pr-1 pl-1 " src="../assets/logo.svg" alt="crown-logo" id="navbar-logo">
@@ -10,22 +10,22 @@
       <li class="nav-item" active>
         <a class="nav-link" routerLink="ingredients" (click)="isMenuCollapsed = true">
           <span class="bg-icon-circle">
-              <fa-icon class="ingr-icon" [icon]="ingrIcon"></fa-icon>
-            </span>Ingredients
+            <fa-icon class="ingr-icon" [icon]="ingrIcon"></fa-icon>
+          </span>Ingredients
         </a>
       </li>
       <li class="nav-item" active>
         <a class="nav-link" routerLink="recipes" (click)="isMenuCollapsed = true">
           <span class="bg-icon-circle" id="rcp-circle">
-              <fa-icon class="rcp-icon" [icon]="rcpIcon"></fa-icon>
-            </span>Recipes
+            <fa-icon class="rcp-icon" [icon]="rcpIcon"></fa-icon>
+          </span>Recipes
         </a>
       </li>
       <li class="nav-item" active>
         <a class="nav-link" routerLink="inventory" (click)="isMenuCollapsed = true">
           <span class="bg-icon-circle" id="inv-circle">
-              <fa-icon class="inv-icon" [icon]="invIcon"></fa-icon>
-            </span>Inventory
+            <fa-icon class="inv-icon" [icon]="invIcon"></fa-icon>
+          </span>Inventory
         </a>
       </li>
     </ul>

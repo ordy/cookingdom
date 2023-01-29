@@ -12,6 +12,7 @@ import {
 	FacebookAuthProvider,
 	signInWithPopup,
 	createUserWithEmailAndPassword,
+	user,
 } from '@angular/fire/auth';
 import { Firestore, getDoc, setDoc, doc } from '@angular/fire/firestore';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
@@ -20,24 +21,28 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 	providedIn: 'root',
 })
 export class AuthService {
-	public user: User;
+	public $usr: Observable<User>;
 
 	// Flags to check if user has a username
 	// 0:unchecked, 1:has username 2:no username
-	public hasUsername = new BehaviorSubject<number>(0);
+	public hasUsername = new Subject<number>();
 
 	public lastUserName: string;
-	public loading = new BehaviorSubject<boolean>(false);
+	public loading = new Subject<boolean>();
 	public loggedIn = new BehaviorSubject<boolean>(false);
 	public userState = new Subject<string>();
 
 	constructor(@Optional() private auth: Auth, private db: Firestore, private route: Router) {
-		this.auth.onAuthStateChanged(user => {
-			if (user) {
-				this.loggedIn.next(true);
+		this.loading.next(false);
+		this.$usr = user(auth);
+		this.auth.onAuthStateChanged(user2 => {
+			if (user2) {
 				authState(this.auth).subscribe(res => {
-					this.userState.next(res.uid);
-					this.user = res;
+					if (res) {
+						this.loggedIn.next(true);
+						this.hasUsername.next(0);
+						this.userState.next(res.uid);
+					}
 				});
 			}
 		});
@@ -45,11 +50,10 @@ export class AuthService {
 
 	public signOut(): void {
 		this.loading.next(true);
-		this.auth.signOut();
 		this.loggedIn.next(false);
-		this.user = null;
 		this.hasUsername.next(0);
-		this.route.navigateByUrl('/');
+		localStorage.removeItem('inventory');
+		this.auth.signOut();
 		this.loading.next(false);
 	}
 
@@ -57,18 +61,24 @@ export class AuthService {
 		this.loading.next(true);
 		// set login persistence state
 		const logState = keepLocal ? browserLocalPersistence : browserSessionPersistence;
-		setPersistence(this.auth, logState);
-
-		signInWithEmailAndPassword(this.auth, email, password)
+		setPersistence(this.auth, browserLocalPersistence)
 			.then(() => {
-				this.loggedIn.next(true);
-				this.hasUsername.next(1);
-				this.loading.next(false);
-				this.route.navigateByUrl('/home');
+				return signInWithEmailAndPassword(this.auth, email, password)
+					.then(() => {
+						this.loggedIn.next(true);
+						this.hasUsername.next(1);
+						this.loading.next(false);
+						this.route.navigateByUrl('/');
+					})
+					.catch(err => {
+						window.alert(err.message);
+						this.loading.next(false);
+					});
 			})
-			.catch(err => {
-				window.alert(err.message);
-				this.loading.next(false);
+			.catch(error => {
+				// Handle Errors here.
+				const errorCode = error.code;
+				const errorMessage = error.message;
 			});
 	}
 
@@ -78,35 +88,30 @@ export class AuthService {
 		});
 	}
 
-	public async providerSignIn(providerName: string): Promise<void> {
+	private async providerSignIn(provider: GoogleAuthProvider | FacebookAuthProvider): Promise<void> {
 		this.loading.next(true);
-		let provider: GoogleAuthProvider | FacebookAuthProvider;
-		let parameters: {};
-		switch (providerName) {
-			case 'google':
-				provider = new GoogleAuthProvider();
-				parameters = { prompt: 'select_account' };
-				break;
-			case 'facebook':
-				provider = new FacebookAuthProvider();
-				parameters = { display: 'popup' };
-				break;
-			default:
-				this.loading.next(false);
-				throw new Error('Not a valid authentication provider.');
-		}
-		provider.setCustomParameters(parameters);
 		try {
 			await signInWithPopup(this.auth, provider);
+			this.route.navigateByUrl('/');
 		} catch (error) {
 			this.loading.next(false);
 			throw new Error(error);
 		}
-		// check if user has a registered username
-		await this.usernameRegistered();
-		if (this.hasUsername.value === 1) this.route.navigateByUrl('/');
-		else this.route.navigateByUrl('/username');
 		this.loading.next(false);
+	}
+
+	public async googleSignIn() {
+		const provider = new GoogleAuthProvider();
+		const parameters = { prompt: 'select_account' };
+		provider.setCustomParameters(parameters);
+		this.providerSignIn(provider);
+	}
+
+	public async facebookSignIn() {
+		const provider = new FacebookAuthProvider();
+		const parameters = { dislpay: 'popup' };
+		provider.setCustomParameters(parameters);
+		this.providerSignIn(provider);
 	}
 
 	public get isLoggedIn(): Observable<boolean> {
@@ -117,15 +122,17 @@ export class AuthService {
 		return this.loading.asObservable();
 	}
 
-	public get userUID(): Observable<string> {
-		return this.userState.asObservable();
+	public get userUID(): string {
+		return this.auth.currentUser.uid;
 	}
 
 	public async usernameRegistered() {
-		if (this.loggedIn.value) {
-			authState(this.auth).subscribe(user => {
-				const userRef = doc(this.db, 'users', user.uid);
-				getDoc(userRef).then(x => {
+		return authState(this.auth).subscribe(async usr => {
+			console.log('called usernamegrefd');
+			if (usr != null) {
+				console.log('usernameReg usr = ', usr);
+				const userRef = doc(this.db, 'users', usr.uid);
+				return getDoc(userRef).then(x => {
 					if (x.data().username != null) {
 						// 1: user already has a username
 						this.hasUsername.next(1);
@@ -136,14 +143,9 @@ export class AuthService {
 						return false;
 					}
 				});
-			});
-		} else {
-			console.log('Request denied to unauthorized user.');
-			return this.loggedIn.value;
-		}
+			}
+		});
 	}
-
-	async test(): Promise<void> {}
 
 	public async usernameTaken(username: string) {
 		if (username.length >= 3 && username !== this.lastUserName) {
@@ -155,7 +157,7 @@ export class AuthService {
 	}
 
 	public async saveUsername(uname: string) {
-		const userID = this.user.uid;
+		const userID = this.userUID;
 		await setDoc(doc(this.db, 'users', userID), { username: uname }).catch(error => window.alert(error.message));
 		await setDoc(doc(this.db, 'usernames', uname.toLocaleLowerCase()), { uid: userID }).catch(error =>
 			window.alert(error.message)

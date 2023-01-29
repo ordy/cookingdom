@@ -1,7 +1,7 @@
-<div class="text-center" *ngIf="isLoading | async">
+<div class="text-center" *ngIf="isLoading">
   <app-loading></app-loading>
 </div>
-<div class="container" *ngIf="!(isLoading | async)">
+<div class="container" *ngIf="!(isLoading)">
   <h4 class="text-left m-2">Login</h4>
   <form class="m-2 pt-4" #loginForm="ngForm" (ngSubmit)="signIn(loginForm)">
     <div class="form-group">
@@ -34,11 +34,11 @@
     </div>
     <hr />
     <div class="providers mb-3">
-      <button type="button" class="btn btn-dark googlelink btn-block" (click)="providerSignIn('google')">
+      <button type="button" class="btn btn-dark googlelink btn-block" (click)="googleSign()">
         <fa-icon class="google-icon float-left" [icon]="googleIcon"></fa-icon>
         Login with Google
       </button>
-      <button type="button" class="btn fblink btn-dark btn-block" (click)="providerSignIn('facebook')">
+      <button type="button" class="btn fblink btn-dark btn-block" (click)="facebookSign()">
         <fa-icon class="facebook-icon float-left" [icon]="fbIcon"></fa-icon>
         Login with Facebook
       </button>
