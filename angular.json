@@ -15,13 +15,14 @@
 					"options": {
 						"outputPath": "dist/cookingdom",
 						"allowedCommonJsDependencies": [
-							"@firebase/app",
-							"firebase/app",
-							"@firebase/auth",
-							"@firebase/database",
-							"@firebase/firestore",
-							"@firebase/util",
-							"@firebase/component"
+							"@fortawesome/free-brands-svg-icons/faGithubAlt",
+							"@fortawesome/free-solid-svg-icons/faBriefcase",
+							"@fortawesome/free-solid-svg-icons/faCarrot",
+							"@fortawesome/free-solid-svg-icons/faMortarPestle",
+							"@fortawesome/free-solid-svg-icons/faUser",
+							"@fortawesome/free-brands-svg-icons/faFacebook",
+							"@fortawesome/free-brands-svg-icons/faGoogle",
+							"@fortawesome/free-solid-svg-icons/faEnvelope"
 						],
 						"index": "src/index.html",
 						"main": "src/main.ts",
@@ -111,7 +112,7 @@
 				}
 			}
 		}
-  },
+	},
 	"cli": {
 		"analytics": "4477d60b-2116-4d85-8d9a-11ab344d8d9b"
 	}
