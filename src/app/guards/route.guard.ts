@@ -29,7 +29,7 @@ export class RouteGuard implements CanActivate {
 							this.authS.usernameRegistered().then(() => {
 								this.authS.hasUsername.pipe(take(1)).subscribe(uE2 => {
 									if (uE2 === 1) {
-										return true;
+										return state.url === '/username' ? this.router.navigateByUrl('/') : true;
 									} else {
 										this.router.navigateByUrl('/username');
 									}

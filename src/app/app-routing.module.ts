@@ -13,17 +13,17 @@ import { LoginGuard } from './guards/login.guard';
 
 const routes: Routes = [
 	{ path: '', component: HomeComponent, canActivate: [RouteGuard], data: { title: 'CooKingdom' } },
-	{ path: 'login', component: LoginComponent, canActivate: [LoginGuard], data: { title: 'Login - CD' } },
+	{ path: 'login', component: LoginComponent, canActivate: [LoginGuard], data: { title: 'Login' } },
 	{
 		path: 'ingredients',
 		component: IngredientsComponent,
 		canActivate: [RouteGuard],
-		data: { title: 'Ingredients - CD' },
+		data: { title: 'Ingredients' },
 	},
-	{ path: 'inventory', component: InventoryComponent, canActivate: [RouteGuard], data: { title: 'Inventory - CD' } },
-	{ path: 'recipes', component: RecipeListComponent, canActivate: [RouteGuard], data: { title: 'Recipes - CD' } },
-	{ path: 'register', component: RegisterComponent, canActivate: [LoginGuard], data: { title: 'Register - CD' } },
-	{ path: 'username', component: UsernameComponent, data: { title: 'Username - CD' } },
+	{ path: 'inventory', component: InventoryComponent, canActivate: [RouteGuard], data: { title: 'Inventory' } },
+	{ path: 'recipes', component: RecipeListComponent, canActivate: [RouteGuard], data: { title: 'Recipes' } },
+	{ path: 'register', component: RegisterComponent, canActivate: [LoginGuard], data: { title: 'Register' } },
+	{ path: 'username', component: UsernameComponent, canActivate: [RouteGuard], data: { title: 'Username' } },
 	{ path: '**', component: NotfoundComponent, data: { title: 'Not Found' } },
 ];
 

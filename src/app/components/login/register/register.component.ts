@@ -3,8 +3,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons/faGoogle';
 import { faFacebook } from '@fortawesome/free-brands-svg-icons/faFacebook';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons/faEnvelope';
-import { FormGroup, FormBuilder, FormControl, Validators, ValidationErrors } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { FormGroup, FormBuilder, FormControl, Validators, AbstractControlOptions } from '@angular/forms';
 
 @Component({
 	selector: 'app-register',
@@ -17,43 +16,28 @@ export class RegisterComponent implements OnInit {
 	public mailIcon = faEnvelope;
 	// regex: at least one lower, one upper, one special, 6 chars min-length
 	private pwPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_])[A-Za-z0-9!@#$%^&*-_]{6,}$/;
-	private usrPattern = /^[A-Za-z0-9]{3,20}$/;
-	private lastUsername: string;
-	private userExists: ValidationErrors;
-	public providerUsername: string;
+	public debouncer: NodeJS.Timeout;
 
-	public debouncer: any;
-
-	public signupForm: FormGroup;
-	public usernameForm: FormGroup;
-	public username = new FormControl(
-		'',
-		[Validators.required, Validators.pattern(this.usrPattern)],
-		this.usernameCheck.bind(this)
-	);
 	private email = new FormControl('', [Validators.required, Validators.email]);
 	private password = new FormControl('', [Validators.required, Validators.pattern(this.pwPattern)]);
 	private pwConfirm = new FormControl('', [Validators.required, Validators.pattern(this.pwPattern)]);
+	public signupForm = this.fb.group(
+		{
+			email: this.email,
+			password: this.password,
+			pwConfirm: this.pwConfirm,
+		},
+		{ validator: this.pwCheck } as AbstractControlOptions
+	);
 
-	constructor(public authS: AuthService, private fb: FormBuilder) {
-		this.signupForm = fb.group(
-			{
-				username: this.username,
-				email: this.email,
-				password: this.password,
-				pwConfirm: this.pwConfirm,
-			},
-			{ validator: this.pwCheck }
-		);
-	}
+	constructor(public authS: AuthService, private fb: FormBuilder) {}
 
 	ngOnInit(): void {}
 
 	signUp() {
-		const user = this.signupForm.value.username;
 		const mail = this.signupForm.value.email;
 		const pass = this.signupForm.value.password;
-		this.authS.signUp(user, mail, pass);
+		this.authS.signUp(mail, pass);
 	}
 
 	pwCheck(form: FormGroup) {
@@ -67,33 +51,8 @@ export class RegisterComponent implements OnInit {
 		}
 	}
 
-	usernameCheck(username: FormControl): Promise<any> | Observable<any> {
-		// reseting debouce time on every validator call
-		clearTimeout(this.debouncer);
-		const promise = new Promise<any>((resolve, reject) => {
-			this.debouncer = setTimeout(() => {
-				if (username.value !== this.lastUsername) {
-					this.lastUsername = username.value;
-					const isTaken = this.authS.usernameTaken(username.value.toLowerCase());
-					this.userExists = isTaken.then(res => {
-						if (!res) return { userExists: true };
-						else return null;
-					});
-				}
-				resolve(this.userExists);
-			}, 1700);
-		});
-		return promise;
-	}
-
-	displayTooltip(pattern: string) {
-		let regX: RegExp;
-		if (pattern === 'user') {
-			regX = new RegExp(this.usrPattern);
-			return regX.test(this.username.value) ? false : true;
-		} else {
-			regX = new RegExp(this.pwPattern);
-			return regX.test(this.password.value) ? false : true;
-		}
+	displayTooltip() {
+		const regX = new RegExp(this.pwPattern);
+		return regX.test(this.password.value) ? false : true;
 	}
 }

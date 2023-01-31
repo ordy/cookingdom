@@ -82,9 +82,9 @@ export class AuthService {
 			});
 	}
 
-	public signUp(uname: string, mail: string, password: string): void {
+	public signUp(mail: string, password: string): void {
 		createUserWithEmailAndPassword(this.auth, mail, password).then(() => {
-			this.saveUsername(uname);
+			this.route.navigateByUrl('/username');
 		});
 	}
 
@@ -128,9 +128,7 @@ export class AuthService {
 
 	public async usernameRegistered() {
 		return authState(this.auth).subscribe(async usr => {
-			console.log('called usernamegrefd');
 			if (usr != null) {
-				console.log('usernameReg usr = ', usr);
 				const userRef = doc(this.db, 'users', usr.uid);
 				return getDoc(userRef).then(x => {
 					if (x.data().username != null) {
