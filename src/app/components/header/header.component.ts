@@ -3,7 +3,6 @@ import { faCarrot } from '@fortawesome/free-solid-svg-icons/faCarrot';
 import { faUser } from '@fortawesome/free-solid-svg-icons/faUser';
 import { faMortarPestle } from '@fortawesome/free-solid-svg-icons/faMortarPestle';
 import { faBriefcase } from '@fortawesome/free-solid-svg-icons/faBriefcase';
-import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -24,7 +23,6 @@ export class HeaderComponent implements OnInit {
 
 	ngOnInit() {
 		this.authS.isLoggedIn.subscribe(el => {
-			console.log('header el = ', el);
 			if (el) this.isLoggedIn = el;
 			else this.isLoggedIn = false;
 		});

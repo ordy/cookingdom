@@ -65,7 +65,6 @@ export class RecipeListComponent implements OnInit {
 	}
 
 	saveLocale() {
-		console.log('calling save locale');
 		this.availableRecipes = [];
 
 		const dbRef = ref(getDatabase());
@@ -78,7 +77,7 @@ export class RecipeListComponent implements OnInit {
 					localStorage.setItem('recipes', JSON.stringify(this.availableRecipes));
 					localStorage.setItem('version', JSON.stringify(this.listVersion));
 				} else {
-					console.log('No data available');
+					console.log('Cannot fetch recipe db.');
 				}
 			})
 			.catch(error => {
@@ -93,16 +92,12 @@ export class RecipeListComponent implements OnInit {
 				if (snapshot.exists()) {
 					this.listVersion = snapshot.val();
 				} else {
-					console.log('No data available');
+					console.log('Cannot fetch db version.');
 				}
 			})
 			.catch(error => {
 				console.error(error);
 			});
-	}
-
-	testfucntion() {
-		console.log('length of rcpList:', this.availableRecipes.length);
 	}
 
 	// Checking if we cached the latest recipes from the db

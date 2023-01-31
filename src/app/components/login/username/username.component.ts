@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, ValidationErrors, FormBuilder } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { FormControl, Validators, ValidationErrors, FormBuilder } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -10,21 +9,19 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class UsernameComponent implements OnInit {
 	private usrPattern = /^[A-Za-z0-9]{3,20}$/;
-	public usernameForm: FormGroup;
 	public username = new FormControl(
 		'',
 		[Validators.required, Validators.pattern(this.usrPattern)],
 		this.usernameCheck.bind(this)
 	);
+	public usernameForm = this.fb.group({
+		username: this.username,
+	});
 	public debouncer: any;
 	private lastUsername: string;
 	private userExists: ValidationErrors;
 
-	constructor(public authS: AuthService, private fb: FormBuilder) {
-		this.usernameForm = fb.group({
-			username: this.username,
-		});
-	}
+	constructor(public authS: AuthService, private fb: FormBuilder) {}
 
 	ngOnInit(): void {}
 
