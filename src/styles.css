@@ -47,3 +47,43 @@ body {
   background-color: var(--custom-red);
   color: whitesmoke;
 }
+
+/* Pagination custom css for
+ng-bootstrap module */
+
+.pagination > li > a {
+    background-color: #191c21;
+    color: #198754;
+    border: solid 1px #198754;
+}
+
+.pagination > li.disabled > a {
+    background-color: #191c21 !important;
+    color: #198754 !important;
+    border: solid 1px #198754 !important;
+}
+
+.pagination > li > a:focus,
+.pagination > li > a:hover,
+.pagination > li > span:focus,
+.pagination > li > span:hover {
+    color: white;
+    background-color: #198754;
+    border-color: #198754;
+}
+
+.pagination > li > a:focus {
+    box-shadow: 0 0 0 .25rem rgba(13, 253, 113, 0.25);
+}
+
+.pagination > .active > a {
+    color: white;
+    background-color: #198754 !Important;
+    border: solid 1px #198754 !Important;
+}
+
+.pagination > .active > a:hover {
+    color: white;
+    background-color: #198754 !Important;
+    border: solid 1px #198754;
+}

@@ -6,13 +6,15 @@
       <app-loading></app-loading>
     </ng-template>
   </div>
-  <div id="app-footer">
-    <div>
-      <small class="text-muted">© {{ currentYear }} Copyright:</small>
-      <a href="https://github.com/ordy/cookingdom">
-        <fa-icon class="ml-1" id="git-icon" [icon]="gitIcon"></fa-icon>
-        <small>ordy</small>
-      </a>
+  <div class="d-flex justify-content-center align-content-end" id="app-footer">
+    <div class="d-flex flex-column justify-content-center">
+      <div id="legal">
+        <small class="text-muted">© {{ currentYear }} Copyright:</small>
+        <a href="https://github.com/ordy/cookingdom/blob/master/LICENSE">
+          <fa-icon id="git-icon" [icon]="gitIcon"></fa-icon>
+          <small>ordy</small>
+        </a>
+      </div>
     </div>
   </div>
 </div>
