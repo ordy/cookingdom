@@ -1,20 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { InventoryService } from 'src/app/services/inventory.service';
-import { AngularFireDatabase } from '@angular/fire/database';
-import * as firebase from 'firebase/app';
-
-interface Ingredient {
-	name: string;
-	quantity: number;
-	type: number;
-}
-interface Recipe {
-	rcpname: string;
-	duration: number;
-	difficulty: string;
-	ingredients: Ingredient[];
-	instructions: string[];
-}
+import { getDatabase, ref, child, get } from '@angular/fire/database';
+import { Recipe } from 'src/app/model/ingredient';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
 	selector: 'app-recipelist',
@@ -28,27 +16,33 @@ export class RecipeListComponent implements OnInit {
 	public showListToggle: boolean;
 	public recipeParent: Recipe;
 	public listVersion: number;
-	public rcplist: Recipe[]; // available recipes
-	public recipeList: string[]; // search result names
+	public availableRecipes: Recipe[];
+	public recipeNames: string[];
 
 	public page = 1;
-	public pageSize = 15;
+	public readonly pageSize = 15;
 
-	constructor(private invService: InventoryService, private rdb: AngularFireDatabase) {}
+	public radioGroupForm: FormGroup;
+
+	constructor(private formBuilder: FormBuilder, private invService: InventoryService) {}
 
 	ngOnInit() {
 		this.fetchDBVersion();
 		const rcpJSON = localStorage.getItem('recipes');
 		if (this.oldVersion() || rcpJSON === null) this.saveLocale();
-		else this.rcplist = JSON.parse(rcpJSON);
+		else this.availableRecipes = JSON.parse(rcpJSON);
+		this.radioGroupForm = this.formBuilder.group({
+			model: 0,
+		});
 	}
 
 	searchRecipes() {
-		this.recipeList = [];
-		this.rcplist.forEach(recipe => {
-			const avaibleRcp = recipe.ingredients.filter(ingr => this.ingrCheck(ingr.name, ingr.quantity));
+		this.recipeNames = [];
+		this.availableRecipes.forEach(recipe => {
+			const myIngredients = recipe.ingredients.filter(ingr => this.ingrCheck(ingr.name, ingr.quantity));
 			// make recipe avaible if enough ingredients
-			if (avaibleRcp.length >= recipe.ingredients.length - this.offsetValue) this.recipeList.push(recipe.rcpname);
+			if (myIngredients.length >= recipe.ingredients.length - this.radioGroupForm.value.model)
+				this.recipeNames.push(recipe.rcpname);
 		});
 		this.displayList = true;
 		this.displayRec = false;
@@ -57,7 +51,7 @@ export class RecipeListComponent implements OnInit {
 
 	// TO-DO: work on the US-IS units conversion to check the quantity
 	ingrCheck(name: string, quantity: number) {
-		return this.invService.dropExists(name); // && this.invService.dropQuantity(name) >= quantity;
+		return this.invService.ingreExists(name); // && this.invService.ingreQuantity(name) >= quantity;
 	}
 
 	toggleList() {
@@ -67,37 +61,43 @@ export class RecipeListComponent implements OnInit {
 
 	showRecipe(listElem: string) {
 		this.toggleList();
-		this.recipeParent = this.rcplist.find(recipe => recipe.rcpname === listElem);
+		this.recipeParent = this.availableRecipes.find(recipe => recipe.rcpname === listElem);
 	}
 
-	async saveLocale() {
-		console.log('calling save locale');
-		this.rcplist = [];
-		await firebase
-			.database()
-			.ref('/recipeList')
-			.once('value')
+	saveLocale() {
+		this.availableRecipes = [];
+
+		const dbRef = ref(getDatabase());
+		get(child(dbRef, `recipeList/`))
 			.then(snapshot => {
-				snapshot.forEach(el => {
-					this.rcplist.push(el.val());
-				});
-			});
-		localStorage.setItem('recipes', JSON.stringify(this.rcplist));
-		localStorage.setItem('version', JSON.stringify(this.listVersion));
-	}
-
-	async fetchDBVersion() {
-		await firebase
-			.database()
-			.ref('version')
-			.once('value')
-			.then(ver => {
-				this.listVersion = ver.val();
+				if (snapshot.exists()) {
+					snapshot.forEach(el => {
+						this.availableRecipes.push(el.val());
+					});
+					localStorage.setItem('recipes', JSON.stringify(this.availableRecipes));
+					localStorage.setItem('version', JSON.stringify(this.listVersion));
+				} else {
+					console.log('Cannot fetch recipe db.');
+				}
+			})
+			.catch(error => {
+				console.error(error);
 			});
 	}
 
-	testfucntion() {
-		console.log('length of rcpList:', this.rcplist.length);
+	fetchDBVersion() {
+		const dbRef = ref(getDatabase());
+		get(child(dbRef, `version`))
+			.then(snapshot => {
+				if (snapshot.exists()) {
+					this.listVersion = snapshot.val();
+				} else {
+					console.log('Cannot fetch db version.');
+				}
+			})
+			.catch(error => {
+				console.error(error);
+			});
 	}
 
 	// Checking if we cached the latest recipes from the db

@@ -2,6 +2,7 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  color: white;
 }
 
 #app-body {
@@ -13,11 +14,11 @@
   color: whitesmoke;
   height: 3em;
   width: 100%;
-  text-align: center;
 }
 
 #git-icon {
   padding-right: 0.1em;
+  padding-left: 0.3em;
   font-size: 1.1em;
   color: var(--custom-blue);
 }

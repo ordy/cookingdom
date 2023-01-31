@@ -16,26 +16,29 @@ table {
   box-shadow: 0px 0px 10px -1px rgba(0,0,0,0.75);
 }
 
-.table thead > tr > th { border-bottom: none;
-border-top: 1px; }
+.table thead > tr > th {
+  border-bottom: none;
+  border-top: 1px;
+}
 
 th {
   font-weight: normal;
   color: var(--custom-blue);
-  background-color: #0b0c0f;
+  background-color: #101116;
   border-bottom: 1px solid var(--custom-blue);
 }
 
 td {
-  border-bottom: 1px solid #007bff30;
+  border-bottom: 1px solid #0e1e3030;
 }
 
 tr {
   background-color: #15191e;
+  line-height: 1.8em;
 }
 
 tr:nth-child(even) {
-  background-color: #0b0c0f;
+  background-color: #1a1d24;
 }
 
 .table-hover tbody tr:hover td {
@@ -52,9 +55,6 @@ input[type="checkbox"]:checked + label::before {
   box-shadow: 0px 0px 4px 1px rgba(255,0,38,0.7) !important;
 }
 
-.btn{
-  height: 23px;
-}
 
 .table-delete{
   margin-right: 1em;
@@ -71,6 +71,7 @@ input[type="checkbox"]:checked + label::before {
 }
 
 .switch {
+  margin-right: 0.7em;
   position: relative;
   display: inline-block;
   width: 40px;
@@ -127,4 +128,15 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+
+/* Hide number input arrows */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  appearance: textfield;
 }

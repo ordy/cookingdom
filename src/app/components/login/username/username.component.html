@@ -1,6 +1,6 @@
 <div class="container p-3" *ngIf="true">
   <h5 class="text-center">Choose your username</h5>
-  <form class="m-2 pt-4" [formGroup]="usernameForm" (ngSubmit)="saveUsername()">
+  <form class="m-2 pt-4" [formGroup]="usernameForm" (ngSubmit)="saveName()">
     <div class="form-group row">
       <div class="col">
         <ng-template #usertooltip>
@@ -17,7 +17,7 @@
       </div>
     </div>
     <div class="text-center">
-      <button type="submit" class="btn btn-dark" [disabled]="!username.valid">Confirm</button>
+      <button type="submit" class="btn btn-primary" [disabled]="!username.valid">Confirm</button>
     </div>
   </form>
 </div>

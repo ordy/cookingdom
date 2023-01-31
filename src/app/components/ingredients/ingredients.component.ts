@@ -1,20 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
 import { InventoryService } from '../../services/inventory.service';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { AuthService } from 'src/app/services/auth.service';
-
-// type: 1=unit 2=mass 3=volume
-interface Ingredient {
-	type: number;
-	name: string;
-}
-interface Drop {
-	type: number;
-	name: string;
-	quantity: number;
-}
+import { Ingredient } from 'src/app/model/ingredient';
 
 @Component({
 	selector: 'app-ingredients',
@@ -24,9 +12,10 @@ interface Drop {
 export class IngredientsComponent implements OnInit {
 	public selectedIngr: Ingredient;
 	public selectedIngrValue = 1;
-	public newIngredients: Drop[] = [];
+	public newIngredients: Ingredient[] = [];
+	public searching = false;
 
-	constructor(private invS: InventoryService, public db: AngularFirestore, private authS: AuthService) {}
+	constructor(public invS: InventoryService) {}
 
 	ngOnInit() {}
 
@@ -38,7 +27,7 @@ export class IngredientsComponent implements OnInit {
 		return this.selectedIngr?.type;
 	}
 
-	newIngr() {
+	addIngredient() {
 		const food = {
 			type: this.selectedIngr.type,
 			name: this.selectedIngr.name,
@@ -52,25 +41,19 @@ export class IngredientsComponent implements OnInit {
 		}
 	}
 
-	addIngredients() {
+	saveIngredients() {
 		this.invS.addInventory(this.newIngredients);
 		this.newIngredients = [];
 	}
 
 	formatter = (ingredient: Ingredient) => ingredient.name;
 
-	search = (text: Observable<string>) =>
-		text.pipe(
-			debounceTime(500),
+	search = (input$: Observable<string>): Observable<Ingredient[]> =>
+		input$.pipe(
+			tap(() => (this.searching = true)),
+			debounceTime(450),
 			distinctUntilChanged(),
-			switchMap(search => {
-				if (search.length > 1) {
-					search = search.toLowerCase();
-					const offset = search + '\uf8ff'; // High value UTF character
-					return this.db
-						.collection('ingredients', ref => ref.orderBy('searchname').startAt(search).endAt(offset).limit(5))
-						.valueChanges();
-				} else return [];
-			})
+			switchMap((input: string) => this.invS.ingredientsQuery(input)),
+			tap(() => (this.searching = false))
 		);
 }

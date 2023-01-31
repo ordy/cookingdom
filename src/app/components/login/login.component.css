@@ -11,7 +11,6 @@ input {
   outline: none !important;
   background-color: #1f2327;
   border-color: #23272a;
-  border-radius: 0rem;
 }
 
 input:focus {
@@ -20,28 +19,15 @@ input:focus {
   box-shadow: 0px 3px var(--custom-blue);
   background-color: var(--gray-800);
   border-color: #23272a;
-  border-radius: 0rem;
 }
 
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus {
-  border-radius: 0rem;
   -webkit-text-fill-color: #c2c2c2;
   transition: background-color 5000s ease-in-out 0s;
 }
 
-input[type="checkbox"]+label::before {
-  border-radius: 0;
-  background-color: var(--gray-800);
-  border-color: var(--gray-900);
-}
-
-input[type="checkbox"]:checked+label::before {
-  border-radius: 0;
-  background-color: var(--custom-blue);
-  border-color: var(--custom-blue);
-}
 
 .googlelink {
   background-color: var(--custom-red);
@@ -59,12 +45,21 @@ input[type="checkbox"]:checked+label::before {
   text-align: center;
 }
 
+.form-check-input {
+  width: 1.2em;
+  height: 1.2em;
+}
+
 a>fa-icon {
   font-size: 2em;
-}
+}radius
 
 span {
   display: block;
+}
+
+label.custom-control-label {
+  padding-top: 0.12em;
 }
 
 .custom-control-input:focus~.custom-control-label::before {
@@ -75,13 +70,9 @@ span {
   background-color: #191c21;
   width: 25em;
   border: 1px solid;
-  margin-top: 7em;
+  margin-top: 5em;
   border-image-source: linear-gradient(0deg, #191c21, #000000);
   border-image-slice: 1;
-}
-
-button {
-  border-radius: 0;
 }
 
 button:hover {

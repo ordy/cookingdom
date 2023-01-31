@@ -3,7 +3,6 @@ import { faGithubAlt } from '@fortawesome/free-brands-svg-icons/faGithubAlt';
 import { Title } from '@angular/platform-browser';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { filter, map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
 import { AuthService } from './services/auth.service';
 
 @Component({
@@ -14,17 +13,19 @@ import { AuthService } from './services/auth.service';
 export class AppComponent implements OnInit {
 	public currentYear: number = new Date().getFullYear();
 	public gitIcon = faGithubAlt;
-	public isLoading: Observable<boolean>;
+	public isLoading: boolean;
 
 	constructor(
 		private activeRoute: ActivatedRoute,
 		private authS: AuthService,
 		private title: Title,
 		private router: Router
-	) {}
+	) {
+		router.canceledNavigationResolution = 'computed';
+	}
 
 	ngOnInit() {
-		this.isLoading = this.authS.isLoading;
+		this.authS.isLoading.subscribe(loading => (this.isLoading = loading));
 		// Setting the active route as page title
 		const pageTitle = this.title.getTitle();
 		this.router.events

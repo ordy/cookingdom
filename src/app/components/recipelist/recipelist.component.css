@@ -44,9 +44,7 @@
 }
 .box-center {
 	flex-shrink: inherit;
-	display: inline-flex;
 	align-items: center;
-	margin-bottom: 4px;
 	justify-content: center;
 }
 .box-right {

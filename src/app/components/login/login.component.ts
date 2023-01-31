@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons/faGoogle';
 import { faFacebook } from '@fortawesome/free-brands-svg-icons/faFacebook';
-import { User } from 'firebase';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -13,16 +12,15 @@ import { Observable } from 'rxjs';
 	styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-	public user: User;
 	public saveLogin = false;
 	public googleIcon = faGoogle;
 	public fbIcon = faFacebook;
-	public isLoading: Observable<boolean>;
+	public isLoading: boolean;
 
 	constructor(private authS: AuthService, private router: Router) {}
 
 	ngOnInit(): void {
-		this.isLoading = this.authS.isLoading;
+		this.authS.isLoading.subscribe(loading => (this.isLoading = loading));
 	}
 
 	signIn(form: NgForm) {
@@ -32,7 +30,11 @@ export class LoginComponent implements OnInit {
 		form.reset();
 	}
 
-	providerSignIn(provider: string) {
-		this.authS.providerSignIn(provider);
+	googleSign() {
+		this.authS.googleSignIn();
+	}
+
+	facebookSign() {
+		this.authS.facebookSignIn();
 	}
 }

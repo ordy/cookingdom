@@ -1,23 +1,25 @@
 <div class="container mt-5 py-2">
   <h4 class="text-left m-2" id="drops-title">Cooking Book</h4>
   <div class="search-container pb-2">
-    <span class="box-left pr-2 h5">Find recipes having </span>
-    <div class="box-center btn-group btn-group-toggle" ngbRadioGroup id="dropdown1" [(ngModel)]="offsetValue">
-      <label ngbButtonLabel class="btn btn-outline-success">
-        <input ngbButton type="radio" [value]="0">No
-      </label>
-      <label ngbButtonLabel class="btn btn-outline-success">
-        <input ngbButton type="radio" [value]="1">1
-      </label>
-      <label ngbButtonLabel class="btn btn-outline-success">
-        <input ngbButton type="radio" [value]="2">2
-      </label>
-      <label ngbButtonLabel class="btn btn-outline-success">
-        <input ngbButton type="radio" [value]="3">3
-      </label>
-    </div>
+    <span class="box-left pr-2 h5">Find only recipes with</span>
+    <form class="box-center px-2 pb-2" [formGroup]="radioGroupForm">
+      <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+
+        <input type="radio" class="btn-check" formControlName="model" id="ingreradio0" [value]="0" autocomplete="off" checked>
+        <label class="btn btn-outline-success" for="ingreradio0">No</label>
+
+        <input type="radio" class="btn-check" formControlName="model" id="ingreradio1" [value]="1" autocomplete="off">
+        <label class="btn btn-outline-success" for="ingreradio1">1</label>
+
+        <input type="radio" class="btn-check" formControlName="model" id="ingreradio2" [value]="2" autocomplete="off">
+        <label class="btn btn-outline-success" for="ingreradio2">2</label>
+
+        <input type="radio" class="btn-check" formControlName="model" id="ingreradio3" [value]="3" autocomplete="off">
+        <label class="btn btn-outline-success" for="ingreradio3">3</label>
+      </div>
+    </form>
     <span i18n class="box-right pl-2 h5">
-      {offsetValue, plural, =0 {missing ingredient} =1 {or no missing ingredient} other {or less missing ingredients}}
+      {radioGroupForm.value.model, plural, =0 {missing ingredient} =1 {or no missing ingredient} other {or less missing ingredients}}
     </span>
   </div>
   <div class="text-center mb-3 pt-3">
@@ -31,10 +33,10 @@
   </div>
   <div class="m-2 " *ngIf="!showListToggle">
     <div class="list-group">
-      <a style="cursor:pointer;" *ngFor="let recipe of recipeList | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize" (click)="showRecipe(recipe)" class="list-group-item list-group-item-action">{{recipe}}</a>
+      <a style="cursor:pointer;" *ngFor="let recipe of recipeNames | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize" (click)="showRecipe(recipe)" class="list-group-item list-group-item-action">{{recipe}}</a>
     </div>
     <div class="col-12 mt-4 justify-content-center">
-      <ngb-pagination class="d-flex justify-content-center" *ngIf="recipeList.length > 15" [collectionSize]="recipeList.length" [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"></ngb-pagination>
+      <ngb-pagination class="d-flex justify-content-center" *ngIf="recipeNames.length > 15" [collectionSize]="recipeNames.length" [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"></ngb-pagination>
     </div>
   </div>
 </div>

@@ -1,25 +1,31 @@
 <div class="container mt-5 py-2">
   <h4 class="text-left m-2">Search Ingredients</h4>
-  <div class="input-group my-3 shadow-sm">
-    <div class="input-group-prepend">
-      <span class="input-group-text">Ingredients</span>
+  <div class="row align-items-start my-3 shadow-sm">
+    <div class="col-8">
+      <input class="form-control dropdown" type="text" name="Ingredients Search" id="ingr-search" placeholder="Ingredients..." [inputFormatter]="formatter" [resultFormatter]="formatter" [(ngModel)]="selectedIngr" [ngbTypeahead]="search" [editable]="false" />
     </div>
-    <input class="form-control dropdown" type="text" name="Ingredients Search" id="ingr-search" placeholder="Ingredients..." [inputFormatter]="formatter" [resultFormatter]="formatter" [(ngModel)]="selectedIngr" [ngbTypeahead]="search" [editable]="false" />
-    <input class="form-control" type="number" name="ingrquantity" min="1" max="9999" id="quantityinput" placeholder="1" [(ngModel)]="selectedIngrValue" />
-    <div class="input-group-append justify-content-between">
-      <div [ngSwitch]="ingredientType()">
-        <span class="input-group-text" id="input-units" *ngSwitchCase="1" hidden></span>
-        <span class="input-group-text" id="input-units" *ngSwitchCase="2">Kg</span>
-        <span class="input-group-text" id="input-units" *ngSwitchCase="3">L</span>
+    <div class="col-4">
+      <div class=" input-group flex-nowrap">
+        <div class="col-8">
+          <input class="form-control" type="number" name="ingrquantity" min="1" max="9999" id="quantityinput" placeholder="1" [(ngModel)]="selectedIngrValue" />
+        </div>
+        <div class="input-group-append justify-content-evenly align-items-center">
+          <div [ngSwitch]="ingredientType()">
+            <span class="input-group-text" id="input-units" *ngSwitchCase="1">x</span>
+            <span class="input-group-text" id="input-units" *ngSwitchCase="2">Kg</span>
+            <span class="input-group-text" id="input-units" *ngSwitchCase="3">L</span>
+          </div>
+        </div>
+        <button type="button" class="btn btn-secondary" (click)="addIngredient()" [disabled]="!true">
+          Add
+        </button>
       </div>
-      <button type="button" class="btn" (click)="newIngr()" [disabled]="!selectedIngr">
-        Add Item
-      </button>
     </div>
   </div>
+  <small *ngIf="searching" class="form-text text-muted">Searching...</small>
 </div>
 <div id="ingr-list" class="container mt-4 py-2" *ngIf="listNotEmpty()">
-  <h4 class="text-left p-2">Collected Drops</h4>
+  <h4 class="text-left p-2">Collected items</h4>
   <div class="m-2">
     <table class="table table-hover">
       <thead>
@@ -41,7 +47,7 @@
         </tr>
       </tbody>
     </table>
-    <button type="button" class="btn btn-dark" (click)="addIngredients()">
+    <button type="button" class="btn btn-dark" (click)="saveIngredients()">
       Add List
     </button>
   </div>

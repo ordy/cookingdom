@@ -3,7 +3,6 @@ import { faCarrot } from '@fortawesome/free-solid-svg-icons/faCarrot';
 import { faUser } from '@fortawesome/free-solid-svg-icons/faUser';
 import { faMortarPestle } from '@fortawesome/free-solid-svg-icons/faMortarPestle';
 import { faBriefcase } from '@fortawesome/free-solid-svg-icons/faBriefcase';
-import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -18,12 +17,15 @@ export class HeaderComponent implements OnInit {
 	public invIcon = faBriefcase;
 	public userIcon = faUser;
 	public isMenuCollapsed = true;
-	public isLoggedIn: Observable<boolean>;
+	public isLoggedIn: boolean;
 
 	constructor(private authS: AuthService) {}
 
 	ngOnInit() {
-		this.isLoggedIn = this.authS.isLoggedIn;
+		this.authS.isLoggedIn.subscribe(el => {
+			if (el) this.isLoggedIn = el;
+			else this.isLoggedIn = false;
+		});
 	}
 
 	signOut() {
