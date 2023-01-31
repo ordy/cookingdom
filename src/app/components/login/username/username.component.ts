@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators, ValidationErrors, FormBuilder } from '@angular/forms';
+import { UntypedFormControl, Validators, ValidationErrors, UntypedFormBuilder } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class UsernameComponent implements OnInit {
 	private usrPattern = /^[A-Za-z0-9]{3,20}$/;
-	public username = new FormControl(
+	public username = new UntypedFormControl(
 		'',
 		[Validators.required, Validators.pattern(this.usrPattern)],
 		this.usernameCheck.bind(this)
@@ -21,11 +21,11 @@ export class UsernameComponent implements OnInit {
 	private lastUsername: string;
 	private userExists: ValidationErrors;
 
-	constructor(public authS: AuthService, private fb: FormBuilder) {}
+	constructor(public authS: AuthService, private fb: UntypedFormBuilder) {}
 
 	ngOnInit(): void {}
 
-	usernameCheck(username: FormControl): Promise<boolean> {
+	usernameCheck(username: UntypedFormControl): Promise<boolean> {
 		// reseting debouce time on every validator call
 		clearTimeout(this.debouncer);
 		const promise = new Promise<any>((resolve, reject) => {

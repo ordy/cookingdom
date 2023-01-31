@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { InventoryService } from 'src/app/services/inventory.service';
 import { getDatabase, ref, child, get } from '@angular/fire/database';
 import { Recipe } from 'src/app/model/ingredient';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 
 @Component({
 	selector: 'app-recipelist',
@@ -22,9 +22,9 @@ export class RecipeListComponent implements OnInit {
 	public page = 1;
 	public readonly pageSize = 15;
 
-	public radioGroupForm: FormGroup;
+	public radioGroupForm: UntypedFormGroup;
 
-	constructor(private formBuilder: FormBuilder, private invService: InventoryService) {}
+	constructor(private formBuilder: UntypedFormBuilder, private invService: InventoryService) {}
 
 	ngOnInit() {
 		this.fetchDBVersion();
