@@ -3994,11 +3994,11 @@
       "integrity": "sha512-BpiZLBWdLFw+qFel9p3Zs1jD6QmH7Ii4aTDu6+vx8ShdidChZUXqDhYJly4ZjSgQh54miXbBgBrk0S+jTIh/Qg=="
     },
     "@fortawesome/angular-fontawesome": {
-      "version": "0.11.1",
-      "resolved": "https://registry.npmjs.org/@fortawesome/angular-fontawesome/-/angular-fontawesome-0.11.1.tgz",
-      "integrity": "sha512-Ngzm5MVxk76ZhYpPTNOI/mpYNz9bzwfBXC5L9mktLgOONjBuYBPVt+bH8lny8hNtDk0ppZzXsMN6CO7hckdfnw==",
+      "version": "0.12.1",
+      "resolved": "https://registry.npmjs.org/@fortawesome/angular-fontawesome/-/angular-fontawesome-0.12.1.tgz",
+      "integrity": "sha512-vGGUfmWhsCtC+wUhnLXPeWBod33XKMFERwvD21LTbVBOCwUDUfwcS9nqfTmrULcpFl/bn20REZH/1vSreWd3ZA==",
       "requires": {
-        "tslib": "^2.4.0"
+        "tslib": "^2.4.1"
       },
       "dependencies": {
         "tslib": {
@@ -4240,9 +4240,9 @@
       "dev": true
     },
     "@ng-bootstrap/ng-bootstrap": {
-      "version": "13.1.1",
-      "resolved": "https://registry.npmjs.org/@ng-bootstrap/ng-bootstrap/-/ng-bootstrap-13.1.1.tgz",
-      "integrity": "sha512-R6qnmFKT2EwwijBHw7rUXqyo5W90OImHOv7BlsxMNnZLIksWIhqwU00k4UBTfRTnd6JsTPuj/co3MaP61ajILA==",
+      "version": "14.0.1",
+      "resolved": "https://registry.npmjs.org/@ng-bootstrap/ng-bootstrap/-/ng-bootstrap-14.0.1.tgz",
+      "integrity": "sha512-JF4U4IIix+g6VBFfG8stf0Un5K//ypoN+pTuRs6kjUhsHBsa2m7yKE6bCe3fMhatFZFr2fcSswDzRUnAUiHhWg==",
       "requires": {
         "tslib": "^2.3.0"
       },
@@ -4406,9 +4406,9 @@
       "dev": true
     },
     "@popperjs/core": {
-      "version": "2.10.2",
-      "resolved": "https://registry.npmjs.org/@popperjs/core/-/core-2.10.2.tgz",
-      "integrity": "sha512-IXf3XA7+XyN7CP9gGh/XB0UxVMlvARGEgGXLubFICsUMGz6Q+DU+i4gGlpOxTjKvXjkJDJC8YdqdKkDj9qZHEQ=="
+      "version": "2.11.6",
+      "resolved": "https://registry.npmjs.org/@popperjs/core/-/core-2.11.6.tgz",
+      "integrity": "sha512-50/17A98tWUfQ176raKiOGXuYpLyyVMkxxG6oylzL3BPOlA6ADGdK7EYunSa4I064xerltq9TGXs8HmOk5E+vw=="
     },
     "@protobufjs/aspromise": {
       "version": "1.1.2",
@@ -5267,9 +5267,9 @@
       "dev": true
     },
     "bootstrap": {
-      "version": "5.0.0",
-      "resolved": "https://registry.npmjs.org/bootstrap/-/bootstrap-5.0.0.tgz",
-      "integrity": "sha512-tmhPET9B9qCl8dCofvHeiIhi49iBt0EehmIsziZib65k1erBW1rHhj2s/2JsuQh5Pq+xz2E9bEbzp9B7xHG+VA=="
+      "version": "5.2.3",
+      "resolved": "https://registry.npmjs.org/bootstrap/-/bootstrap-5.2.3.tgz",
+      "integrity": "sha512-cEKPM+fwb3cT8NzQZYEu4HilJ3anCrWqh3CHAok1p9jXqMPsPTBhU25fBckEJHJ/p+tTxTFTsFQGM+gaHpi3QQ=="
     },
     "brace-expansion": {
       "version": "1.1.11",
