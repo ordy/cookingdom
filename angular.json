@@ -109,11 +109,18 @@
 							"devServerTarget": "cookingdom:serve:production"
 						}
 					}
+				},
+				"lint": {
+					"builder": "@angular-eslint/builder:lint",
+					"options": {
+						"lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
+					}
 				}
 			}
 		}
 	},
 	"cli": {
-		"analytics": "4477d60b-2116-4d85-8d9a-11ab344d8d9b"
+		"analytics": "4477d60b-2116-4d85-8d9a-11ab344d8d9b",
+		"schematicCollections": ["@angular-eslint/schematics"]
 	}
 }

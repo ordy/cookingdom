@@ -32,7 +32,7 @@ export class InventoryComponent {
 				() => {
 					this.invService.removeIngre(ingr.toLowerCase());
 				},
-				dismiss => {}
+				() => {}
 			);
 		}
 	}
@@ -45,7 +45,7 @@ export class InventoryComponent {
 				if (res > 9999) res = 9999;
 				this.invService.editQuantity(ingr, res);
 			},
-			dismiss => {}
+			() => {}
 		);
 	}
 }

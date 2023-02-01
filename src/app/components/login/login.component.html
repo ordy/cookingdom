@@ -1,47 +1,52 @@
 <div class="text-center" *ngIf="isLoading">
-  <app-loading></app-loading>
+	<app-loading></app-loading>
 </div>
-<div class="container" *ngIf="!(isLoading)">
-  <h4 class="text-left m-2">Login</h4>
-  <form class="m-2 pt-4" #loginForm="ngForm" (ngSubmit)="signIn(loginForm)">
-    <div class="form-group mb-4">
-      <label for="logEmail">Email</label>
-      <input type="email" class="form-control" id="logEmail" ngModel name="email" autocomplete="on" required />
-    </div>
-    <div class="form-group mb-3">
-      <label for="logPassword">Password</label>
-      <input type="password" class="form-control" id="logPassword" ngModel name="password" autocomplete="on" required minlength="6" />
-    </div>
-    <div class="d-flex">
-      <div class="form-check col mb-3">
-        <div class="custom-checkbox">
-          <input type="checkbox" class="form-check-input" [(ngModel)]="saveLogin" id="logCheckbox" name="logCheckbox" />
-          <label class="custom-control-label" for="logCheckbox">Stay signed in</label>
-        </div>
-      </div>
-      <div class="ms-auto">
-        <a [routerLink]="['/register']" routerLinkActive="router-link-active">Forgot password?</a>
-      </div>
-    </div>
-    <br />
-    <div class="d-flex">
-      <button type="submit" class="btn btn-dark me-2 col" [disabled]="!loginForm.valid">
-        Log In
-      </button>
-      <button type="button" [routerLink]="['/register']" class="btn col  btn-dark">
-        Create account
-      </button>
-    </div>
-    <hr />
-    <div class="providers mb-2 d-flex flex-column">
-      <button type="button" class="btn btn-dark googlelink btn-block mb-2" (click)="googleSign()">
-        <fa-icon class="google-icon float-start" [icon]="googleIcon"></fa-icon>
-        Login with Google
-      </button>
-      <button type="button" class="btn fblink btn-dark btn-block" (click)="facebookSign()">
-        <fa-icon class="facebook-icon float-start" [icon]="fbIcon"></fa-icon>
-        Login with Facebook
-      </button>
-    </div>
-  </form>
+<div class="container" *ngIf="!isLoading">
+	<h4 class="text-left m-2">Login</h4>
+	<form class="m-2 pt-4" #loginForm="ngForm" (ngSubmit)="signIn(loginForm)">
+		<div class="form-group mb-4">
+			<label for="logEmail">Email</label>
+			<input type="email" class="form-control" id="logEmail" ngModel name="email" autocomplete="on" required />
+		</div>
+		<div class="form-group mb-3">
+			<label for="logPassword">Password</label>
+			<input
+				type="password"
+				class="form-control"
+				id="logPassword"
+				ngModel
+				name="password"
+				autocomplete="on"
+				required
+				minlength="6"
+			/>
+		</div>
+		<div class="d-flex">
+			<div class="form-check col mb-3">
+				<div class="custom-checkbox">
+					<input type="checkbox" class="form-check-input" [(ngModel)]="saveLogin" id="logCheckbox" name="logCheckbox" />
+					<label class="custom-control-label" for="logCheckbox">Stay signed in</label>
+				</div>
+			</div>
+			<div class="ms-auto">
+				<a [routerLink]="['/register']" routerLinkActive="router-link-active">Forgot password?</a>
+			</div>
+		</div>
+		<br />
+		<div class="d-flex">
+			<button type="submit" class="btn btn-dark me-2 col" [disabled]="!loginForm.valid">Log In</button>
+			<button type="button" [routerLink]="['/register']" class="btn col btn-dark">Create account</button>
+		</div>
+		<hr />
+		<div class="providers mb-2 d-flex flex-column">
+			<button type="button" class="btn btn-dark googlelink btn-block mb-2" (click)="googleSign()">
+				<fa-icon class="google-icon float-start" [icon]="googleIcon"></fa-icon>
+				Login with Google
+			</button>
+			<button type="button" class="btn fblink btn-dark btn-block" (click)="facebookSign()">
+				<fa-icon class="facebook-icon float-start" [icon]="fbIcon"></fa-icon>
+				Login with Facebook
+			</button>
+		</div>
+	</form>
 </div>

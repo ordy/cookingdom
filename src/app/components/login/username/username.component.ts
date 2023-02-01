@@ -49,7 +49,7 @@ export class UsernameComponent implements OnInit {
 	}
 
 	validName(): boolean {
-		const regX: RegExp = new RegExp(this.usrPattern);
+		const regX = new RegExp(this.usrPattern);
 		return regX.test(this.username.value) ? true : false;
 	}
 }

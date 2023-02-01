@@ -3,7 +3,13 @@ import { AuthService } from 'src/app/services/auth.service';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons/faGoogle';
 import { faFacebook } from '@fortawesome/free-brands-svg-icons/faFacebook';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons/faEnvelope';
-import { UntypedFormGroup, UntypedFormBuilder, UntypedFormControl, Validators, AbstractControlOptions } from '@angular/forms';
+import {
+	UntypedFormGroup,
+	UntypedFormBuilder,
+	UntypedFormControl,
+	Validators,
+	AbstractControlOptions,
+} from '@angular/forms';
 
 @Component({
 	selector: 'app-register',
