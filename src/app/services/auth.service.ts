@@ -61,7 +61,7 @@ export class AuthService {
 		this.loading.next(true);
 		// set login persistence state
 		const logState = keepLocal ? browserLocalPersistence : browserSessionPersistence;
-		setPersistence(this.auth, browserLocalPersistence)
+		setPersistence(this.auth, logState)
 			.then(() => {
 				return signInWithEmailAndPassword(this.auth, email, password)
 					.then(() => {
@@ -70,15 +70,13 @@ export class AuthService {
 						this.loading.next(false);
 						this.route.navigateByUrl('/');
 					})
-					.catch(err => {
-						window.alert(err.message);
+					.catch(error => {
+						window.alert(error.message);
 						this.loading.next(false);
 					});
 			})
 			.catch(error => {
-				// Handle Errors here.
-				const errorCode = error.code;
-				const errorMessage = error.message;
+				window.alert(error.message);
 			});
 	}
 

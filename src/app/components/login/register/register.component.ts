@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons/faGoogle';
 import { faFacebook } from '@fortawesome/free-brands-svg-icons/faFacebook';
@@ -16,7 +16,7 @@ import {
 	templateUrl: './register.component.html',
 	styleUrls: ['./register.component.css'],
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent {
 	public googleIcon = faGoogle;
 	public fbIcon = faFacebook;
 	public mailIcon = faEnvelope;
@@ -37,8 +37,6 @@ export class RegisterComponent implements OnInit {
 	);
 
 	constructor(public authS: AuthService, private fb: UntypedFormBuilder) {}
-
-	ngOnInit(): void {}
 
 	signUp() {
 		const mail = this.signupForm.value.email;

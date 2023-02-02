@@ -4,12 +4,16 @@
 	"overrides": [
 		{
 			"files": ["*.ts"],
+			"parserOptions": {
+				"project": ["tsconfig.json", "e2e/tsconfig.json"],
+				"createDefaultProgram": true
+			},
 			"extends": [
 				"eslint:recommended",
-				"plugin:prettier/recommended",
 				"plugin:@typescript-eslint/recommended",
 				"plugin:@angular-eslint/recommended",
-				"plugin:@angular-eslint/template/process-inline-templates"
+				"plugin:@angular-eslint/template/process-inline-templates",
+				"plugin:prettier/recommended"
 			],
 			"rules": {
 				"@angular-eslint/directive-selector": [
@@ -27,19 +31,7 @@
 						"prefix": "app",
 						"style": "kebab-case"
 					}
-				],
-				"prettier/prettier": [
-					"error",
-					{
-						"endOfLine": "auto"
-					},
-					{ "useTabs": true }
-				],
-				"no-empty-function": "off",
-				"@typescript-eslint/no-empty-function": "off",
-				"@angular-eslint/no-empty-lifecycle-method": "off",
-				"no-unused-vars": "off",
-				"@typescript-eslint/no-unused-vars": "warn"
+				]
 			}
 		},
 		{
@@ -53,6 +45,18 @@
 			"extends": ["plugin:prettier/recommended"],
 			"rules": {
 				"prettier/prettier": ["error", { "parser": "angular" }]
+			}
+		},
+		{
+			"files": ["src/**/*.spec.ts', 'src/**/*.d.ts"],
+			"parserOptions": {
+				"project": "./src/tsconfig.spec.json"
+			},
+			"extends": ["plugin:jasmine/recommended"],
+			"plugins": ["jasmine"],
+			"env": { "jasmine": true },
+			"rules": {
+				"@typescript-eslint/no-unused-vars": "off"
 			}
 		}
 	]

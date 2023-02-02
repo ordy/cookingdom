@@ -39,7 +39,7 @@ export class RecipeListComponent implements OnInit {
 	searchRecipes() {
 		this.recipeNames = [];
 		this.availableRecipes.forEach(recipe => {
-			const myIngredients = recipe.ingredients.filter(ingr => this.ingrCheck(ingr.name, ingr.quantity));
+			const myIngredients = recipe.ingredients.filter(ingr => this.ingrCheck(ingr.name));
 			// make recipe avaible if enough ingredients
 			if (myIngredients.length >= recipe.ingredients.length - this.radioGroupForm.value.model)
 				this.recipeNames.push(recipe.rcpname);
@@ -50,8 +50,8 @@ export class RecipeListComponent implements OnInit {
 	}
 
 	// TO-DO: work on the US-IS units conversion to check the quantity
-	ingrCheck(name: string, quantity: number) {
-		return this.invService.ingreExists(name); // && this.invService.ingreQuantity(name) >= quantity;
+	ingrCheck(name: string) {
+		return this.invService.ingreExists(name);
 	}
 
 	toggleList() {

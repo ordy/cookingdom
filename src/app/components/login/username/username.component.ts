@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { UntypedFormControl, Validators, ValidationErrors, UntypedFormBuilder } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -7,7 +7,7 @@ import { AuthService } from 'src/app/services/auth.service';
 	templateUrl: './username.component.html',
 	styleUrls: ['./username.component.css'],
 })
-export class UsernameComponent implements OnInit {
+export class UsernameComponent {
 	private usrPattern = /^[A-Za-z0-9]{3,20}$/;
 	public username = new UntypedFormControl(
 		'',
@@ -17,18 +17,16 @@ export class UsernameComponent implements OnInit {
 	public usernameForm = this.fb.group({
 		username: this.username,
 	});
-	public debouncer: any;
+	public debouncer: NodeJS.Timeout;
 	private lastUsername: string;
 	private userExists: ValidationErrors;
 
 	constructor(public authS: AuthService, private fb: UntypedFormBuilder) {}
 
-	ngOnInit(): void {}
-
 	usernameCheck(username: UntypedFormControl): Promise<boolean> {
 		// reseting debouce time on every validator call
 		clearTimeout(this.debouncer);
-		const promise = new Promise<any>((resolve, reject) => {
+		const promise = new Promise<any>(resolve => {
 			this.debouncer = setTimeout(() => {
 				if (username.value !== this.lastUsername) {
 					this.lastUsername = username.value;
