@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, TemplateRef } from '@angular/core';
 import { InventoryService } from 'src/app/services/inventory.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Ingredient } from 'src/app/model/ingredient';
@@ -23,29 +23,23 @@ export class InventoryComponent {
 		this.myIngredients = this.invService.myInventory;
 	}
 
-	deleteIngre(content: any, ingr: string) {
+	deleteIngre(content: TemplateRef<any>, ingr: string) {
 		this.IngreName = ingr;
 		if (this.noConfirm) {
-			this.invService.removeIngre(ingr.toLowerCase());
+			this.invService.removeIngre(ingr);
 		} else {
-			this.modalService.open(content, { size: 'sm' }).result.then(
-				() => {
-					this.invService.removeIngre(ingr.toLowerCase());
-				},
-				() => {}
-			);
+			this.modalService.open(content, { size: 'sm' }).result.then(() => {
+				this.invService.removeIngre(ingr);
+			});
 		}
 	}
 
 	editIngre(content: any, ingr: string) {
 		this.IngreName = ingr;
 		this.IngreInput = this.invService.ingreQuantity(ingr);
-		this.modalService.open(content, { size: 'sm' }).result.then(
-			res => {
-				if (res > 9999) res = 9999;
-				this.invService.editQuantity(ingr, res);
-			},
-			() => {}
-		);
+		this.modalService.open(content, { size: 'sm' }).result.then(res => {
+			if (res > 9999) res = 9999;
+			this.invService.editQuantity(ingr, res);
+		});
 	}
 }

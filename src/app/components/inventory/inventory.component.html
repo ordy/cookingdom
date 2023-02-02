@@ -27,13 +27,17 @@
 								<span *ngSwitchCase="3">L</span>
 							</div>
 							<div class="col-md-auto" *ngIf="editMode">
-								<button title="Edit" class="btn btn-primary py-0 table-edit" (click)="editIngre(edit, ingredient.name)">
+								<button
+									title="Edit"
+									class="btn btn-primary py-0 table-edit"
+									(click)="editIngre(editModal, ingredient.name)"
+								>
 									✎
 								</button>
 								<button
 									title="Delete"
 									class="btn btn-danger py-0 table-delete"
-									(click)="deleteIngre(delete, ingredient.name)"
+									(click)="deleteIngre(deleteModal, ingredient.name)"
 								>
 									🗑
 								</button>
@@ -59,7 +63,7 @@
 </div>
 
 <!--Modal Edit Window template-->
-<ng-template #edit let-modal>
+<ng-template #editModal let-modal>
 	<div class="modal-header">
 		<h4 class="modal-title" id="modal-basic-title">Edit ingredient</h4>
 		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
@@ -78,7 +82,7 @@
 </ng-template>
 
 <!--Modal Delete Window template-->
-<ng-template #delete let-modal>
+<ng-template #deleteModal let-modal>
 	<div class="modal-header">
 		<h4 class="modal-title" id="modal-basic-title">Remove ingredient</h4>
 		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>

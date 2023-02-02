@@ -115,7 +115,7 @@ export class InventoryService {
 	}
 
 	public ingreExists(ingreName: string): boolean {
-		return this.myInventory.findIndex(({ name }) => name.toLowerCase() === ingreName) !== -1;
+		return this.myInventory.findIndex(({ name }) => name === ingreName) !== -1;
 	}
 
 	public ingreType(ingreName: string): number {
