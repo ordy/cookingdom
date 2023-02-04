@@ -28,18 +28,28 @@ export class InventoryComponent {
 		if (this.noConfirm) {
 			this.invService.removeIngre(ingr);
 		} else {
-			this.modalService.open(content, { size: 'sm' }).result.then(() => {
-				this.invService.removeIngre(ingr);
-			});
+			this.modalService.open(content, { size: 'sm' }).result.then(
+				() => {
+					this.invService.removeIngre(ingr);
+				},
+				() => {
+					/* do nothing on close */
+				}
+			);
 		}
 	}
 
-	editIngre(content: any, ingr: string) {
+	editIngre(content: TemplateRef<any>, ingr: string) {
 		this.IngreName = ingr;
 		this.IngreInput = this.invService.ingreQuantity(ingr);
-		this.modalService.open(content, { size: 'sm' }).result.then(res => {
-			if (res > 9999) res = 9999;
-			this.invService.editQuantity(ingr, res);
-		});
+		this.modalService.open(content, { size: 'sm' }).result.then(
+			res => {
+				if (res > 9999) res = 9999;
+				this.invService.editQuantity(ingr, res);
+			},
+			() => {
+				/* do nothing on close */
+			}
+		);
 	}
 }

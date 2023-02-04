@@ -20,9 +20,7 @@ export class AppComponent implements OnInit {
 		private authS: AuthService,
 		private title: Title,
 		private router: Router
-	) {
-		router.canceledNavigationResolution = 'computed';
-	}
+	) {}
 
 	ngOnInit() {
 		this.authS.isLoading.subscribe(loading => (this.isLoading = loading));

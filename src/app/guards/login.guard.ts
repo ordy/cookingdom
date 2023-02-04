@@ -18,7 +18,11 @@ export class LoginGuard implements CanActivate {
 			tap(loggedIn => {
 				if (!loggedIn) {
 					console.log('Login Guard access denied.');
+					this.authS.loading.next(false);
 					this.router.navigateByUrl('/');
+				} else {
+					this.authS.loading.next(false);
+					return true;
 				}
 			})
 		);

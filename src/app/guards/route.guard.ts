@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { take, map, tap } from 'rxjs/operators';
 
@@ -10,30 +9,37 @@ import { take, map, tap } from 'rxjs/operators';
 export class RouteGuard implements CanActivate {
 	constructor(private authS: AuthService, private router: Router) {}
 
-	canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+	canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+		let uid: string;
+		this.authS.loading.next(true);
 		return this.authS.$usr.pipe(
 			take(1),
-			// true if user exists, false is null or undefined
-			map(user => !!user),
+			map(user => {
+				if (user) uid = user.uid;
+				return !!user; // true if user exists, false is null or undefined
+			}),
 			tap(loggedIn => {
 				if (!loggedIn) {
+					this.authS.loading.next(false);
 					this.router.navigateByUrl('/login');
-				} else {
-					// uE = 0:unchecked, 1:has username 2:no username
-					this.authS.hasUsername.pipe(take(1)).subscribe(uE => {
-						if (uE === 0) {
-							// need to recheck at login or after a page refresh
-							this.authS.usernameRegistered().then(() => {
-								this.authS.hasUsername.pipe(take(1)).subscribe(uE2 => {
-									if (uE2 === 1) {
-										return state.url === '/username' ? this.router.navigateByUrl('/') : true;
-									} else {
-										this.router.navigateByUrl('/username');
-									}
-								});
-							});
-						} else if (uE === 2) this.router.navigateByUrl('/username');
+				} else if (this.authS.hasUsername === 'unchecked') {
+					this.authS.usernameRegistered(uid).then(user => {
+						this.authS.loading.next(false);
+						if (user === 'registered') {
+							if (state.url === '/username') {
+								this.router.navigateByUrl('/');
+							} else return true;
+						} else {
+							if (state.url !== '/username') this.router.navigateByUrl('/username');
+							else return false;
+						}
 					});
+				} else if (this.authS.hasUsername === 'unregistered') {
+					this.authS.loading.next(false);
+					if (state.url !== '/username') this.router.navigateByUrl('/username');
+					else return false;
+				} else {
+					this.authS.loading.next(false);
 				}
 			})
 		);

@@ -23,14 +23,14 @@ export class UsernameComponent {
 
 	constructor(public authS: AuthService, private fb: UntypedFormBuilder) {}
 
-	usernameCheck(username: UntypedFormControl): Promise<boolean> {
+	usernameCheck(username: UntypedFormControl): Promise<ValidationErrors> {
 		// reseting debouce time on every validator call
 		clearTimeout(this.debouncer);
-		const promise = new Promise<any>(resolve => {
+		const promise = new Promise<ValidationErrors>(resolve => {
 			this.debouncer = setTimeout(() => {
 				if (username.value !== this.lastUsername) {
 					this.lastUsername = username.value;
-					const isTaken = this.authS.usernameTaken(username.value.toLowerCase());
+					const isTaken = this.authS.usernameTaken(username.value);
 					this.userExists = isTaken.then(res => {
 						if (res) return { userExists: true };
 						else return null;
