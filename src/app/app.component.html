@@ -1,6 +1,6 @@
 <div class="app">
 	<app-header></app-header>
-	<div id="app-body">
+	<div id="app-body" [@routeAnimations]="getRouteAnimationData()">
 		<router-outlet *ngIf="!isLoading; else loader"></router-outlet>
 		<ng-template #loader>
 			<app-loading></app-loading>

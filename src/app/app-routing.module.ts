@@ -12,19 +12,49 @@ import { RouteGuard } from './guards/route.guard';
 import { LoginGuard } from './guards/login.guard';
 
 const routes: Routes = [
-	{ path: '', component: HomeComponent, canActivate: [RouteGuard], data: { title: 'CooKingdom' } },
-	{ path: 'login', component: LoginComponent, canActivate: [LoginGuard], data: { title: 'Login' } },
+	{
+		path: '',
+		component: HomeComponent,
+		canActivate: [RouteGuard],
+		data: { title: 'CooKingdom', animation: 'homePage' },
+	},
+	{
+		path: 'login',
+		component: LoginComponent,
+		canActivate: [LoginGuard],
+		data: { title: 'Login', animation: 'loginPage' },
+	},
 	{
 		path: 'ingredients',
 		component: IngredientsComponent,
 		canActivate: [RouteGuard],
-		data: { title: 'Ingredients' },
+		data: { title: 'Ingredients', animation: 'ingredientsPage' },
 	},
-	{ path: 'inventory', component: InventoryComponent, canActivate: [RouteGuard], data: { title: 'Inventory' } },
-	{ path: 'recipes', component: RecipeListComponent, canActivate: [RouteGuard], data: { title: 'Recipes' } },
-	{ path: 'register', component: RegisterComponent, canActivate: [LoginGuard], data: { title: 'Register' } },
-	{ path: 'username', component: UsernameComponent, canActivate: [RouteGuard], data: { title: 'Username' } },
-	{ path: '**', component: NotfoundComponent, data: { title: 'Not Found' } },
+	{
+		path: 'inventory',
+		component: InventoryComponent,
+		canActivate: [RouteGuard],
+		data: { title: 'Inventory', animation: 'inventoryPage' },
+	},
+	{
+		path: 'recipes',
+		component: RecipeListComponent,
+		canActivate: [RouteGuard],
+		data: { title: 'Recipes', animation: 'recipesPage' },
+	},
+	{
+		path: 'register',
+		component: RegisterComponent,
+		canActivate: [LoginGuard],
+		data: { title: 'Register', animation: 'registerPage' },
+	},
+	{
+		path: 'username',
+		component: UsernameComponent,
+		canActivate: [RouteGuard],
+		data: { title: 'Username', animation: 'usernamePage' },
+	},
+	{ path: '**', component: NotfoundComponent, data: { title: 'Not Found', animation: 'notFoundPage' } },
 ];
 
 @NgModule({
