@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators, ValidationErrors, FormBuilder } from '@angular/forms';
+import { Component } from '@angular/core';
+import { UntypedFormControl, Validators, ValidationErrors, UntypedFormBuilder } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -7,9 +7,9 @@ import { AuthService } from 'src/app/services/auth.service';
 	templateUrl: './username.component.html',
 	styleUrls: ['./username.component.css'],
 })
-export class UsernameComponent implements OnInit {
+export class UsernameComponent {
 	private usrPattern = /^[A-Za-z0-9]{3,20}$/;
-	public username = new FormControl(
+	public username = new UntypedFormControl(
 		'',
 		[Validators.required, Validators.pattern(this.usrPattern)],
 		this.usernameCheck.bind(this)
@@ -17,22 +17,20 @@ export class UsernameComponent implements OnInit {
 	public usernameForm = this.fb.group({
 		username: this.username,
 	});
-	public debouncer: any;
+	public debouncer: NodeJS.Timeout;
 	private lastUsername: string;
 	private userExists: ValidationErrors;
 
-	constructor(public authS: AuthService, private fb: FormBuilder) {}
+	constructor(public authS: AuthService, private fb: UntypedFormBuilder) {}
 
-	ngOnInit(): void {}
-
-	usernameCheck(username: FormControl): Promise<boolean> {
+	usernameCheck(username: UntypedFormControl): Promise<ValidationErrors> {
 		// reseting debouce time on every validator call
 		clearTimeout(this.debouncer);
-		const promise = new Promise<any>((resolve, reject) => {
+		const promise = new Promise<ValidationErrors>(resolve => {
 			this.debouncer = setTimeout(() => {
 				if (username.value !== this.lastUsername) {
 					this.lastUsername = username.value;
-					const isTaken = this.authS.usernameTaken(username.value.toLowerCase());
+					const isTaken = this.authS.usernameTaken(username.value);
 					this.userExists = isTaken.then(res => {
 						if (res) return { userExists: true };
 						else return null;
@@ -49,7 +47,7 @@ export class UsernameComponent implements OnInit {
 	}
 
 	validName(): boolean {
-		const regX: RegExp = new RegExp(this.usrPattern);
+		const regX = new RegExp(this.usrPattern);
 		return regX.test(this.username.value) ? true : false;
 	}
 }

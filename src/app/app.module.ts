@@ -1,4 +1,5 @@
 import { BrowserModule, Title } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { NgbCollapseModule, NgbModule, NgbCarouselModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
@@ -46,6 +47,7 @@ import { InventoryService } from './services/inventory.service';
 		provideFirestore(() => getFirestore()),
 		provideStorage(() => getStorage()),
 		BrowserModule,
+		BrowserAnimationsModule,
 		FormsModule,
 		NgbCarouselModule,
 		NgbCollapseModule,

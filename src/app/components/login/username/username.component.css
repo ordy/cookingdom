@@ -10,9 +10,7 @@
 }
 
 .ng-invalid:not(form) {
-  /* border-left: 5px solid var(--custom-red);*/
   box-shadow: -3px 0px 0px 0px var(--custom-red);
-  /* red */
 }
 
 .ng-pristine:not(form) {
@@ -23,7 +21,6 @@
 .ng-valid[required],
 .ng-valid.required {
   box-shadow: -3px 0px 0px 0px var(--custom-green);
-  /* green */
 }
 
 input {
@@ -31,7 +28,6 @@ input {
   outline: none !important;
   background-color: #1f2327;
   border-color: #23272a;
-  border-radius: 0rem;
 }
 
 input:focus {
@@ -40,7 +36,6 @@ input:focus {
   background-color: var(--gray-800);
   border-color: #23272a;
   border-left: 1px;
-  border-radius: 0rem;
 }
 
 input:focus.ng-invalid {

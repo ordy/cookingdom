@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { InventoryService } from 'src/app/services/inventory.service';
 import { getDatabase, ref, child, get } from '@angular/fire/database';
 import { Recipe } from 'src/app/model/ingredient';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 
 @Component({
 	selector: 'app-recipelist',
@@ -22,9 +22,9 @@ export class RecipeListComponent implements OnInit {
 	public page = 1;
 	public readonly pageSize = 15;
 
-	public radioGroupForm: FormGroup;
+	public radioGroupForm: UntypedFormGroup;
 
-	constructor(private formBuilder: FormBuilder, private invService: InventoryService) {}
+	constructor(private formBuilder: UntypedFormBuilder, private invService: InventoryService) {}
 
 	ngOnInit() {
 		this.fetchDBVersion();
@@ -39,7 +39,7 @@ export class RecipeListComponent implements OnInit {
 	searchRecipes() {
 		this.recipeNames = [];
 		this.availableRecipes.forEach(recipe => {
-			const myIngredients = recipe.ingredients.filter(ingr => this.ingrCheck(ingr.name, ingr.quantity));
+			const myIngredients = recipe.ingredients.filter(ingr => this.ingrCheck(ingr.name));
 			// make recipe avaible if enough ingredients
 			if (myIngredients.length >= recipe.ingredients.length - this.radioGroupForm.value.model)
 				this.recipeNames.push(recipe.rcpname);
@@ -50,8 +50,8 @@ export class RecipeListComponent implements OnInit {
 	}
 
 	// TO-DO: work on the US-IS units conversion to check the quantity
-	ingrCheck(name: string, quantity: number) {
-		return this.invService.ingreExists(name); // && this.invService.ingreQuantity(name) >= quantity;
+	ingrCheck(name: string) {
+		return this.invService.ingreExists(name);
 	}
 
 	toggleList() {

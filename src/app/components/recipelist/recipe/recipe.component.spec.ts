@@ -1,11 +1,8 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 
 import { RecipeComponent } from './recipe.component';
 
 describe('RecipeComponent', () => {
-	let component: RecipeComponent;
-	let fixture: ComponentFixture<RecipeComponent>;
-
 	beforeEach(waitForAsync(() => {
 		TestBed.configureTestingModule({
 			declarations: [RecipeComponent],
@@ -13,8 +10,7 @@ describe('RecipeComponent', () => {
 	}));
 
 	beforeEach(() => {
-		fixture = TestBed.createComponent(RecipeComponent);
-		component = fixture.componentInstance;
+		const fixture = TestBed.createComponent(RecipeComponent);
 		fixture.detectChanges();
 	});
 });

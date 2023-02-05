@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
 import { InventoryService } from '../../services/inventory.service';
@@ -9,15 +9,13 @@ import { Ingredient } from 'src/app/model/ingredient';
 	templateUrl: './ingredients.component.html',
 	styleUrls: ['./ingredients.component.css'],
 })
-export class IngredientsComponent implements OnInit {
+export class IngredientsComponent {
 	public selectedIngr: Ingredient;
 	public selectedIngrValue = 1;
 	public newIngredients: Ingredient[] = [];
 	public searching = false;
 
 	constructor(public invS: InventoryService) {}
-
-	ngOnInit() {}
 
 	listNotEmpty(): boolean {
 		return this.newIngredients.length > 0;

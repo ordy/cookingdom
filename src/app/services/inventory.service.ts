@@ -12,6 +12,7 @@ import {
 	orderBy,
 	limit,
 	query,
+	DocumentData,
 } from '@angular/fire/firestore';
 import { AuthService } from './auth.service';
 import { Ingredient } from '../model/ingredient';
@@ -26,15 +27,13 @@ export class InventoryService {
 	public ingreRef: CollectionReference;
 
 	constructor(private db: Firestore, private authS: AuthService) {
-		const invJSON = localStorage.getItem('inventory');
-		this.invRef = collection(this.db, 'users', this.authS.userUID, 'ingredients');
+		this.authS.$usr.subscribe(usr => {
+			if (usr != null) {
+				this.invRef = collection(this.db, 'users', usr.uid, 'ingredients');
+				this.fetchIngredients(this.invRef);
+			}
+		});
 		this.ingreRef = collection(this.db, 'ingredients');
-
-		if (invJSON !== null) {
-			this.myInventory = JSON.parse(invJSON);
-		} else {
-			this.fetchIngredients();
-		}
 	}
 
 	public async addInventory(ingreList: Ingredient[]) {
@@ -54,15 +53,20 @@ export class InventoryService {
 		this.localUpdate();
 	}
 
-	public async fetchIngredients(): Promise<void> {
-		if (this.myInventory.length === 0) {
-			const querySnapshot = await getDocs(this.invRef);
-			querySnapshot.docs.map(el => {
-				const ingre = el.data();
-				const newIngre: Ingredient = { type: ingre.type, name: ingre.name, quantity: ingre.quantity };
-				this.myInventory.push(newIngre);
-			});
-			this.localUpdate();
+	public async fetchIngredients(invRef: CollectionReference<DocumentData>): Promise<void> {
+		const invJSON = localStorage.getItem('inventory');
+		if (invJSON !== null) {
+			this.myInventory = JSON.parse(invJSON);
+		} else {
+			if (this.myInventory.length === 0) {
+				const querySnapshot = await getDocs(invRef);
+				querySnapshot.docs.map(el => {
+					const ingre = el.data();
+					const newIngre: Ingredient = { type: ingre.type, name: ingre.name, quantity: ingre.quantity };
+					this.myInventory.push(newIngre);
+				});
+				this.localUpdate();
+			}
 		}
 	}
 
@@ -115,7 +119,7 @@ export class InventoryService {
 	}
 
 	public ingreExists(ingreName: string): boolean {
-		return this.myInventory.findIndex(({ name }) => name.toLowerCase() === ingreName) !== -1;
+		return this.myInventory.findIndex(({ name }) => name === ingreName) !== -1;
 	}
 
 	public ingreType(ingreName: string): number {

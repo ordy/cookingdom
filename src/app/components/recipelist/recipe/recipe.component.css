@@ -1,18 +1,18 @@
 .img-thumbnail {
-  max-width: 400px;
+	max-width: 400px;
 }
 
 ul {
-  padding-left:0;
-  list-style-position: inside;
-  list-style-type: square
+	padding-left: 0;
+	list-style-position: inside;
+	list-style-type: square;
 }
 
 ol {
-  padding-left: 1em;
-  list-style-position: outside;
+	padding-left: 1em;
+	list-style-position: outside;
 }
 
-ol>li {
-  padding-left: 2em;
+ol > li {
+	padding-left: 2em;
 }

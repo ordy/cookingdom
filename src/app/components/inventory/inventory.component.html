@@ -1,84 +1,114 @@
 <div class="container my-5 py-2">
-  <h4 class="text-left m-2">My Ingredients</h4>
-  <div class="d-flex justify-content-end pb-2 mr-2">
-    Edit
-    <label class="switch">
-      <input type="checkbox" [(ngModel)]="editMode">
-      <span class="slider round"></span>
-    </label>
-  </div>
-  <div class="m-2">
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th scope="col">Ingredient</th>
-          <th scope="col">Quantity</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let ingredient of myIngredients | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
-          <td width="50%">{{ ingredient.name }}</td>
-          <td width="50%" [ngSwitch]="ingredient.type">
-            <div class="row justify-content-between">
-              <div class="col-md-auto">
-                {{ ingredient.quantity }}
-                <span *ngSwitchCase="1"></span>
-                <span *ngSwitchCase="2">Kg</span>
-                <span *ngSwitchCase="3">L</span>
-              </div>
-              <div class="col-md-auto" *ngIf="editMode">
-                <button title="Edit" class="btn btn-primary py-0 table-edit" (click)="editIngre(edit, ingredient.name)">✎</button>
-                <button title="Delete" class="btn btn-danger py-0 table-delete" (click)="deleteIngre(delete, ingredient.name)">🗑</button>
-              </div>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="col-12 mt-4 justify-content-center">
-      <ngb-pagination class="d-flex justify-content-center" *ngIf="myIngredients.length > 15" [collectionSize]="myIngredients.length" [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"></ngb-pagination>
-    </div>
-  </div>
+	<h4 class="text-left m-2">My Ingredients</h4>
+	<div class="d-flex justify-content-end pb-2 mr-2">
+		Edit
+		<label class="switch">
+			<input type="checkbox" [(ngModel)]="editMode" />
+			<span class="slider round"></span>
+		</label>
+	</div>
+	<div class="m-2">
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th scope="col">Ingredient</th>
+					<th scope="col">Quantity</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let ingredient of myIngredients | slice : (page - 1) * pageSize : (page - 1) * pageSize + pageSize">
+					<td width="50%">{{ ingredient.name }}</td>
+					<td width="50%" [ngSwitch]="ingredient.type">
+						<div class="row justify-content-between">
+							<div class="col-md-auto">
+								{{ ingredient.quantity }}
+								<span *ngSwitchCase="1"></span>
+								<span *ngSwitchCase="2">Kg</span>
+								<span *ngSwitchCase="3">L</span>
+							</div>
+							<div class="col-md-auto" *ngIf="editMode">
+								<button
+									title="Edit"
+									class="btn btn-primary py-0 table-edit"
+									(click)="editIngre(editModal, ingredient.name)"
+								>
+									✎
+								</button>
+								<button
+									title="Delete"
+									class="btn btn-danger py-0 table-delete"
+									(click)="deleteIngre(deleteModal, ingredient.name)"
+								>
+									🗑
+								</button>
+							</div>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="col-12 mt-4 justify-content-center">
+			<ngb-pagination
+				class="d-flex justify-content-center"
+				*ngIf="myIngredients.length > 15"
+				[collectionSize]="myIngredients.length"
+				[(page)]="page"
+				[maxSize]="5"
+				[rotate]="true"
+				[ellipses]="false"
+				[boundaryLinks]="true"
+			></ngb-pagination>
+		</div>
+	</div>
 </div>
 
 <!--Modal Edit Window template-->
-<ng-template #edit let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Edit ingredient</h4>
-    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()">
-    </button>
-  </div>
-  <div class="modal-body">
-    <form>
-      <div class="form-group">
-        <label for="new-input">{{IngreName}}</label>
-        <input type="number" class="form-control" name="new-input" [(ngModel)]="IngreInput">
-      </div>
-    </form>
-  </div>
-  <div class="modal-footer">
-    <button style="height: 38px;" type="button" class="btn btn-primary" (click)="modal.close(IngreInput)">Save</button>
-  </div>
+<ng-template #editModal let-modal>
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title">Edit ingredient</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+	</div>
+	<div class="modal-body">
+		<form>
+			<div class="form-group">
+				<label for="new-input">{{ IngreName }}</label>
+				<input type="number" class="form-control" name="new-input" [(ngModel)]="IngreInput" />
+			</div>
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button style="height: 38px" type="button" class="btn btn-primary" (click)="modal.close(IngreInput)">Save</button>
+	</div>
 </ng-template>
 
 <!--Modal Delete Window template-->
-<ng-template #delete let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Remove ingredient</h4>
-    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
-  </div>
-  <div class="modal-body">
-    <form>
-      <div class="form-group justify-content-around">
-        <label for="ingrNumber">Remove <b>{{IngreName}}</b> from your inventory?</label>
-      </div>
-    </form>
-  </div>
-  <div class="modal-footer">
-    <div class="mr-auto custom-control custom-checkbox">
-      <input type="checkbox" class="custom-control-input checkbox-danger" id="delete-box" name="confirm-checkbox" [(ngModel)]="noConfirm">
-      <label class="custom-control-label" for="delete-box">Don't ask again</label>
-    </div>
-    <button style="height: 38px;" type="button" class="btn btn-danger" (click)="modal.close()">Remove</button>
-  </div>
+<ng-template #deleteModal let-modal>
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title">Remove ingredient</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+	</div>
+	<div class="modal-body">
+		<form>
+			<div class="form-group justify-content-around">
+				<label for="ingrNumber">
+					Remove
+					<b>{{ IngreName }}</b>
+					from your inventory?
+				</label>
+			</div>
+		</form>
+	</div>
+	<div class="modal-footer">
+		<div class="mr-auto custom-control custom-checkbox">
+			<input
+				type="checkbox"
+				class="custom-control-input checkbox-danger"
+				id="delete-box"
+				name="confirm-checkbox"
+				[(ngModel)]="noConfirm"
+			/>
+			<label class="custom-control-label" for="delete-box">Don't ask again</label>
+		</div>
+		<button style="height: 38px" type="button" class="btn btn-danger" (click)="modal.close()">Remove</button>
+	</div>
 </ng-template>

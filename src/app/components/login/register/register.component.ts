@@ -1,16 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons/faGoogle';
 import { faFacebook } from '@fortawesome/free-brands-svg-icons/faFacebook';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons/faEnvelope';
-import { FormGroup, FormBuilder, FormControl, Validators, AbstractControlOptions } from '@angular/forms';
+import {
+	UntypedFormGroup,
+	UntypedFormBuilder,
+	UntypedFormControl,
+	Validators,
+	AbstractControlOptions,
+} from '@angular/forms';
 
 @Component({
 	selector: 'app-register',
 	templateUrl: './register.component.html',
 	styleUrls: ['./register.component.css'],
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent {
 	public googleIcon = faGoogle;
 	public fbIcon = faFacebook;
 	public mailIcon = faEnvelope;
@@ -18,9 +24,9 @@ export class RegisterComponent implements OnInit {
 	private pwPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_])[A-Za-z0-9!@#$%^&*-_]{6,}$/;
 	public debouncer: NodeJS.Timeout;
 
-	private email = new FormControl('', [Validators.required, Validators.email]);
-	private password = new FormControl('', [Validators.required, Validators.pattern(this.pwPattern)]);
-	private pwConfirm = new FormControl('', [Validators.required, Validators.pattern(this.pwPattern)]);
+	private email = new UntypedFormControl('', [Validators.required, Validators.email]);
+	private password = new UntypedFormControl('', [Validators.required, Validators.pattern(this.pwPattern)]);
+	private pwConfirm = new UntypedFormControl('', [Validators.required, Validators.pattern(this.pwPattern)]);
 	public signupForm = this.fb.group(
 		{
 			email: this.email,
@@ -30,9 +36,7 @@ export class RegisterComponent implements OnInit {
 		{ validator: this.pwCheck } as AbstractControlOptions
 	);
 
-	constructor(public authS: AuthService, private fb: FormBuilder) {}
-
-	ngOnInit(): void {}
+	constructor(public authS: AuthService, private fb: UntypedFormBuilder) {}
 
 	signUp() {
 		const mail = this.signupForm.value.email;
@@ -40,7 +44,7 @@ export class RegisterComponent implements OnInit {
 		this.authS.signUp(mail, pass);
 	}
 
-	pwCheck(form: FormGroup) {
+	pwCheck(form: UntypedFormGroup) {
 		const pass = form.value.password;
 		const confirmation = form.value.pwConfirm;
 		if (pass === confirmation) {
