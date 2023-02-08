@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { faGithubAlt } from '@fortawesome/free-brands-svg-icons/faGithubAlt';
 import { Title } from '@angular/platform-browser';
 import { Router, NavigationEnd, ActivatedRoute, ChildrenOutletContexts } from '@angular/router';
 import { filter, map } from 'rxjs/operators';
 import { AuthService } from './services/auth.service';
 import { slideInAnimation } from './animations';
+import { NgcCookieConsentService } from 'ngx-cookieconsent';
 
 @Component({
 	selector: 'app-root',
@@ -14,7 +14,6 @@ import { slideInAnimation } from './animations';
 })
 export class AppComponent implements OnInit {
 	public currentYear: number = new Date().getFullYear();
-	public gitIcon = faGithubAlt;
 	public isLoading: boolean;
 
 	constructor(
@@ -22,7 +21,8 @@ export class AppComponent implements OnInit {
 		private authS: AuthService,
 		private title: Title,
 		private router: Router,
-		private contexts: ChildrenOutletContexts
+		private contexts: ChildrenOutletContexts,
+		private ccService: NgcCookieConsentService
 	) {}
 
 	ngOnInit() {
