@@ -22,3 +22,11 @@
 	font-size: 1.1em;
 	color: var(--custom-blue);
 }
+
+a {
+	text-decoration: none;
+}
+
+a > small:hover {
+	color: white !important;
+}

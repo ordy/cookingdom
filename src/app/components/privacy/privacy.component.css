@@ -1,0 +1,14 @@
+.container {
+	background-color: #191c21;
+}
+
+section {
+	padding-top: 1.75rem;
+	padding-right: 2rem;
+	padding-left: 2rem;
+}
+
+p,
+li {
+	color: var(--gray-300);
+}

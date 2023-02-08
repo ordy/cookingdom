@@ -10,6 +10,7 @@ import { UsernameComponent } from './components/login/username/username.componen
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { RouteGuard } from './guards/route.guard';
 import { LoginGuard } from './guards/login.guard';
+import { PrivacyComponent } from './components/privacy/privacy.component';
 
 const routes: Routes = [
 	{
@@ -53,6 +54,11 @@ const routes: Routes = [
 		component: UsernameComponent,
 		canActivate: [RouteGuard],
 		data: { title: 'Username', animation: 'usernamePage' },
+	},
+	{
+		path: 'privacy',
+		component: PrivacyComponent,
+		data: { title: 'Privacy Policy', animation: 'privacyPage' },
 	},
 	{ path: '**', component: NotfoundComponent, data: { title: 'Not Found', animation: 'notFoundPage' } },
 ];

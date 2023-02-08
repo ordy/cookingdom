@@ -24,6 +24,7 @@ import { NotfoundComponent } from './components/notfound/notfound.component';
 import { LoadingComponent } from './shared/loading/loading.component';
 import { UsernameComponent } from './components/login/username/username.component';
 import { InventoryService } from './services/inventory.service';
+import { PrivacyComponent } from './components/privacy/privacy.component';
 
 @NgModule({
 	declarations: [
@@ -39,6 +40,7 @@ import { InventoryService } from './services/inventory.service';
 		NotfoundComponent,
 		LoadingComponent,
 		UsernameComponent,
+		PrivacyComponent,
 	],
 	imports: [
 		provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
