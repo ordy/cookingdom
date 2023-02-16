@@ -1,6 +1,6 @@
 # Cookingdom
 
-<img src="https://img.shields.io/github/package-json/dependency-version/ordy/cookingdom/@angular/core?color=red&label=Angular&logo=Angular&logoColor=red" alt="angular version badge"></img> <img alt="GitHub deployments" src="https://img.shields.io/github/deployments/ordy/cookingdom/production?label=vercel&logo=vercel">
+![GitHub package.json dependency version (dev dep on branch)](https://img.shields.io/github/package-json/dependency-version/ordy/cookingdom/dev/@angular/cli?color=%2308f&label=Angular&logo=angular) ![GitHub deployments](https://img.shields.io/github/deployments/ordy/cookingdom/production?label=vercel&logo=vercel)
 
 Cookingdom is a web app that will help you manage your food inventory at home and search for recipes based on your available ingredients.
 
