@@ -26,6 +26,7 @@ import { UsernameComponent } from './components/login/username/username.componen
 import { InventoryService } from './services/inventory.service';
 import { PrivacyComponent } from './components/privacy/privacy.component';
 import { NgcCookieConsentModule, NgcCookieConsentConfig } from 'ngx-cookieconsent';
+import { RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module } from 'ng-recaptcha';
 
 const cookieConfig: NgcCookieConsentConfig = {
 	cookie: {
@@ -88,9 +89,17 @@ const cookieConfig: NgcCookieConsentConfig = {
 		NgbModule,
 		AppRoutingModule,
 		FontAwesomeModule,
+		RecaptchaV3Module,
 		NgcCookieConsentModule.forRoot(cookieConfig),
 	],
-	providers: [InventoryService, Title],
+	providers: [
+		{
+			provide: RECAPTCHA_V3_SITE_KEY,
+			useValue: environment.recaptcha.siteKey,
+		},
+		InventoryService,
+		Title,
+	],
 	bootstrap: [AppComponent],
 })
 export class AppModule {}

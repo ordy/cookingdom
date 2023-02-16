@@ -52,6 +52,9 @@ export const environment = {
 		appId: '${process.env.FIREBASE_APP_ID}',
 		measurementId: '${process.env.FIREBASE_MEASUREMENT_ID}',
 	},
+	recaptcha: {
+		siteKey: '${process.env.RECAPTCHA_KEY}',
+	},
 };
 `;
 
