@@ -25,6 +25,37 @@ import { LoadingComponent } from './shared/loading/loading.component';
 import { UsernameComponent } from './components/login/username/username.component';
 import { InventoryService } from './services/inventory.service';
 import { PrivacyComponent } from './components/privacy/privacy.component';
+import { NgcCookieConsentModule, NgcCookieConsentConfig } from 'ngx-cookieconsent';
+import { RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module } from 'ng-recaptcha';
+
+const cookieConfig: NgcCookieConsentConfig = {
+	cookie: {
+		domain: window.location.hostname,
+	},
+	position: 'bottom',
+	theme: 'edgeless',
+	palette: {
+		popup: {
+			background: '#131519',
+			text: '#ffffff',
+			link: '#ffffff',
+		},
+		button: {
+			background: '#0d6efd',
+			text: '#fafafa',
+			border: 'transparent',
+		},
+	},
+	type: 'info',
+	content: {
+		message: 'By using this website, you agree with the storage and handling of your data.',
+		dismiss: 'Got it!',
+		deny: 'Refuse',
+		link: 'Learn more',
+		href: 'https://cookingdom.vercel.app/privacy',
+		policy: 'Cookie Policy',
+	},
+};
 
 @NgModule({
 	declarations: [
@@ -58,8 +89,17 @@ import { PrivacyComponent } from './components/privacy/privacy.component';
 		NgbModule,
 		AppRoutingModule,
 		FontAwesomeModule,
+		RecaptchaV3Module,
+		NgcCookieConsentModule.forRoot(cookieConfig),
 	],
-	providers: [InventoryService, Title],
+	providers: [
+		{
+			provide: RECAPTCHA_V3_SITE_KEY,
+			useValue: environment.recaptcha.siteKey,
+		},
+		InventoryService,
+		Title,
+	],
 	bootstrap: [AppComponent],
 })
 export class AppModule {}

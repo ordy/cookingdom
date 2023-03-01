@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { DisplayIngr, Recipe } from 'src/app/model/ingredient';
+import { getStorage, ref, getDownloadURL } from '@angular/fire/storage';
 
 @Component({
 	selector: 'app-recipe',
@@ -9,6 +10,7 @@ import { DisplayIngr, Recipe } from 'src/app/model/ingredient';
 export class RecipeComponent implements OnChanges {
 	public displayRecipe: DisplayIngr[] = [];
 	public fractionsTable: string[] = ['1/4', '1/2', '3/4'];
+	private readonly storage = getStorage();
 
 	@Input() rcpName: Recipe;
 
@@ -112,14 +114,18 @@ export class RecipeComponent implements OnChanges {
 			formatedIngr.name = ingr.name;
 			this.displayRecipe.push(formatedIngr);
 		});
+		this.getImagePath();
 	}
 
 	getImagePath() {
-		/* return (
-			'/assets/recipes/' +
-			encodeURI(this.rcpName?.rcpname.replace(/\s+/g, '-').toLowerCase()).replace(/\'/g, '') +
-			'.jpg'
-    ); */
-		return 'http://lorempixel.com/300/300/food/';
+		const recipeImg = 'recipes/' + this.rcpName.rcpname.replace(/\s/g, '').toLocaleLowerCase() + '.jpg';
+		getDownloadURL(ref(this.storage, recipeImg))
+			.then(url => {
+				const img = document.getElementById('rcp-image');
+				img.setAttribute('src', url);
+			})
+			.catch(error => {
+				console.log(error);
+			});
 	}
 }

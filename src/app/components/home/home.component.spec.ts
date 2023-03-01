@@ -9,8 +9,8 @@ describe('HomeComponent', () => {
 
 	beforeEach(waitForAsync(() => {
 		TestBed.configureTestingModule({
-			imports: [],
-			declarations: [HomeComponent, NgbCarousel],
+			imports: [NgbCarousel],
+			declarations: [HomeComponent],
 		}).compileComponents();
 	}));
 
