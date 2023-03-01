@@ -26,8 +26,7 @@ export class LoginComponent implements OnInit {
 		const email: string = form.value.email;
 		const password: string = form.value.password;
 		this.recaptchaV3Service.execute('SignIn').subscribe({
-			next: (token: string) => {
-				console.debug(`Token [${token}] generated`);
+			next: () => {
 				this.authS.SignIn(email, password, this.saveLogin);
 				form.reset();
 			},
@@ -38,15 +37,13 @@ export class LoginComponent implements OnInit {
 	}
 
 	public googleSign(): void {
-		this.recaptchaV3Service.execute('googleSign').subscribe((token: string) => {
-			console.debug(`Token [${token}] generated`);
+		this.recaptchaV3Service.execute('googleSign').subscribe(() => {
 			this.authS.googleSignIn();
 		});
 	}
 
 	public facebookSign(): void {
-		this.recaptchaV3Service.execute('facebookSign').subscribe((token: string) => {
-			console.debug(`Token [${token}] generated`);
+		this.recaptchaV3Service.execute('facebookSign').subscribe(() => {
 			this.authS.facebookSignIn();
 		});
 	}
