@@ -121,7 +121,6 @@ export class RecipeComponent implements OnChanges {
 		const recipeImg = 'recipes/' + this.rcpName.rcpname.replace(/\s/g, '').toLocaleLowerCase() + '.jpg';
 		getDownloadURL(ref(this.storage, recipeImg))
 			.then(url => {
-				console.log(url);
 				const img = document.getElementById('rcp-image');
 				img.setAttribute('src', url);
 			})
