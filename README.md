@@ -11,21 +11,21 @@ Initially Cookingdom was supposed to be a personal tool to help me find what I w
 # Angular
 
 - To use the application and have an access to the database, the new users will have to create an account either with a mail and password or with Google/Facebook as a provider.
-  ![firestore model](/src/assets/captures/capture_1.jpg)
+  ![cookingdom login form](https://github.com/ordy/github-assets/blob/master/cookingdom/capture_004.jpg?raw=true)
 
 - They will then be redirected to the homepage.
-  ![firestore model](/src/assets/captures/capture_5.jpg)
+  ![cookingdom homepage](https://github.com/ordy/github-assets/blob/master/cookingdom/capture_005.jpg?raw=true)
 
 - The web app comes with three main components. A search bar to add new ingredients to the user's inventory, a list of available recipes based on the ingredients in the current inventory and an inventory manager to edit or remove ingredients.
 
 - Ingredients search
-  ![firestore model](/src/assets/captures/capture_2.jpg)
+  ![ingredients search](https://github.com/ordy/github-assets/blob/master/cookingdom/capture_001.jpg?raw=true)
 
 - Available recipes
-  ![firestore model](/src/assets/captures/capture_3.jpg)
+  ![available recipes](https://github.com/ordy/github-assets/blob/master/cookingdom/capture_002.jpg?raw=true)
 
 - Ingredients inventory
-  ![firestore model](/src/assets/captures/capture_4.jpg)
+  ![ingredients inventory](https://github.com/ordy/github-assets/blob/master/cookingdom/capture_003.jpg?raw=true)
 
 ## Requirements
 
@@ -37,7 +37,13 @@ You can then use the npm package manager that comes with Node.js to install the 
 
 `npm install -g @angular/cli`
 
-This project was first generated using [Angular CLI](https://github.com/angular/angular-cli) version 8.3.19 and has been update overtime to 10.0.4.
+This project was first generated using [Angular CLI](https://github.com/angular/angular-cli) version
+
+8.3.19
+
+and has been update overtime to
+
+![GitHub package.json dependency version (dev dep on branch)](https://img.shields.io/github/package-json/dependency-version/ordy/cookingdom/dev/@angular/cli?color=%233C434D&label=%20)
 
 ## Clone the repository
 
