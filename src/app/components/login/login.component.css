@@ -66,7 +66,7 @@ label.custom-control-label {
 
 .container {
 	background-color: #191c21;
-	width: 25em;
+	max-width: 25em;
 	border: 1px solid;
 	margin-top: 5em;
 	border-image-source: linear-gradient(0deg, #191c21, #000000);
