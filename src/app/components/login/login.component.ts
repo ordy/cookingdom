@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { faGoogle } from '@fortawesome/free-brands-svg-icons/faGoogle';
-import { faFacebook } from '@fortawesome/free-brands-svg-icons/faFacebook';
 import { NgForm } from '@angular/forms';
-import { ReCaptchaV3Service } from 'ng-recaptcha';
 
 @Component({
 	selector: 'app-login',
@@ -12,39 +9,18 @@ import { ReCaptchaV3Service } from 'ng-recaptcha';
 })
 export class LoginComponent implements OnInit {
 	public saveLogin = false;
-	public googleIcon = faGoogle;
-	public fbIcon = faFacebook;
 	public isLoading: boolean;
+	public demouser = 'DemoUser';
+	public demopass = 'D3MOPA$$WORD';
 
-	constructor(private authS: AuthService, private recaptchaV3Service: ReCaptchaV3Service) {}
+	constructor(private authS: AuthService) {}
 
 	ngOnInit(): void {
 		this.authS.isLoading.subscribe(loading => (this.isLoading = loading));
 	}
 
 	public signIn(form: NgForm): void {
-		const email: string = form.value.email;
-		const password: string = form.value.password;
-		this.recaptchaV3Service.execute('SignIn').subscribe({
-			next: () => {
-				this.authS.SignIn(email, password, this.saveLogin);
-				form.reset();
-			},
-			error: (error: string) => {
-				console.log(error);
-			},
-		});
-	}
-
-	public googleSign(): void {
-		this.recaptchaV3Service.execute('googleSign').subscribe(() => {
-			this.authS.googleSignIn();
-		});
-	}
-
-	public facebookSign(): void {
-		this.recaptchaV3Service.execute('facebookSign').subscribe(() => {
-			this.authS.facebookSignIn();
-		});
+		this.authS.SignIn();
+		form.reset();
 	}
 }

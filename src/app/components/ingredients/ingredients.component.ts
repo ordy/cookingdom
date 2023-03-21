@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
 import { InventoryService } from '../../services/inventory.service';
-import { Ingredient } from 'src/app/model/ingredient';
+import { IngreDemo, Ingredient } from 'src/app/model/ingredient';
 
 @Component({
 	selector: 'app-ingredients',
@@ -46,10 +46,10 @@ export class IngredientsComponent {
 
 	formatter = (ingredient: Ingredient) => ingredient.name;
 
-	search = (input$: Observable<string>): Observable<Ingredient[]> =>
+	search = (input$: Observable<string>): Observable<IngreDemo[]> =>
 		input$.pipe(
 			tap(() => (this.searching = true)),
-			debounceTime(450),
+			debounceTime(250),
 			distinctUntilChanged(),
 			switchMap((input: string) => this.invS.ingredientsQuery(input)),
 			tap(() => (this.searching = false))

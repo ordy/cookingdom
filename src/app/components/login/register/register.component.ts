@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
-import { faGoogle } from '@fortawesome/free-brands-svg-icons/faGoogle';
-import { faFacebook } from '@fortawesome/free-brands-svg-icons/faFacebook';
-import { faEnvelope } from '@fortawesome/free-solid-svg-icons/faEnvelope';
 import {
 	UntypedFormGroup,
 	UntypedFormBuilder,
@@ -17,9 +14,6 @@ import {
 	styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent {
-	public googleIcon = faGoogle;
-	public fbIcon = faFacebook;
-	public mailIcon = faEnvelope;
 	// regex: at least one lower, one upper, one special, 6 chars min-length
 	private pwPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_])[A-Za-z0-9!@#$%^&*-_]{6,}$/;
 	public debouncer: NodeJS.Timeout;
@@ -39,9 +33,7 @@ export class RegisterComponent {
 	constructor(public authS: AuthService, private fb: UntypedFormBuilder) {}
 
 	signUp() {
-		const mail = this.signupForm.value.email;
-		const pass = this.signupForm.value.password;
-		this.authS.signUp(mail, pass);
+		this.authS.SignIn();
 	}
 
 	pwCheck(form: UntypedFormGroup) {

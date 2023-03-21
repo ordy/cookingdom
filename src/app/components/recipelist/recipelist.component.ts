@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { InventoryService } from 'src/app/services/inventory.service';
-import { getDatabase, ref, child, get } from '@angular/fire/database';
 import { Recipe } from 'src/app/model/ingredient';
 import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 
@@ -27,10 +26,7 @@ export class RecipeListComponent implements OnInit {
 	constructor(private formBuilder: UntypedFormBuilder, private invService: InventoryService) {}
 
 	ngOnInit() {
-		this.fetchDBVersion();
-		const rcpJSON = localStorage.getItem('recipes');
-		if (this.oldVersion() || rcpJSON === null) this.saveLocale();
-		else this.availableRecipes = JSON.parse(rcpJSON);
+		this.availableRecipes = this.invService.localRecipes;
 		this.radioGroupForm = this.formBuilder.group({
 			model: 0,
 		});
@@ -62,47 +58,5 @@ export class RecipeListComponent implements OnInit {
 	showRecipe(listElem: string) {
 		this.toggleList();
 		this.recipeParent = this.availableRecipes.find(recipe => recipe.rcpname === listElem);
-	}
-
-	saveLocale() {
-		this.availableRecipes = [];
-
-		const dbRef = ref(getDatabase());
-		get(child(dbRef, `recipeList/`))
-			.then(snapshot => {
-				if (snapshot.exists()) {
-					snapshot.forEach(el => {
-						this.availableRecipes.push(el.val());
-					});
-					localStorage.setItem('recipes', JSON.stringify(this.availableRecipes));
-					localStorage.setItem('version', JSON.stringify(this.listVersion));
-				} else {
-					console.log('Cannot fetch recipe db.');
-				}
-			})
-			.catch(error => {
-				console.error(error);
-			});
-	}
-
-	fetchDBVersion() {
-		const dbRef = ref(getDatabase());
-		get(child(dbRef, `version`))
-			.then(snapshot => {
-				if (snapshot.exists()) {
-					this.listVersion = snapshot.val();
-				} else {
-					console.log('Cannot fetch db version.');
-				}
-			})
-			.catch(error => {
-				console.error(error);
-			});
-	}
-
-	// Checking if we cached the latest recipes from the db
-	oldVersion(): boolean {
-		const verJSON = localStorage.getItem('version');
-		return verJSON || JSON.parse(verJSON) === this.listVersion ? false : true;
 	}
 }

@@ -18,3 +18,9 @@ export interface DisplayIngr {
 	name: string;
 	quantity: string;
 }
+
+export interface IngreDemo {
+	name: string;
+	sname: string;
+	type: number;
+}
