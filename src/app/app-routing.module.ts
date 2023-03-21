@@ -6,7 +6,6 @@ import { IngredientsComponent } from './components/ingredients/ingredients.compo
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
 import { RegisterComponent } from './components/login/register/register.component';
-import { UsernameComponent } from './components/login/username/username.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { RouteGuard } from './guards/route.guard';
 import { LoginGuard } from './guards/login.guard';
@@ -48,12 +47,6 @@ const routes: Routes = [
 		component: RegisterComponent,
 		canActivate: [LoginGuard],
 		data: { title: 'Register', animation: 'registerPage' },
-	},
-	{
-		path: 'username',
-		component: UsernameComponent,
-		canActivate: [RouteGuard],
-		data: { title: 'Username', animation: 'usernamePage' },
 	},
 	{
 		path: 'privacy',

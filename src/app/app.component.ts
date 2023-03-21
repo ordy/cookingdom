@@ -4,7 +4,6 @@ import { Router, NavigationEnd, ActivatedRoute, ChildrenOutletContexts } from '@
 import { filter, map } from 'rxjs/operators';
 import { AuthService } from './services/auth.service';
 import { slideInAnimation } from './animations';
-import { NgcCookieConsentService } from 'ngx-cookieconsent';
 
 @Component({
 	selector: 'app-root',
@@ -21,8 +20,7 @@ export class AppComponent implements OnInit {
 		private authS: AuthService,
 		private title: Title,
 		private router: Router,
-		private contexts: ChildrenOutletContexts,
-		private ccService: NgcCookieConsentService
+		private contexts: ChildrenOutletContexts
 	) {}
 
 	ngOnInit() {
