@@ -4,6 +4,8 @@
 
 Cookingdom is a web app that will help you manage your food inventory at home and search for recipes based on your available ingredients.
 
+[Cookingdom Demo](https://cookingdom-demo.vercel.app)
+
 ## About the project
 
 Initially Cookingdom was supposed to be a personal tool to help me find what I was going to cook for dinner, without having to go through hundreds of recipes suggesting me to use ingredients I've never heard of. I then decided it could be good learning base for an Angular project and would serve as my introduction to the ever growing ecosystem of web development.
