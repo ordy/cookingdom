@@ -1,0 +1,29 @@
+{
+	"inventoryData": [
+		{
+			"name": "White Chocolate",
+			"quantity": 20,
+			"type": 2
+		},
+		{
+			"name": "Eggs",
+			"quantity": 50,
+			"type": 1
+		},
+		{
+			"name": "Milk",
+			"quantity": 60,
+			"type": 3
+		},
+		{
+			"name": "Sugar",
+			"quantity": 100,
+			"type": 2
+		},
+		{
+			"name": "Whole Chicken",
+			"quantity": 10,
+			"type": 1
+		}
+	]
+}

@@ -1,21 +1,10 @@
 import { Injectable } from '@angular/core';
-import {
-	Firestore,
-	doc,
-	collection,
-	CollectionReference,
-	getDocs,
-	updateDoc,
-	deleteDoc,
-	setDoc,
-	where,
-	orderBy,
-	limit,
-	query,
-	DocumentData,
-} from '@angular/fire/firestore';
 import { AuthService } from './auth.service';
-import { Ingredient } from '../model/ingredient';
+import { IngreDemo, Ingredient } from '../model/ingredient';
+import { Recipe } from '../model/ingredient';
+import ingredb from '../../assets/data/ingredients.mini.json';
+import rcpdb from '../../assets/data/recipes.mini.json';
+import inventorydb from '../../assets/data/inventory.json';
 
 @Injectable({
 	providedIn: 'root',
@@ -23,17 +12,13 @@ import { Ingredient } from '../model/ingredient';
 export class InventoryService {
 	public myInventory: Ingredient[] = [];
 	public mySearch: Ingredient[] = [];
-	public invRef: CollectionReference;
-	public ingreRef: CollectionReference;
+	public myRecipes: Recipe[] = [];
 
-	constructor(private db: Firestore, private authS: AuthService) {
-		this.authS.$usr.subscribe(usr => {
-			if (usr != null) {
-				this.invRef = collection(this.db, 'users', usr.uid, 'ingredients');
-				this.fetchIngredients(this.invRef);
-			}
-		});
-		this.ingreRef = collection(this.db, 'ingredients');
+	public localIngredients: IngreDemo[] = [];
+	public localRecipes: Recipe[] = [];
+
+	constructor(private authS: AuthService) {
+		this.fetchIngredients();
 	}
 
 	public async addInventory(ingreList: Ingredient[]) {
@@ -42,74 +27,38 @@ export class InventoryService {
 				this.updateInventory(ingre);
 			} else {
 				this.myInventory.push(ingre);
-				const ingreRef = doc(this.invRef, ingre.name.toLowerCase());
-				await setDoc(ingreRef, {
-					name: ingre.name,
-					quantity: ingre.quantity,
-					type: ingre.type,
-				});
 			}
 		}
-		this.localUpdate();
 	}
 
-	public async fetchIngredients(invRef: CollectionReference<DocumentData>): Promise<void> {
-		const invJSON = localStorage.getItem('inventory');
-		if (invJSON !== null) {
-			this.myInventory = JSON.parse(invJSON);
-		} else {
-			if (this.myInventory.length === 0) {
-				const querySnapshot = await getDocs(invRef);
-				querySnapshot.docs.map(el => {
-					const ingre = el.data();
-					const newIngre: Ingredient = { type: ingre.type, name: ingre.name, quantity: ingre.quantity };
-					this.myInventory.push(newIngre);
-				});
-				this.localUpdate();
-			}
-		}
+	public async fetchIngredients(): Promise<void> {
+		ingredb.ingredients.forEach(x => this.localIngredients.push(x as IngreDemo));
+		Object.keys(rcpdb.recipeList).forEach(key => this.localRecipes.push(rcpdb.recipeList[key]));
+		this.myInventory = [...inventorydb.inventoryData];
 	}
 
 	private async updateInventory(ingre: Ingredient): Promise<void> {
 		const index = this.ingreIndex(ingre.name);
 		this.myInventory[index].quantity += ingre.quantity;
-		const ingreRef = doc(this.invRef, ingre.name.toLowerCase());
-		await updateDoc(ingreRef, {
-			quantity: this.myInventory[index].quantity,
-		});
 	}
 
 	public async editQuantity(ingre: string, quantity: number): Promise<void> {
 		const index = this.ingreIndex(ingre);
 		this.myInventory[index].quantity = quantity;
-		const ingreRef = doc(this.invRef, ingre.toLowerCase());
-		await updateDoc(ingreRef, {
-			quantity: this.myInventory[index].quantity,
-		});
-		this.localUpdate();
 	}
 
 	public async removeIngre(ingre: string): Promise<void> {
 		this.myInventory.splice(this.ingreIndex(ingre), 1);
-		await deleteDoc(doc(this.invRef, ingre.toLowerCase()));
-		this.localUpdate();
 	}
 
 	public async ingredientsQuery(searchInput: string) {
 		if (searchInput.length > 1) {
-			const ingreArray: Ingredient[] = [];
 			searchInput = searchInput.toLowerCase();
-			const offset = searchInput + '\uf8ff'; // High value UTF character
-			const searchQuery = query(
-				collection(this.db, 'ingredients'),
-				orderBy('searchname'),
-				where('searchname', '>=', searchInput),
-				where('searchname', '<=', offset),
-				limit(5)
-			);
-			await getDocs(searchQuery).then(async el => {
-				el.forEach(x => ingreArray.push(x.data() as Ingredient));
-			});
+			//const offset = searchInput + '\uf8ff'; // High value UTF character
+			// el.forEach(x => ingreArray.push(x.data() as Ingredient));
+			const ingreArray = this.localIngredients
+				.filter(ingre => ingre.sname.indexOf(searchInput.toLowerCase()) > -1)
+				.slice(0, 8);
 			return ingreArray;
 		} else return [];
 	}
@@ -128,9 +77,5 @@ export class InventoryService {
 
 	public ingreQuantity(ingreName: string): number {
 		return this.myInventory.find(({ name }) => name === ingreName).quantity;
-	}
-
-	private localUpdate(): void {
-		localStorage.setItem('inventory', JSON.stringify(this.myInventory));
 	}
 }
