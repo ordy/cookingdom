@@ -7,8 +7,11 @@ import { take, map, tap } from 'rxjs/operators';
 @Injectable({
 	providedIn: 'root',
 })
-export class LoginGuard  {
-	constructor(private authS: AuthService, private router: Router) {}
+export class LoginGuard {
+	constructor(
+		private authS: AuthService,
+		private router: Router
+	) {}
 
 	canActivate(): Observable<boolean> {
 		return this.authS.$usr.pipe(

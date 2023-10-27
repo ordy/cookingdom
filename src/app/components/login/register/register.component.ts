@@ -36,7 +36,10 @@ export class RegisterComponent {
 		{ validator: this.pwCheck } as AbstractControlOptions
 	);
 
-	constructor(public authS: AuthService, private fb: UntypedFormBuilder) {}
+	constructor(
+		public authS: AuthService,
+		private fb: UntypedFormBuilder
+	) {}
 
 	signUp() {
 		const mail = this.signupForm.value.email;

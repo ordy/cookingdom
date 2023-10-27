@@ -19,11 +19,14 @@ export class InventoryComponent {
 	public editMode = false;
 	public myIngredients: Ingredient[] = [];
 
-	constructor(private invService: InventoryService, private modalService: NgbModal) {
+	constructor(
+		private invService: InventoryService,
+		private modalService: NgbModal
+	) {
 		this.myIngredients = this.invService.myInventory;
 	}
 
-	deleteIngre(content: TemplateRef<any>, ingr: string) {
+	deleteIngre(content: TemplateRef<unknown>, ingr: string) {
 		this.IngreName = ingr;
 		if (this.noConfirm) {
 			this.invService.removeIngre(ingr);
@@ -39,7 +42,7 @@ export class InventoryComponent {
 		}
 	}
 
-	editIngre(content: TemplateRef<any>, ingr: string) {
+	editIngre(content: TemplateRef<unknown>, ingr: string) {
 		this.IngreName = ingr;
 		this.IngreInput = this.invService.ingreQuantity(ingr);
 		this.modalService.open(content, { size: 'sm' }).result.then(

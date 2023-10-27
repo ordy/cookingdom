@@ -6,8 +6,11 @@ import { take, map, tap } from 'rxjs/operators';
 @Injectable({
 	providedIn: 'root',
 })
-export class RouteGuard  {
-	constructor(private authS: AuthService, private router: Router) {}
+export class RouteGuard {
+	constructor(
+		private authS: AuthService,
+		private router: Router
+	) {}
 
 	canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
 		let uid: string;

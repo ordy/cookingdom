@@ -26,7 +26,10 @@ export class InventoryService {
 	public invRef: CollectionReference;
 	public ingreRef: CollectionReference;
 
-	constructor(private db: Firestore, private authS: AuthService) {
+	constructor(
+		private db: Firestore,
+		private authS: AuthService
+	) {
 		this.authS.$usr.subscribe(usr => {
 			if (usr != null) {
 				this.invRef = collection(this.db, 'users', usr.uid, 'ingredients');
