@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { take, map, tap } from 'rxjs/operators';
@@ -7,8 +7,11 @@ import { take, map, tap } from 'rxjs/operators';
 @Injectable({
 	providedIn: 'root',
 })
-export class LoginGuard implements CanActivate {
-	constructor(private authS: AuthService, private router: Router) {}
+export class LoginGuard {
+	constructor(
+		private authS: AuthService,
+		private router: Router
+	) {}
 
 	canActivate(): Observable<boolean> {
 		return this.authS.$usr.pipe(

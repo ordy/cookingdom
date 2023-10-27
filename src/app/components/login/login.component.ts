@@ -16,7 +16,10 @@ export class LoginComponent implements OnInit {
 	public fbIcon = faFacebook;
 	public isLoading: boolean;
 
-	constructor(private authS: AuthService, private recaptchaV3Service: ReCaptchaV3Service) {}
+	constructor(
+		private authS: AuthService,
+		private recaptchaV3Service: ReCaptchaV3Service
+	) {}
 
 	ngOnInit(): void {
 		this.authS.isLoading.subscribe(loading => (this.isLoading = loading));

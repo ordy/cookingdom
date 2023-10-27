@@ -24,7 +24,10 @@ export class RecipeListComponent implements OnInit {
 
 	public radioGroupForm: UntypedFormGroup;
 
-	constructor(private formBuilder: UntypedFormBuilder, private invService: InventoryService) {}
+	constructor(
+		private formBuilder: UntypedFormBuilder,
+		private invService: InventoryService
+	) {}
 
 	ngOnInit() {
 		this.fetchDBVersion();

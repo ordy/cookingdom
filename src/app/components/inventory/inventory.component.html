@@ -16,7 +16,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr *ngFor="let ingredient of myIngredients | slice : (page - 1) * pageSize : (page - 1) * pageSize + pageSize">
+				<tr *ngFor="let ingredient of myIngredients | slice: (page - 1) * pageSize : (page - 1) * pageSize + pageSize">
 					<td width="50%">{{ ingredient.name }}</td>
 					<td width="50%" [ngSwitch]="ingredient.type">
 						<div class="row justify-content-between">

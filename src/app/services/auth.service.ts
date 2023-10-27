@@ -5,7 +5,7 @@ import {
 	Auth,
 	authState,
 	signInWithEmailAndPassword,
-	setPersistence,
+	// setPersistence,
 	browserLocalPersistence,
 	browserSessionPersistence,
 	GoogleAuthProvider,
@@ -31,7 +31,11 @@ export class AuthService {
 	public userState = new Subject<string>();
 	public userEX: boolean;
 
-	constructor(@Optional() private auth: Auth, private db: Firestore, private route: Router) {
+	constructor(
+		@Optional() private auth: Auth,
+		private db: Firestore,
+		private route: Router
+	) {
 		this.loading.next(false);
 		this.$usr = user(auth);
 		this.auth.onAuthStateChanged(user2 => {
@@ -58,7 +62,8 @@ export class AuthService {
 	public SignIn(email: string, password: string, keepLocal: boolean): void {
 		this.loading.next(true);
 		// set login persistence state
-		// const logState = keepLocal ? browserLocalPersistence : browserSessionPersistence;
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+		const logState = keepLocal ? browserLocalPersistence : browserSessionPersistence;
 		// setPersistence(this.auth, browserSessionPersistence)
 		// 	.then(() => {
 		signInWithEmailAndPassword(this.auth, email, password)

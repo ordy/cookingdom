@@ -21,7 +21,10 @@ export class UsernameComponent {
 	private lastUsername: string;
 	private userExists: ValidationErrors;
 
-	constructor(public authS: AuthService, private fb: UntypedFormBuilder) {}
+	constructor(
+		public authS: AuthService,
+		private fb: UntypedFormBuilder
+	) {}
 
 	usernameCheck(username: UntypedFormControl): Promise<ValidationErrors> {
 		// reseting debouce time on every validator call
