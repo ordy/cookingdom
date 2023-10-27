@@ -6,8 +6,8 @@ import {
 	authState,
 	signInWithEmailAndPassword,
 	// setPersistence,
-	// browserLocalPersistence,
-	// browserSessionPersistence,
+	browserLocalPersistence,
+	browserSessionPersistence,
 	GoogleAuthProvider,
 	FacebookAuthProvider,
 	signInWithPopup,
@@ -59,10 +59,11 @@ export class AuthService {
 		this.auth.signOut();
 	}
 
-	public SignIn(email: string, password: string /*, keepLocal: boolean*/): void {
+	public SignIn(email: string, password: string, keepLocal: boolean): void {
 		this.loading.next(true);
 		// set login persistence state
-		// const logState = keepLocal ? browserLocalPersistence : browserSessionPersistence;
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+		const logState = keepLocal ? browserLocalPersistence : browserSessionPersistence;
 		// setPersistence(this.auth, browserSessionPersistence)
 		// 	.then(() => {
 		signInWithEmailAndPassword(this.auth, email, password)
