@@ -1,29 +1,16 @@
-# JavaScript Node CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-javascript/ for more details
-#
-version: 2
+version: 2.1
+orbs:
+  browser-tools: circleci/browser-tools@1.4.6
 jobs:
   build:
-    docker:
-      # specify the version you desire here
-      - image: circleci/node:14.16.0-browsers
-
-        # Specify service dependencies here if necessary
-        # CircleCI maintains a library of pre-built images
-        # documented at https://circleci.com/docs/2.0/circleci-images/
-        # - image: circleci/mongo:3.4.4
-        environment:
-          CHROME_BIN: /usr/bin/google-chrome
-
     working_directory: ~/repo
-
-    branches:
-      only:
-        - master
-        - feature
+    docker:
+      - image: cimg/node:18.17.0-browsers
+    environment:
+      FIREFOX_BIN: /usr/local/bin/firefox
 
     steps:
+      - browser-tools/install-firefox
       - checkout
 
       # Download and cache dependencies
@@ -40,5 +27,14 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      # run tests!
       - run: yarn test
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only:
+                - master
+                - feature
