@@ -77,18 +77,18 @@
 				"serve": {
 					"builder": "@angular-devkit/build-angular:dev-server",
 					"options": {
-						"browserTarget": "cookingdom:build"
+						"buildTarget": "cookingdom:build"
 					},
 					"configurations": {
 						"production": {
-							"browserTarget": "cookingdom:build:production"
+							"buildTarget": "cookingdom:build:production"
 						}
 					}
 				},
 				"extract-i18n": {
 					"builder": "@angular-devkit/build-angular:extract-i18n",
 					"options": {
-						"browserTarget": "cookingdom:build"
+						"buildTarget": "cookingdom:build"
 					}
 				},
 				"test": {
@@ -127,5 +127,31 @@
 	"cli": {
 		"analytics": "4477d60b-2116-4d85-8d9a-11ab344d8d9b",
 		"schematicCollections": ["@angular-eslint/schematics"]
+	},
+	"schematics": {
+		"@schematics/angular:component": {
+			"type": "component"
+		},
+		"@schematics/angular:directive": {
+			"type": "directive"
+		},
+		"@schematics/angular:service": {
+			"type": "service"
+		},
+		"@schematics/angular:guard": {
+			"typeSeparator": "."
+		},
+		"@schematics/angular:interceptor": {
+			"typeSeparator": "."
+		},
+		"@schematics/angular:module": {
+			"typeSeparator": "."
+		},
+		"@schematics/angular:pipe": {
+			"typeSeparator": "."
+		},
+		"@schematics/angular:resolver": {
+			"typeSeparator": "."
+		}
 	}
 }

@@ -1,11 +1,15 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { DisplayIngr, Recipe } from 'src/app/model/ingredient';
 import { getStorage, ref, getDownloadURL } from '@angular/fire/storage';
+import { setLogLevel, LogLevel } from "@angular/fire";
+
+setLogLevel(LogLevel.SILENT);
 
 @Component({
 	selector: 'app-recipe',
 	templateUrl: './recipe.component.html',
 	styleUrls: ['./recipe.component.css'],
+	standalone: false,
 })
 export class RecipeComponent implements OnChanges {
 	public displayRecipe: DisplayIngr[] = [];

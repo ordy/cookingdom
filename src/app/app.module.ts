@@ -1,5 +1,4 @@
 import { BrowserModule, Title } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { NgbCollapseModule, NgbModule, NgbCarouselModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
@@ -26,7 +25,7 @@ import { UsernameComponent } from './components/login/username/username.componen
 import { InventoryService } from './services/inventory.service';
 import { PrivacyComponent } from './components/privacy/privacy.component';
 import { NgcCookieConsentModule, NgcCookieConsentConfig } from 'ngx-cookieconsent';
-import { RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module } from 'ng-recaptcha';
+import { provideScReCaptchaSettings } from '@semantic-components/re-captcha';
 
 const cookieConfig: NgcCookieConsentConfig = {
 	cookie: {
@@ -74,13 +73,7 @@ const cookieConfig: NgcCookieConsentConfig = {
 		PrivacyComponent,
 	],
 	imports: [
-		provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
-		provideAuth(() => getAuth()),
-		provideDatabase(() => getDatabase()),
-		provideFirestore(() => getFirestore()),
-		provideStorage(() => getStorage()),
 		BrowserModule,
-		BrowserAnimationsModule,
 		FormsModule,
 		NgbCarouselModule,
 		NgbCollapseModule,
@@ -89,14 +82,18 @@ const cookieConfig: NgcCookieConsentConfig = {
 		NgbModule,
 		AppRoutingModule,
 		FontAwesomeModule,
-		RecaptchaV3Module,
 		NgcCookieConsentModule.forRoot(cookieConfig),
 	],
 	providers: [
-		{
-			provide: RECAPTCHA_V3_SITE_KEY,
-			useValue: environment.recaptcha.siteKey,
-		},
+		provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
+		provideAuth(() => getAuth()),
+		provideDatabase(() => getDatabase()),
+		provideFirestore(() => getFirestore()),
+		provideStorage(() => getStorage()),
+		provideScReCaptchaSettings({
+      v3SiteKey:  environment.recaptcha.siteKey,
+      languageCode: 'en',
+    }),
 		InventoryService,
 		Title,
 	],

@@ -7,6 +7,7 @@ import { Ingredient } from 'src/app/model/ingredient';
 	selector: 'app-inventory',
 	templateUrl: './inventory.component.html',
 	styleUrls: ['./inventory.component.css'],
+	standalone: false,
 })
 export class InventoryComponent {
 	@Input() IngreInput: number;

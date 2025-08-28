@@ -3,11 +3,15 @@ import { InventoryService } from 'src/app/services/inventory.service';
 import { getDatabase, ref, child, get } from '@angular/fire/database';
 import { Recipe } from 'src/app/model/ingredient';
 import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
+import { setLogLevel, LogLevel } from "@angular/fire";
+
+setLogLevel(LogLevel.SILENT);
 
 @Component({
 	selector: 'app-recipelist',
 	templateUrl: './recipelist.component.html',
 	styleUrls: ['./recipelist.component.css'],
+	standalone: false,
 })
 export class RecipeListComponent implements OnInit {
 	public offsetValue = 0;

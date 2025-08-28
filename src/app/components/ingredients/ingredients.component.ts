@@ -8,6 +8,7 @@ import { Ingredient } from 'src/app/model/ingredient';
 	selector: 'app-ingredients',
 	templateUrl: './ingredients.component.html',
 	styleUrls: ['./ingredients.component.css'],
+	standalone: false,
 })
 export class IngredientsComponent {
 	public selectedIngr: Ingredient;

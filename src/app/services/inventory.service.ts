@@ -15,7 +15,10 @@ import {
 	DocumentData,
 } from '@angular/fire/firestore';
 import { AuthService } from './auth.service';
+import { LogLevel, setLogLevel } from '@angular/fire';
 import { Ingredient } from '../model/ingredient';
+
+setLogLevel(LogLevel.SILENT);
 
 @Injectable({
 	providedIn: 'root',
@@ -25,6 +28,7 @@ export class InventoryService {
 	public mySearch: Ingredient[] = [];
 	public invRef: CollectionReference;
 	public ingreRef: CollectionReference;
+
 
 	constructor(
 		private db: Firestore,

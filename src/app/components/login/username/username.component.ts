@@ -6,6 +6,7 @@ import { AuthService } from 'src/app/services/auth.service';
 	selector: 'app-username',
 	templateUrl: './username.component.html',
 	styleUrls: ['./username.component.css'],
+	standalone: false,
 })
 export class UsernameComponent {
 	private usrPattern = /^[A-Za-z0-9]{3,20}$/;
@@ -17,7 +18,7 @@ export class UsernameComponent {
 	public usernameForm = this.fb.group({
 		username: this.username,
 	});
-	public debouncer: NodeJS.Timeout;
+	public debouncer: ReturnType<typeof setTimeout>;
 	private lastUsername: string;
 	private userExists: ValidationErrors;
 

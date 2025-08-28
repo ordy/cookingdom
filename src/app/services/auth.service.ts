@@ -16,6 +16,9 @@ import {
 } from '@angular/fire/auth';
 import { Firestore, getDoc, setDoc, doc } from '@angular/fire/firestore';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { setLogLevel, LogLevel } from "@angular/fire";
+
+setLogLevel(LogLevel.SILENT);
 
 @Injectable({
 	providedIn: 'root',

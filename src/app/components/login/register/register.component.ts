@@ -15,6 +15,7 @@ import {
 	selector: 'app-register',
 	templateUrl: './register.component.html',
 	styleUrls: ['./register.component.css'],
+	standalone: false,
 })
 export class RegisterComponent {
 	public googleIcon = faGoogle;
@@ -22,7 +23,7 @@ export class RegisterComponent {
 	public mailIcon = faEnvelope;
 	// regex: at least one lower, one upper, one special, 6 chars min-length
 	private pwPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_])[A-Za-z0-9!@#$%^&*-_]{6,}$/;
-	public debouncer: NodeJS.Timeout;
+	public debouncer: ReturnType<typeof setTimeout>;
 
 	private email = new UntypedFormControl('', [Validators.required, Validators.email]);
 	private password = new UntypedFormControl('', [Validators.required, Validators.pattern(this.pwPattern)]);

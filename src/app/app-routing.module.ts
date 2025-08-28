@@ -65,7 +65,7 @@ const routes: Routes = [
 
 @NgModule({
 	declarations: [],
-	imports: [RouterModule.forRoot(routes)],
+	imports: [RouterModule.forRoot(routes, {enableViewTransitions: true})],
 	exports: [RouterModule],
 })
 export class AppRoutingModule {}
