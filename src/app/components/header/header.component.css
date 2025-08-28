@@ -44,22 +44,18 @@
 
 .ingr-icon {
 	color: var(--custom-red);
-	padding-left: 0.2em;
 }
 
 .rcp-icon {
 	color: var(--custom-green);
-	padding-left: 0.1em;
 }
 
 .inv-icon {
 	color: var(--custom-blue);
-	padding-left: 0.1em;
 }
 
 .user-icon {
 	color: var(--custom-orange);
-	padding-left: 0.15em;
 }
 
 .bg-icon-circle {

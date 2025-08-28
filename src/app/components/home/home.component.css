@@ -20,12 +20,7 @@ img {
 
 .cover-img {
 	opacity: 0.5;
-	filter: blur(2px);
-}
-
-.carousel-caption > p,
-h3 {
-	text-shadow: 0px 1px 3px #000000de;
+	filter: blur(4px);
 }
 
 .card {
