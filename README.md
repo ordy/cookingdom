@@ -48,7 +48,7 @@ This project was first generated using [Angular CLI](https://github.com/angular/
 
 8.3.19
 
-and has been update overtime to
+and overtime has been updated to
 
 ![GitHub package.json dependency version (dev dep on branch)](https://img.shields.io/github/package-json/dependency-version/ordy/cookingdom/dev/@angular/cli?color=%233C434D&label=%20)
 
